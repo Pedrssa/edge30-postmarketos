@@ -9,7 +9,12 @@ import os, subprocess, tempfile, pathlib, markdown
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
-EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+import glob as _glob
+_cands = [r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+          r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+          r"C:\Program Files\Google\Chrome\Application\chrome.exe"]
+_cands += sorted(_glob.glob(r"C:\Program Files (x86)\Microsoft\EdgeCore\*\msedge.exe"), reverse=True)
+EDGE = next((c for c in _cands if os.path.exists(c)), _cands[0])
 
 def win(p): return str(pathlib.Path(p).resolve())
 def url(p): return pathlib.Path(p).resolve().as_uri()

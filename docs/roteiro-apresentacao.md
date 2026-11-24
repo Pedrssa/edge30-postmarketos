@@ -144,3 +144,88 @@ Tempo estimado por slide entre colchetes. Total ≈ **10 min**.
 
 ### Checagem de tempo
 Soma dos blocos ≈ **10 min 03 s**. Para uma versão de 5 minutos, concentre em 1, 4, 7, 11 e 13.
+
+---
+
+## Slides 13–16 — acrescentados após a auditoria de 24/11/2026
+
+> O deck passou de 14 para **17 slides**. Os quatro abaixo substituem a antiga matriz "não testado"
+> e cobrem as exigências do Tema 10 (comparativo entre distros + explicação da stack).
+
+### Slide 13 — Matriz real (≈ 2 min)
+
+"Em 24 de novembro voltamos ao aparelho e medimos. Trinta e quatro subsistemas, um por um, cada um
+com evidência de comando. Quatorze funcionam: CPU, GPU com aceleração comprovada, tela, **toque**,
+Wi-Fi 6, Bluetooth, áudio, microfone, bateria. Quatro são parciais. Seis estão detectados mas não
+validados — e essa distinção importa: existir em `/sys` não é funcionar. Seis não têm driver ou
+falharam.
+
+Compatibilidade: 55%. E o número vem com a conta aberta — pesos, numerador e denominador, no
+relatório. Teste que não fizemos nunca entra como aprovado."
+
+### Slide 14 — O que a medição corrigiu (≈ 2 min)
+
+"Medir derrubou coisas que a gente achava que sabia.
+
+Primeiro: não é postmarketOS puro — é Nura, um derivado. E o init é systemd, não OpenRC. Todo
+comando `rc-status` que planejamos usar simplesmente não se aplica.
+
+Segundo: o modem não está quebrado. Ele reporta `failed`, mas o motivo é `sim-missing` — não tem
+chip. O firmware carregou, a pilha QMI funciona, ele anuncia suporte a 5G.
+
+Terceiro, e esse é sobre nós: classificamos o touchscreen como falha crítica. Estava errado. A gente
+media a contagem de interrupções por 30 segundos pedindo que tocassem a tela — mas quem ia tocar
+estava lendo a instrução no computador. Interpretamos ausência de estímulo como defeito de hardware.
+O teste certo capturou 6942 eventos de toque. Esse erro sozinho mudava nossa nota final de nível 2
+para nível 3.
+
+Quarto: achamos um defeito que não está na wiki oficial — a suspensão trava o aparelho."
+
+### Slide 15 — A stack (≈ 2,5 min)
+
+"Para entender o que é um Linux móvel, vale olhar as camadas.
+
+Embaixo, o kernel — e aqui está a diferença que importa. O Android usa um kernel congelado pelo
+fabricante. A gente usa mainline: 7.2.9, da família sc7280. É o que dá vida longa ao aparelho. Em
+ARM não existe ACPI, então o hardware é descrito num Device Tree — portar um celular é, em boa
+parte, escrever esse arquivo.
+
+Acima, Alpine Linux com `apk` e systemd. Depois Wayland, que substituiu o X11 — o compositor Phoc
+fala direto com o DRM e submete à GPU pelo Mesa. No topo, o Phosh, que adapta o GNOME para uma tela
+de 6,5 polegadas.
+
+E do lado, a telefonia: o modem é um computador separado, com firmware próprio, que conversa por QMI
+sobre QRTR. O ModemManager traduz isso para o sistema."
+
+### Slide 16 — Comparativo das três distribuições (≈ 3 min)
+
+"O tema pedia comparar três caminhos.
+
+**Ubuntu Touch** tem a melhor experiência de uso e telefonia mais madura. Mas usa Halium — uma camada
+que reaproveita o kernel e os drivers Android do fabricante. Funciona rápido em muitos aparelhos, e
+herda exatamente o problema que a gente queria resolver: o kernel congelado.
+
+**Mobian** é a mais estável, baseada em Debian. Mas foca em hardware feito para Linux, tipo
+PinePhone. Poucos aparelhos.
+
+**postmarketOS** aposta em kernel mainline e alcance: mais de 300 dispositivos, a maioria em estágio
+`testing`. Mais trabalho por aparelho, maturidade desigual.
+
+Para nós a escolha foi imposta pela realidade: **era a única das três com port do Edge 30**. E é
+honesto dizer que a comparação é parcial — nenhuma das outras duas roda neste aparelho, então
+comparamos projetos, não três sistemas no mesmo hardware."
+
+### Slide 17 — Encerramento (≈ 1,5 min)
+
+"Linux no bolso dá. O preço é rigor.
+
+O aparelho é uma estação Linux portátil: nível 3 de 5. Funciona como computador. Não funciona ainda
+como substituto de celular — a suspensão trava, e câmera frontal, NFC, vibração e biometria não têm
+driver.
+
+E o gargalo não é o processador. O Snapdragon é bem suportado upstream. O gargalo são os
+periféricos, que dependem de drivers escritos por voluntários e ainda não mesclados.
+
+Fica o aprendizado que mais nos marcou: a gente errou duas vezes na auditoria, e as duas vezes foi
+raciocínio sobre evidência — não execução de comando. A segunda só foi descoberta porque um
+integrante do grupo discordou do resultado, baseado em usar o aparelho todo dia."

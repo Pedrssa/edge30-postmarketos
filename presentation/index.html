@@ -70,6 +70,24 @@
   .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
   @media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
 
+  /* ---------- TABELA COMPARATIVA ---------- */
+  .cmp{width:100%;border-collapse:collapse;font-size:clamp(11px,1.05vw,14px);margin-top:4px}
+  .cmp th,.cmp td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .cmp thead th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cyan);border-bottom:1px solid rgba(34,211,238,.3)}
+  .cmp td:first-child{color:var(--text-soft);font-weight:500}
+  .cmp .own{color:var(--green);background:rgba(166,255,77,.055)}
+  .cmp thead th.own{color:var(--green);border-bottom-color:rgba(166,255,77,.4)}
+  .cmp tbody tr:hover{background:rgba(255,255,255,.02)}
+  /* ---------- STACK ---------- */
+  .stk{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+  .lyr{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:9px 14px;
+    border-radius:var(--r-sm);border:1px solid var(--line-soft);
+    background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+  .lyr .nm{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--green)}
+  .lyr .ds{font-size:clamp(12px,1.05vw,14.5px);color:var(--text-soft);line-height:1.4}
+  .lyr.hw{border-color:rgba(34,211,238,.28)} .lyr.hw .nm{color:var(--cyan)}
+
   /* ---------- PHONE ILLUSTRATION ---------- */
   .phone{position:relative;width:clamp(180px,20vw,250px);aspect-ratio:9/19.5;margin:0 auto;border-radius:30px;
     background:linear-gradient(160deg,#20304a,#0b1016);padding:9px;box-shadow:0 30px 70px rgba(0,0,0,.55),var(--glow-green);}
@@ -202,7 +220,7 @@
 
 <!-- 1 — ABERTURA (com celular ilustrado animado) -->
 <section class="slide" id="s1">
-  <span class="tag">projeto dubai</span><span class="counter">01 / 14</span>
+  <span class="tag">projeto dubai</span><span class="counter">01 / 17</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">engenharia linux embarcada · ARM64</div>
@@ -239,7 +257,7 @@
 
 <!-- 2 — DESAFIO (ilustração cadeado→aberto) -->
 <section class="slide" id="s2">
-  <span class="tag">motivação</span><span class="counter">02 / 14</span>
+  <span class="tag">motivação</span><span class="counter">02 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">o desafio</div>
     <h2 class="animate d1">Um celular é um <span class="c">computador ARM64</span> que a gente aluga do fabricante.</h2>
@@ -253,7 +271,7 @@
 
 <!-- 3 — postmarketOS (ilustração Alpine + chip) -->
 <section class="slide" id="s3">
-  <span class="tag">contexto</span><span class="counter">03 / 14</span>
+  <span class="tag">contexto</span><span class="counter">03 / 17</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">o que é postmarketOS</div>
@@ -285,7 +303,7 @@
 
 <!-- 4 — DISPOSITIVO (celular com chamadas de specs) -->
 <section class="slide" id="s4">
-  <span class="tag">alvo</span><span class="counter">04 / 14</span>
+  <span class="tag">alvo</span><span class="counter">04 / 17</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">nosso dispositivo</div>
@@ -318,7 +336,7 @@
 
 <!-- 5 — OBJETIVO -->
 <section class="slide" id="s5">
-  <span class="tag">critério</span><span class="counter">05 / 14</span>
+  <span class="tag">critério</span><span class="counter">05 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">objetivo e sucesso</div>
     <h2 class="animate d1">Quatro provas de que o port funciona.</h2>
@@ -328,13 +346,13 @@
       <div class="card accent animate d4"><div class="k">03</div><h3 class="g">Wi‑Fi</h3><p>Conecta na rede sem fio.</p></div>
       <div class="card accent animate d5"><div class="k">04</div><h3 class="g">SSH</h3><p>Aceita acesso remoto.</p></div>
     </div>
-    <p class="lead animate d6" style="margin-top:10px">Tudo além disso — áudio, câmera, chamadas — ficou como <span class="c">bônus a validar depois</span>.</p>
+    <p class="lead animate d6" style="margin-top:10px">Era o critério mínimo de novembro. Em <span class="g">24/11</span> auditamos o aparelho e medimos <span class="c">34 subsistemas</span> — o resultado vem no slide 13.</p>
   </div>
 </section>
 
 <!-- 6 — AMBIENTE (terminal que "digita" + fluxo) -->
 <section class="slide" id="s6">
-  <span class="tag">ferramentas</span><span class="counter">06 / 14</span>
+  <span class="tag">ferramentas</span><span class="counter">06 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">ambiente de trabalho</div>
     <h2 class="animate d1">Dois mundos: a VM que <span class="g">fabrica</span>, o PC que <span class="c">grava</span>.</h2>
@@ -353,7 +371,7 @@
 
 <!-- 7 — ARQUITETURA / FLUXO DE BOOT -->
 <section class="slide" id="s7">
-  <span class="tag">arquitetura</span><span class="counter">07 / 14</span>
+  <span class="tag">arquitetura</span><span class="counter">07 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">fluxo técnico</div>
     <h2 class="animate d1">Da VM às partições, do kernel ao <span class="g">SSH</span>.</h2>
@@ -405,7 +423,7 @@
 
 <!-- 8 — ETAPAS -->
 <section class="slide" id="s8">
-  <span class="tag">execução</span><span class="counter">08 / 14</span>
+  <span class="tag">execução</span><span class="counter">08 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">etapas realizadas</div>
     <h2 class="animate d1">Seis passos — e uma ressalva honesta.</h2>
@@ -423,7 +441,7 @@
 
 <!-- 9 — DIFICULDADES -->
 <section class="slide" id="s9">
-  <span class="tag">diagnóstico</span><span class="counter">09 / 14</span>
+  <span class="tag">diagnóstico</span><span class="counter">09 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">dificuldades reais</div>
     <h2 class="animate d1">Problemas de quem opera — e como contornamos.</h2>
@@ -438,7 +456,7 @@
 
 <!-- 10 — EVIDÊNCIAS -->
 <section class="slide" id="s10">
-  <span class="tag">rigor</span><span class="counter">10 / 14</span>
+  <span class="tag">rigor</span><span class="counter">10 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">como classifico tudo</div>
     <h2 class="animate d1">Não peço fé. Mostro a <span class="g">régua</span>.</h2>
@@ -462,23 +480,23 @@
 
 <!-- 11 — RESULTADOS (contadores animados) -->
 <section class="slide" id="s11">
-  <span class="tag">resultado</span><span class="counter">11 / 14</span>
+  <span class="tag">resultado</span><span class="counter">11 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">o que ficou de pé</div>
     <h2 class="animate d1">Não é só que <span class="g">ligou</span>. É base para trabalhar.</h2>
     <div class="grid g4" style="margin-top:10px">
-      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="4">0</span>/4</span><span class="lb">critérios de sucesso</span></div></div>
-      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="3">0</span><span class="lb">imagens íntegras (sha256)</span></div></div>
-      <div class="card animate d4"><div class="stat"><span class="num count" data-to="7">0</span><span class="lb">pacotes de rede + rollback</span></div></div>
-      <div class="card animate d5"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">diferença após reverter</span></div></div>
+      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="14">0</span></span><span class="lb">subsistemas funcionais</span></div></div>
+      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="34">0</span><span class="lb">subsistemas auditados</span></div></div>
+      <div class="card animate d4"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">serviços em falha</span></div></div>
+      <div class="card animate d5"><div class="stat"><span class="num g"><span class="count" data-to="3">0</span>/5</span><span class="lb">nível de maturidade</span></div></div>
     </div>
-    <p class="lead animate d6" style="margin-top:10px">Boot + Phosh + Wi‑Fi + SSH confirmados; <span class="mono">apk</span> operante; ferramentas instaladas e <span class="g">revertidas sem resíduo</span>.</p>
+    <p class="lead animate d6" style="margin-top:10px">Boot, Phosh, <span class="g">GPU acelerada</span>, toque, Wi‑Fi 6, Bluetooth, áudio e bateria confirmados <span class="c">no aparelho</span> — com evidência de comando para cada um.</p>
   </div>
 </section>
 
 <!-- 12 — LINHA DO TEMPO -->
 <section class="slide" id="s12">
-  <span class="tag">cronologia</span><span class="counter">12 / 14</span>
+  <span class="tag">cronologia</span><span class="counter">12 / 17</span>
   <div class="inner">
     <div class="eyebrow animate">linha do tempo</div>
     <h2 class="animate d1">Da pesquisa à documentação.</h2>
@@ -487,45 +505,110 @@
       <div class="ev animate d3"><div class="dt">2026-11-04 · dia</div><div class="tx">Build do postmarketOS na VM; geração de boot/dtbo/rootfs + SHA256SUMS (data dos arquivos).</div></div>
       <div class="ev animate d4"><div class="dt">2026-11-04 · noite</div><div class="tx">Aparelho já em Linux, respondendo por SSH; scaffolding de rede, 18 testes no device, rollback verificado.</div></div>
       <div class="ev animate d5"><div class="dt">2026-11-18</div><div class="tx">Operação e reconexão (IP mudou de rede); ferramentas de rede executadas no aparelho.</div></div>
-      <div class="ev animate d6"><div class="dt">2026-11-24</div><div class="tx">Esta entrega: investigação, relatório (DOCX/PDF), apresentação (HTML/PPTX/PDF) e repositório.</div></div>
+      <div class="ev animate d6"><div class="dt">2026-11-24 · dia</div><div class="tx">Investigação, relatório (DOCX/PDF), apresentação (HTML/PPTX/PDF) e repositório.</div></div>
+      <div class="ev animate d7"><div class="dt">2026-11-24 · noite</div><div class="tx"><span class="g">Auditoria técnica no aparelho</span>: 34 subsistemas, 33 testes, acesso SSH e root. Correções aplicadas e validadas.</div></div>
     </div>
   </div>
 </section>
 
 <!-- 13 — MATRIZ (check desenhando) -->
 <section class="slide" id="s13">
-  <span class="tag">honestidade</span><span class="counter">13 / 14</span>
+  <span class="tag">auditoria</span><span class="counter">13 / 17</span>
   <div class="inner">
-    <div class="eyebrow animate">matriz de funcionalidades</div>
-    <h2 class="animate d1">O que <span class="g">medimos</span> — e o que ainda não.</h2>
-    <div class="mx" style="margin-top:6px">
-      <div class="mrow yes animate d2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Boot em Linux</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d2"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Áudio</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Interface Phosh (GUI)</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d3"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Modem · chamadas · SMS</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Wi‑Fi (wlan0)</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d4"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Dados móveis</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d5"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSH remoto</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d5"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>GPU · câmera</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d6"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>apk · pacotes + rollback</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d6"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Bluetooth · NFC · sensores · bateria</span><span class="st">não testado</span></div>
+    <div class="eyebrow animate">matriz real · 24 nov 2026</div>
+    <h2 class="animate d1">34 subsistemas <span class="g">medidos</span> no aparelho.</h2>
+    <div class="grid g4 animate d2" style="margin-top:4px">
+      <div class="card accent"><div class="stat"><span class="num g">14</span><span class="lb">funcionais</span></div></div>
+      <div class="card"><div class="stat"><span class="num" style="color:var(--amber)">4</span><span class="lb">parciais</span></div></div>
+      <div class="card"><div class="stat"><span class="num c">6</span><span class="lb">detectados, não validados</span></div></div>
+      <div class="card"><div class="stat"><span class="num" style="color:var(--red)">6</span><span class="lb">sem driver ou falhos</span></div></div>
     </div>
-    <p class="animate d7" style="font-size:13.5px;margin-top:8px">Não pinto de verde o que não medi. O cinza é o <span class="c">próximo passo</span>, não uma fraqueza.</p>
+    <div class="mx" style="margin-top:10px">
+      <div class="mrow yes animate d3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>GPU Adreno 642L — <span class="mono" style="font-size:11px">608 MHz, 399 transições</span></span><span class="st">acelerada</span></div>
+      <div class="mrow no animate d3"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#FF6B81" stroke-width="2"/></svg><span>Suspensão — <span class="mono" style="font-size:11px">s2idle trava o aparelho</span></span><span class="st">falha</span></div>
+      <div class="mrow yes animate d4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Touchscreen — <span class="mono" style="font-size:11px">6942 eventos capturados</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d4"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Câmera frontal · NFC · vibração · biometria</span><span class="st">sem driver</span></div>
+      <div class="mrow yes animate d5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Áudio + microfone — <span class="mono" style="font-size:11px">440 Hz audível</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d5"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Telefonia · dados · GPS</span><span class="st">sem SIM</span></div>
+      <div class="mrow yes animate d6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Wi‑Fi 6 · Bluetooth · bateria <span class="mono" style="font-size:11px">(SOH 100)</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d6"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Sensores — <span class="mono" style="font-size:11px">polkit negou via SSH</span></span><span class="st">não validado</span></div>
+    </div>
+    <p class="animate d7" style="font-size:13px;margin-top:8px">Compatibilidade: <span class="g">55%</span> <span class="mono" style="font-size:11px">(16,5/30 — pesos e denominador explícitos)</span>. Teste não realizado <span class="c">nunca</span> conta como aprovado.</p>
+  </div>
+</section>
+
+<!-- 14 — AUDITORIA: O QUE MUDOU -->
+<section class="slide" id="s14">
+  <span class="tag">método</span><span class="counter">14 / 17</span>
+  <div class="inner">
+    <div class="eyebrow animate">auditoria · o que a medição corrigiu</div>
+    <h2 class="animate d1">Medir mudou o que <span class="g">achávamos saber</span>.</h2>
+    <div class="grid g2" style="margin-top:8px">
+      <div class="card animate d2"><div class="k">premissa derrubada</div><h3 class="c">Não é postmarketOS puro</h3><p>É <span class="mono">Nura edge</span> — e o init é <span class="g">systemd</span>, não OpenRC. Nenhum comando <span class="mono">rc-status</span> se aplica.</p></div>
+      <div class="card animate d3"><div class="k">premissa derrubada</div><h3 class="c">O modem não está quebrado</h3><p>Estado <span class="mono">failed</span> por <span class="mono">sim-missing</span>. Firmware MPSS carregado, QMI operante, suporte a 5G anunciado.</p></div>
+      <div class="card accent animate d4"><div class="k">erro nosso</div><h3 class="g">O toque sempre funcionou</h3><p>Classificamos como falha crítica. Era <span class="c">dessincronia</span>: a janela de medição não coincidia com o toque. 6942 eventos provaram o contrário.</p></div>
+      <div class="card animate d5"><div class="k">achado novo</div><h3 class="c">A suspensão trava o aparelho</h3><p><span class="mono">deep</span> aborta; <span class="mono">s2idle</span> força reboot. <span class="g">Não consta da wiki oficial</span> — candidato a contribuição upstream.</p></div>
+    </div>
+    <p class="lead animate d6" style="margin-top:8px">Auditoria honesta inclui <span class="g">corrigir a si mesma</span> — e registrar o erro, não apagá-lo.</p>
+  </div>
+</section>
+
+<!-- 15 — A STACK -->
+<section class="slide" id="s15">
+  <span class="tag">arquitetura</span><span class="counter">15 / 17</span>
+  <div class="inner">
+    <div class="eyebrow animate">a pilha de um Linux móvel</div>
+    <h2 class="animate d1">Quatro camadas entre o <span class="c">silício</span> e o <span class="g">dedo</span>.</h2>
+    <div class="stk">
+      <div class="lyr animate d2"><div class="nm">shell móvel</div><div class="ds"><b class="w">Phosh 0.58</b> + <b class="w">Phoc</b> — a interface adaptada a tela pequena e toque. Alternativa: Plasma Mobile.</div></div>
+      <div class="lyr animate d3"><div class="nm">exibição</div><div class="ds"><b class="w">Wayland</b> — protocolo que substituiu o X11. O compositor Phoc fala direto com o DRM/KMS e submete à GPU via <b class="w">Mesa / Freedreno</b>.</div></div>
+      <div class="lyr animate d4"><div class="nm">telefonia</div><div class="ds"><b class="w">ModemManager</b> sobre <b class="w">QMI/QRTR</b> conversa com o modem; <b class="w">NetworkManager</b> cuida dos dados. Alternativa: oFono (Ubuntu Touch).</div></div>
+      <div class="lyr animate d5"><div class="nm">userspace</div><div class="ds"><b class="w">Alpine Linux</b> + <span class="mono">apk</span> + <b class="w">systemd</b> — 1326 pacotes, repositórios assinados.</div></div>
+      <div class="lyr hw animate d6"><div class="nm">kernel</div><div class="ds"><b class="w">Linux 7.2.9 mainline</b> (família <span class="mono">sc7280</span>) — sem blobs Android. Device Tree descreve o <span class="mono">dubai</span>; 4 co-processadores Qualcomm sobem: modem, ADSP, WPSS, CDSP.</div></div>
+    </div>
+    <p class="animate d7" style="font-size:13px;margin-top:6px">O desafio real: <span class="c">drivers</span>. O SoC é suportado upstream, mas câmera, NFC e háptica dependem de código que ainda não foi mesclado.</p>
+  </div>
+</section>
+
+<!-- 16 — COMPARATIVO DE DISTROS -->
+<section class="slide" id="s16">
+  <span class="tag">comparativo</span><span class="counter">16 / 17</span>
+  <div class="inner">
+    <div class="eyebrow animate">três caminhos para Linux móvel</div>
+    <h2 class="animate d1">postmarketOS × Mobian × Ubuntu Touch</h2>
+    <table class="cmp animate d2">
+      <thead><tr><th></th><th class="own">postmarketOS</th><th>Mobian</th><th>Ubuntu Touch</th></tr></thead>
+      <tbody>
+        <tr><td>Base</td><td class="own">Alpine (musl)</td><td>Debian (glibc)</td><td>Ubuntu + Halium</td></tr>
+        <tr><td>Interface</td><td class="own">Phosh / Plasma Mobile</td><td>Phosh</td><td>Lomiri (Unity 8)</td></tr>
+        <tr><td>Exibição</td><td class="own">Wayland</td><td>Wayland</td><td>Mir → Wayland</td></tr>
+        <tr><td>Telefonia</td><td class="own">ModemManager</td><td>ModemManager</td><td>oFono</td></tr>
+        <tr><td>Dispositivos</td><td class="own">300+ (maioria testing)</td><td>Poucos, bem suportados</td><td>~111 no catálogo</td></tr>
+        <tr><td>Kernel</td><td class="own">Mainline quando possível</td><td>Mainline</td><td>Downstream + Halium</td></tr>
+        <tr><td>Forte em</td><td class="own">Alcance e mainline</td><td>Estabilidade Debian</td><td>UX e telefonia madura</td></tr>
+        <tr><td>Fraco em</td><td class="own">Maturidade por device</td><td>Poucos aparelhos</td><td>Preso a blobs Android</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g3 animate d4" style="margin-top:10px">
+      <div class="card accent"><div class="k">por que escolhemos</div><p><b class="g">postmarketOS</b> era a única das três com port do Edge 30 e kernel <span class="c">mainline</span> — sem camada de compatibilidade Android.</p></div>
+      <div class="card"><div class="k">trade-off</div><p>Ganhamos independência de blobs; pagamos em <span style="color:var(--amber)">maturidade</span>: o <span class="mono">dubai</span> é <span class="mono">testing</span>.</p></div>
+      <div class="card"><div class="k">leitura</div><p>Ubuntu Touch entregaria telefonia mais pronta; Mobian, mais estabilidade — <span class="c">nenhum roda neste aparelho</span>.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- 14 — ENCERRAMENTO -->
-<section class="slide" id="s14">
-  <span class="tag">fim</span><span class="counter">14 / 14</span>
+<section class="slide" id="s17">
+  <span class="tag">fim</span><span class="counter">17 / 17</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">aprendizados e próximos passos</div>
       <h1 class="title animate d1" style="font-size:var(--fs-h1)">Linux no bolso dá — <br>o preço é <span class="hl">rigor</span>.</h1>
       <div class="grid animate d2" style="margin-top:12px;gap:10px">
-        <div class="card"><div class="k">próximo</div><h3 class="c">Matriz no device</h3><p>Medir áudio, modem, BT, sensores direto no aparelho.</p></div>
-        <div class="card"><div class="k">próximo</div><h3 class="c">Confirmar kernel · Log de flash</h3><p><span class="mono">uname -a</span> e uma regravação limpa → vira “confirmado”.</p></div>
+        <div class="card"><div class="k">feito</div><h3 class="g">Matriz medida no device</h3><p>34 subsistemas auditados; kernel confirmado por leitura direta; nível <span class="g">3/5</span>.</p></div>
+        <div class="card"><div class="k">próximo</div><h3 class="c">Suspensão e SIM</h3><p>Reportar o travamento do <span class="mono">s2idle</span> upstream; validar chamadas com chip inserido.</p></div>
       </div>
-      <div class="pill-row animate d4" style="margin-top:12px"><span class="pill g">README.md</span><span class="pill c">docs/relatorio-tecnico.md</span><span class="pill">docs/evidencias.md</span></div>
+      <div class="pill-row animate d4" style="margin-top:12px"><span class="pill g">audit/</span><span class="pill c">audit/dashboard.html</span><span class="pill">docs/evidencias.md</span></div>
     </div>
     <div class="hide-sm animate d2">
       <div class="phone float">
