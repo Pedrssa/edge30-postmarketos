@@ -28,10 +28,10 @@
   {
    "subsistema": "Touchscreen",
    "componente": "Goodix GT9916 em SPI13.0",
-   "classificacao": "NAO FUNCIONAL",
-   "evidencia": "IRQ 170 congelada em 1346 durante 30 s de toque fisico continuo com a tela acesa; spurious 0 e unhandled 0; probe concluido e input3 registrado sem erro",
-   "metodo": "contagem em /proc/interrupts com teste fisico confirmado pelo usuario",
-   "comparacao_wiki": "DIVERGE: a wiki declara Works"
+   "classificacao": "FUNCIONAL",
+   "evidencia": "teste definitivo com leitura direta de /dev/input/event3: 6942 eventos capturados e IRQ 170 com delta de +2224 durante o toque; bytes decodificam como ABS_MT_TRACKING_ID, ABS_MT_POSITION_X=414 e ABS_MT_POSITION_Y=1476",
+   "metodo": "dd do event node com janela de 45 s + contagem de IRQ (com root)",
+   "comparacao_wiki": "concorda (Works)"
   },
   {
    "subsistema": "Wi-Fi",
@@ -45,7 +45,7 @@
    "subsistema": "Wi-Fi (estabilidade)",
    "componente": "Enlace e power save",
    "classificacao": "PARCIALMENTE FUNCIONAL",
-   "evidencia": "primeira medicao 0% de perda com media 70 ms e pico 125 ms; segunda medicao 33% de perda com media 121 ms; uma queda de sessao SSH sem reboot (uptime continuo); power_save on; dmesg revela que o BDF e os dados de calibracao da placa nao foram carregados (board_id 0xff, \"qmi failed to download BDF:-2\"), o que e hipotese adicional para a instabilidade",
+   "evidencia": "apos desligar power_save: latencia media caiu de 70 para 15 ms e pico de 125 para 70 ms, mas a perda permanece em 17% (era 33%); custo energetico de +26% (225 para 284 mA). BDF e calibracao da placa nao carregados (board_id 0xff) sao hipotese para a perda residual",
    "metodo": "ping e reconexao SSH",
    "comparacao_wiki": "nao avaliado na wiki"
   },
@@ -236,10 +236,10 @@
   {
    "subsistema": "Suspensao",
    "componente": "s2idle e deep",
-   "classificacao": "NAO TESTADO",
-   "evidencia": "/sys/power/state oferece freeze e mem com mem_sleep s2idle [deep]; suspend_stats success 0 e fail 0 indicam que o aparelho nunca suspendeu; teste nao executado por risco de perder o unico canal de acesso",
-   "metodo": "sysfs power",
-   "comparacao_wiki": "nao avaliado na wiki"
+   "classificacao": "NAO FUNCIONAL",
+   "evidencia": "testada com root: modo deep aborta com \"Wakeup pending. Abort CPU freeze\" (fail=1); modo s2idle TRAVOU o aparelho e forcou reinicializacao. dmesg mostra \"dwc3-qcom port-1 HS-PHY not in L2\" e \"Non-boot CPUs are not disabled\"",
+   "metodo": "rtcwake -m mem com despertar automatico, duas tentativas (deep e s2idle)",
+   "comparacao_wiki": "nao avaliado na wiki - defeito novo, candidato a relato upstream"
   },
   {
    "subsistema": "Armazenamento UFS",

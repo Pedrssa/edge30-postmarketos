@@ -11,16 +11,18 @@
       "FAIL - comportamento esperado nao ocorreu sob teste valido",
       "BLOCKED - teste impedido por permissao ou pre-requisito ausente",
       "NOT_RUN - teste nao executado por decisao de escopo ou risco",
-      "INCONCLUSIVE - teste executado, resultado nao decisivo"
+      "INCONCLUSIVE - teste executado, resultado nao decisivo",
+      "INVALID - teste cuja metodologia se mostrou falha; conclusao refutada por teste posterior"
     ]
   },
   "summary": {
-    "total": 30,
-    "pass": 19,
-    "fail": 4,
+    "total": 33,
+    "pass": 22,
+    "fail": 3,
     "blocked": 3,
-    "not_run": 3,
-    "inconclusive": 1
+    "not_run": 2,
+    "inconclusive": 1,
+    "invalid": 2
   },
   "tests": [
     {
@@ -128,10 +130,8 @@
       "subsystem": "touchscreen",
       "name": "Entrega de eventos de toque",
       "method": "contagem da IRQ 170 em /proc/interrupts durante 30 s de toque fisico continuo, com display verificado como aceso",
-      "result": "FAIL",
-      "evidence": "contador imovel em 1346; spurious=0; unhandled=0; backlight 1079 e dpms=On durante todo o teste; toque confirmado pelo usuario",
-      "severity": "CRITICO",
-      "issue_id": "A-01",
+      "result": "INVALID",
+      "evidence": "TESTE INVALIDO: a janela de medicao nao coincidiu com o toque fisico. Refutado por T-31.",
       "timestamp": "22:12"
     },
     {
@@ -193,7 +193,8 @@
       "evidence": "1a serie: 0% de perda, 4-125 ms. 2a serie: 33% de perda, media 121 ms. Uma queda de sessao SSH sem reboot (uptime continuo). power_save=on.",
       "severity": "MEDIO",
       "issue_id": "A-06",
-      "timestamp": "22:14"
+      "timestamp": "22:14",
+      "note": "apos corrigir A-06: latencia media 70->15 ms, perda 33%->17%; criterio de aceite (0%) NAO atingido"
     },
     {
       "id": "T-19",
@@ -257,10 +258,12 @@
       "id": "T-25",
       "subsystem": "energia",
       "name": "Suspensao do sistema",
-      "method": "nao executado",
-      "result": "NOT_RUN",
-      "evidence": "suspend_stats success=0 e fail=0 indicam que o aparelho nunca suspendeu; teste omitido por risco de encerrar o unico canal de acesso SSH",
-      "issue_id": "A-04"
+      "method": "rtcwake -m mem -s 30 (deep) e -s 20 (s2idle), com root",
+      "result": "FAIL",
+      "evidence": "deep abortou com 'Wakeup pending. Abort CPU freeze' (fail=1); s2idle TRAVOU o aparelho e forcou reboot",
+      "issue_id": "A-04",
+      "severity": "ALTO",
+      "note": "o teste com s2idle causou a reinicializacao observada pelo operador"
     },
     {
       "id": "T-26",
@@ -297,10 +300,8 @@
       "subsystem": "touchscreen",
       "name": "Recarregar o driver corrige a falha?",
       "method": "rmmod/modprobe goodix_berlin_spi com root, seguido de reteste com 30 s de toque fisico",
-      "result": "FAIL",
-      "evidence": "IRQ 1535->1540 (apenas init) e novo input6 registrado; reteste com toque manteve 1540 imovel",
-      "severity": "CRITICO",
-      "issue_id": "A-01",
+      "result": "INVALID",
+      "evidence": "TESTE INVALIDO: a janela de medicao nao coincidiu com o toque fisico. Refutado por T-31.",
       "note": "descarta a hipotese de estado de inicializacao do controlador"
     },
     {
@@ -312,20 +313,44 @@
       "evidence": "nft inet filter com policy drop em input e forward; wwan*/qmapmux* bloqueados; sshd com PermitRootLogin prohibit-password; conta root bloqueada (hash !)",
       "findings": "PasswordAuthentication yes confirmado",
       "note": "CORRIGE a inferencia anterior de que nao haveria firewall"
+    },
+    {
+      "id": "T-31",
+      "subsystem": "touchscreen",
+      "name": "Entrega de eventos de toque (teste definitivo)",
+      "method": "leitura direta de /dev/input/event3 com dd, janela de 45 s, em paralelo com amostragem da IRQ 170, executado com root",
+      "result": "PASS",
+      "evidence": "6942 eventos capturados e delta de +2224 na IRQ 170 a partir de t=33s; bytes decodificam como ABS_MT_TRACKING_ID=0x53, ABS_MT_POSITION_X=414, ABS_MT_POSITION_Y=1476",
+      "note": "REFUTA T-12 e T-29. A falha anterior era dessincronia entre a janela de medicao e o toque, nao defeito de hardware.",
+      "timestamp": "23:05"
+    },
+    {
+      "id": "T-32",
+      "subsystem": "audio",
+      "name": "Audio apos remover o PipeWire",
+      "method": "desabilitar units do pipewire em escopo global e reproduzir tom de 440 Hz",
+      "result": "PASS",
+      "evidence": "apenas pulseaudio em execucao; tom confirmado como audivel pelo operador; verificado novamente apos reboot",
+      "issue_id": "A-02",
+      "timestamp": "23:12"
+    },
+    {
+      "id": "T-33",
+      "subsystem": "seguranca",
+      "name": "Endurecimento aplicado e persistente",
+      "method": "sysctl.d, resolved.conf.d e sshd_config.d, verificados apos reboot",
+      "result": "PASS",
+      "evidence": "kptr_restrict=2; porta 5355 fora de escuta; PasswordAuthentication no; acesso por chave testado e operante",
+      "issue_id": "A-07",
+      "timestamp": "23:14"
     }
   ],
   "issues_found": [
     {
       "id": "A-01",
-      "severity": "CRITICO",
+      "severity": "FALSO POSITIVO",
       "subsystem": "touchscreen",
-      "summary": "Goodix GT9916 nao emite interrupcoes em runtime"
-    },
-    {
-      "id": "A-02",
-      "severity": "ALTO",
-      "subsystem": "audio",
-      "summary": "PulseAudio e PipeWire em execucao simultanea"
+      "summary": "Touchscreen funciona; a classificacao de falha foi erro de metodo (janela de medicao dessincronizada)"
     },
     {
       "id": "A-03",
@@ -334,28 +359,34 @@
       "summary": "Armazenamento sem criptografia com bootloader destravado"
     },
     {
-      "id": "A-04",
-      "severity": "MEDIO",
-      "subsystem": "energia",
-      "summary": "Suspensao nunca exercida e consumo ocioso de 0,83 W"
-    },
-    {
       "id": "A-06",
       "severity": "MEDIO",
       "subsystem": "rede",
       "summary": "power_save do Wi-Fi degrada latencia e estabilidade"
     },
     {
-      "id": "A-07",
-      "severity": "BAIXO",
-      "subsystem": "seguranca",
-      "summary": "kptr_restrict=0, LLMNR exposto, firewall nao verificado"
+      "id": "A-02",
+      "severity": "RESOLVIDO",
+      "subsystem": "audio",
+      "summary": "PipeWire desabilitado; PulseAudio mantido e validado"
+    },
+    {
+      "id": "A-04",
+      "severity": "ALTO",
+      "subsystem": "energia",
+      "summary": "Suspensao falha: deep aborta e s2idle trava o aparelho"
     },
     {
       "id": "A-05",
       "severity": "RESOLVIDO",
       "subsystem": "bluetooth",
-      "summary": "Bloqueio rfkill removido; controlador UP RUNNING"
+      "summary": "Desbloqueado e persistente apos reboot"
+    },
+    {
+      "id": "A-07",
+      "severity": "RESOLVIDO",
+      "subsystem": "seguranca",
+      "summary": "kptr_restrict=2, LLMNR off, senha SSH desabilitada"
     }
   ]
 }

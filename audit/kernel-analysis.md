@@ -19,12 +19,11 @@ Isto resolve a pendência **P-02**, que registrava a versão do kernel como `[RE
 | Segmentation fault em serviços | **Nenhum** |
 | Unidades systemd em falha | **0** (`systemctl --failed` vazio) |
 | Reboots inesperados | Nenhum — uptime contínuo durante toda a auditoria |
-| `dmesg` completo | **Inacessível** (`dmesg_restrict=1`, sem root) |
-| `devices_deferred` | **Inacessível** (debugfs restrito) |
+| `dmesg` completo | ✅ **Obtido** na coleta privilegiada |
+| `devices_deferred` | 8 dispositivos `*.etm` (CoreSight/trace) — benigno |
 
-A análise de erros foi feita por `journalctl -b -p err`, que é legível pelo usuário comum. A
-ausência de acesso a `dmesg` é a maior limitação desta seção e deve ser considerada ao ler as
-conclusões: **falhas de probe silenciosas não seriam visíveis por este método.**
+A primeira etapa usou `journalctl -b -p err` por falta de privilégio; a segunda obteve o `dmesg`
+completo. Os achados dessa segunda leitura estão em [`root-findings.md`](root-findings.md).
 
 ---
 
@@ -103,8 +102,8 @@ Erros de espaço de usuário no boot (não de kernel):
 
 - `pulseaudio: Daemon already running` (×3) e `pipewire-pulse.socket: refusing` — ver **A-02**.
 - `Failed to start Stevia, a user friendly on screen keyboard` (×6) — o teclado virtual falhou
-  repetidamente, mas acabou subindo (PID 3731 ativo). Consequência plausível de **A-01**: sem
-  touchscreen, o teclado na tela não tem como operar normalmente.
+  repetidamente no boot, mas acabou subindo (PID 3731 ativo). Problema de ordem de inicialização,
+  não de entrada: o touchscreen funciona.
 - `gkr-pam: unable to locate daemon control file` — benigno, do GNOME Keyring.
 
 **Não foram encontrados:** probe failures, `-517` (deferred probe), firmware ausente, timeouts de
@@ -113,6 +112,11 @@ I/O, erros de UFS ou incompatibilidades de device tree.
 ---
 
 ## 6. O caso do touchscreen (detalhe técnico)
+
+> ⚠️ **CORREÇÃO (24/11/2026):** esta seção foi escrita quando o touchscreen era tido como
+> inoperante. **Ele funciona.** O reteste definitivo capturou 6942 eventos em
+> `/dev/input/event3`. Os dados técnicos abaixo permanecem válidos como descrição do dispositivo;
+> a conclusão de falha, não. Ver [`root-findings.md` §10](root-findings.md).
 
 | Fato | Valor |
 |---|---|
@@ -123,17 +127,17 @@ I/O, erros de UFS ou incompatibilidades de device tree.
 | Registro de entrada | `input3`, às 21:43:29, **sem mensagem de erro** |
 | Capacidades | `PROP=2` (direct), `EV=b`, `KEY=400`, `ABS=261800000000003` (slots multitouch) |
 | IRQ | 170 — `msmgpio 81 Level` |
-| Contagem | **1346, imóvel** ao longo de 30 s de toque físico contínuo |
+| Contagem final | **8619** (evoluiu de 1346 → 1540 → 3686 → 6395 → 8619 ao longo da sessão) |
+| Eventos confirmados | **6942** lidos de `/dev/input/event3` em janela de 45 s |
 | `spurious` / `unhandled` | 0 / 0 |
 
 O driver está corretamente vinculado e o dispositivo de entrada foi criado com as capacidades
 esperadas. O tipo de interrupção (`Level`) corresponde ao que o binding upstream do GT9916
 especifica (`IRQ_TYPE_LEVEL_LOW`), portanto **não há erro de configuração de borda/nível**.
 
-A conclusão é que o controlador **não gera interrupções em operação**, apesar de responder durante o
-probe. A hipótese mais provável é a de firmware/configuração do painel não aplicada, deixando o chip
-em modo bootloader. O diagnóstico completo, com hipóteses ordenadas e plano de verificação, está em
-[`remediation-plan.md` § A-01](remediation-plan.md).
+**O dispositivo funciona.** O contador de 1346 observado na primeira medição não indicava falha — a
+IRQ apenas não havia sido estimulada naquela janela. A leitura direta do event node confirmou
+eventos multitouch legítimos (`ABS_MT_POSITION_X=414`, `ABS_MT_POSITION_Y=1476`).
 
 ---
 

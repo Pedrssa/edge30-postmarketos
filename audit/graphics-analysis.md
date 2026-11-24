@@ -133,8 +133,7 @@ Na segunda leitura do `devfreq`, a GPU acumulava **399 transições e 10 212 ms 
   Isso exigiria `eglinfo`/`vulkaninfo` dentro da sessão Wayland.
 - **O desempenho gráfico não foi medido.** Nenhum benchmark de GPU foi executado; a comprovação é
   de *uso* da GPU, não de *quão bem* ela rende.
-- **A fluidez da interface não pôde ser avaliada**, porque o touchscreen não responde (ver
-  [`remediation-plan.md` § A-01](remediation-plan.md)) e a observação remota não permite julgar
-  suavidade de animação.
+- **A fluidez da interface não foi medida.** O touchscreen funciona e a interface é operável, mas
+  a observação remota não permite julgar suavidade de animação nem taxa de quadros sustentada.
 - A presença do carregador Vulkan mapeado em `phoc` indica disponibilidade da biblioteca, **não**
   que o compositor esteja renderizando via Vulkan — o Phoc usa GLES por padrão.

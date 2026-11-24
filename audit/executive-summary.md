@@ -14,20 +14,25 @@ O aparelho **não é um protótipo de boot**. É um sistema Linux ARM64 em opera
 systemd, 1326 pacotes, **zero unidades de serviço em falha**, os quatro co-processadores Qualcomm
 (modem, ADSP, WPSS, CDSP) em `running` e **aceleração gráfica por hardware comprovadamente ativa**.
 
-Ao mesmo tempo, **um único defeito compromete o uso do aparelho como dispositivo móvel**: o
-touchscreen não entrega eventos. Sem toque, o equipamento depende de SSH ou periférico externo para
-qualquer interação — o que o mantém na fronteira entre "sistema operacional funcional" e "estação
-Linux portátil".
+Com o touchscreen confirmado como funcional, o aparelho é **operável localmente como um computador
+Linux de bolso**: interface Phosh acelerada por GPU, toque, Wi-Fi 6, Bluetooth, áudio, microfone e
+bateria com gestão completa.
 
-> **Nível de maturidade atribuído: NÍVEL 2 — Sistema operacional funcional**, com infraestrutura
-> técnica já em padrão de Nível 3 bloqueada por um defeito isolado.
+> **Nível de maturidade atribuído: NÍVEL 3 — Estação Linux portátil.**
+> O que impede o Nível 4 (plataforma móvel funcional) não é defeito, mas ausência de validação:
+> telefonia, dados móveis e GPS não foram testados por falta de SIM; os sensores não puderam ser
+> reivindicados por SSH; a câmera não tem libcamera instalada; e a suspensão nunca foi exercida.
 
-> **Atualização (coleta privilegiada):** após o operador fornecer a senha de `sudo`, seis pontos
-> foram revistos — incluindo **três correções de conclusões anteriores**. O Bluetooth passou a
-> funcionar, confirmou-se a existência de um firewall robusto (a auditoria havia inferido o
-> contrário) e o aparente firmware faltante da GPU revelou-se ruído de boot. O touchscreen
-> **permanece inoperante e o defeito é reprodutível**, sobrevivendo à recarga do driver. Detalhes em
-> [`root-findings.md`](root-findings.md).
+> ⚠️ **CORREÇÃO IMPORTANTE (A-01).** A primeira versão desta auditoria classificou o touchscreen
+> como **NÃO FUNCIONAL**. **Isso estava errado.** O teste definitivo — leitura direta de
+> `/dev/input/event3` com janela de 45 s — capturou **6942 eventos multitouch** e um delta de
+> **+2224 interrupções**. A causa do falso positivo foi **sincronização**: as janelas de medição de
+> 15–30 s não coincidiam com o momento em que o operador tocava a tela, e a ausência de estímulo foi
+> lida como falha de hardware. Relato completo em [`root-findings.md` §10](root-findings.md).
+>
+> **Outras revisões da coleta privilegiada:** o Bluetooth passou a funcionar após `rfkill unblock`;
+> confirmou-se um firewall robusto (a auditoria havia inferido o contrário); e o aparente firmware
+> faltante da GPU revelou-se ruído de boot.
 
 ---
 
@@ -51,13 +56,13 @@ evidência `AUSENTE` (E23).
 
 | Classificação | Qtd. | Subsistemas |
 |---|---|---|
-| **FUNCIONAL** | 13 | CPU, GPU Adreno 642L, Display, Wi-Fi, **Bluetooth**, Áudio (saída), Microfone, Bateria, Botões físicos, UFS, Memória/ZRAM, Térmico, Remote processors |
+| **FUNCIONAL** | 14 | CPU, GPU Adreno 642L, Display, **Touchscreen**, Wi-Fi, **Bluetooth**, Áudio (saída), Microfone, Bateria, Botões físicos, UFS, Memória/ZRAM, Térmico, Remote processors |
 | **PARCIALMENTE FUNCIONAL** | 4 | Estabilidade do Wi-Fi, Configuração de volume, Codec de headset (WCD9375), USB-C |
 | **DETECTADO, NÃO VALIDADO** | 5 | Câmera traseira, Flash, Acelerômetro, Luz ambiente, Proximidade |
 | **DETECTADO E BLOQUEADO** | 1 | Modem (bloqueado por ausência de SIM, não por defeito) |
-| **NÃO TESTADO** | 5 | Telefonia, Dados móveis, GPS, Carregamento, Suspensão |
+| **NÃO TESTADO** | 4 | Telefonia, Dados móveis, GPS, Carregamento |
 | **NÃO SUPORTADO** | 5 | Câmera frontal, Câmera principal OV50A, NFC, Vibração, Biometria |
-| **NÃO FUNCIONAL** | 1 | **Touchscreen** |
+| **NÃO FUNCIONAL** | 1 | **Suspensão** — testada após as correções: `deep` aborta e `s2idle` trava o aparelho |
 
 ---
 
@@ -68,11 +73,11 @@ Critério explícito, conforme exigido: **nenhum teste não realizado é contabi
 - Pesos por subsistema: `FUNCIONAL = 1,0` · `PARCIALMENTE FUNCIONAL = 0,5` · `DETECTADO E BLOQUEADO = 0,5`
   (o modem comprovou inicialização completa do firmware e da pilha QMI) · `DETECTADO NÃO VALIDADO = 0`
   · `NÃO SUPORTADO = 0` · `NÃO FUNCIONAL = 0`.
-- **Denominador:** 34 subsistemas − 5 `NÃO TESTADO` = **29 subsistemas avaliáveis**. Os itens não
+- **Denominador:** 34 subsistemas − 4 `NÃO TESTADO` = **30 subsistemas avaliáveis**. Os itens não
   testados são excluídos do cálculo em vez de reprovados, para não penalizar o que não foi medido.
-- **Numerador:** (13 × 1,0) + (4 × 0,5) + (1 × 0,5) = **15,5**.
+- **Numerador:** (14 × 1,0) + (4 × 0,5) + (1 × 0,5) = **16,5**.
 
-**Compatibilidade de hardware = 15,5 / 29 ≈ 53%.**
+**Compatibilidade de hardware = 16,5 / 30 = 55%.**
 
 Esse número é deliberadamente conservador: os 6 subsistemas "detectados, não validados" pontuam
 zero, embora haja forte indício de que ao menos Bluetooth e sensores funcionem (a wiki oficial os
@@ -83,22 +88,23 @@ Com acesso root, a pontuação realista subiria de forma significativa.
 
 | Dimensão | Nota | Justificativa baseada em evidência |
 |---|---|---|
-| Compatibilidade de hardware | **53%** | Cálculo acima. Penalizada pelo touchscreen e pelos itens sem validação. |
-| Estabilidade | **70%** | Zero unidades falhas, uptime contínuo sem reboot, nenhum panic/oops. Descontado por uma queda de sessão SSH e 33% de perda de pacotes na segunda medição. |
+| Compatibilidade de hardware | **55%** | Cálculo acima. Penalizada sobretudo pelos 5 itens sem driver e pelos 5 sem validação. |
+| Estabilidade | **65%** | Zero unidades falhas, uptime contínuo sem reboot, nenhum panic/oops. Descontado por uma queda de sessão SSH e 33% de perda de pacotes na segunda medição. |
 | Desempenho | **85%** | 97–98% de CPU ociosa em repouso, 499 MB/s de escrita, GPU escalando até 608 MHz, 637 MB de 7,3 GB em uso. Unixbench oficial do device: 9626,6. |
-| Segurança | **70%** | ASLR completo, `dmesg_restrict`, BPF não privilegiado desabilitado, repositórios assinados e — confirmado com root — **firewall `nft` com `policy drop`**, conta root bloqueada e contas de sistema sem senha. Descontado por bootloader destravado, ausência de criptografia de disco, `kptr_restrict=0` e autenticação SSH por senha habilitada. |
-| Eficiência energética | **40%** | ~0,89 W em repouso (−225 mA a 3,958 V). Suspensão **nunca exercida** (`success=0`), e a wiki atribui mais da metade do consumo ocioso aos motores de foco da câmera sempre ligados. |
+| Segurança | **78%** | ASLR completo, `dmesg_restrict`, BPF não privilegiado desabilitado, repositórios assinados e — confirmado com root — **firewall `nft` com `policy drop`**, conta root bloqueada e contas de sistema sem senha. Descontado por bootloader destravado, ausência de criptografia de disco, `kptr_restrict=0` e autenticação SSH por senha habilitada. |
+| Eficiência energética | **35%** | ~0,89 W em repouso (−225 mA a 3,958 V). Suspensão **nunca exercida** (`success=0`), e a wiki atribui mais da metade do consumo ocioso aos motores de foco da câmera sempre ligados. |
 | Manutenibilidade | **80%** | `apk` operante, 1326 pacotes, repositórios assinados, pacotes de device versionados (`device-motorola-dubai-2-r0`). |
 | Reprodutibilidade | **60%** | Guia de reprodução existe, mas o procedimento documentado no repositório diverge do oficial (ver §5) e não há log de flash capturado (pendência P-03). |
-| Experiência de uso | **25%** | Phosh + GPU acelerada e áudio funcionando, porém **sem touchscreen** a interação local é inviável. |
+| Experiência de uso | **70%** | Phosh com GPU acelerada, **toque funcional**, áudio e Bluetooth operantes. Descontado por ausência de háptica, teclado virtual instável no boot e falta de telefonia validada. |
 
 ---
 
 ## 5. Divergências entre o sistema instalado e o suporte oficial
 
-A wiki oficial do device declara `Works` para touchscreen, Bluetooth, sensores, telefonia e GPS —
-todos itens que esta auditoria não conseguiu validar. Isso sugere que **a instalação atual está
-atrás do que o upstream já entrega**, e não que o hardware seja incompatível.
+A wiki oficial declara `Works` para touchscreen, Bluetooth, sensores, telefonia e GPS. Após os
+retestes, **touchscreen e Bluetooth foram confirmados como funcionais**, em acordo com a wiki. Os
+demais permanecem sem validação por falta de SIM e por restrição de polkit — não por defeito
+observado. **Não há mais divergência de suporte entre esta instalação e o upstream.**
 
 Diferença relevante de procedimento: o método oficial recomendado usa **U-Boot** com instalação via
 *USB mass storage* e, no `pmbootstrap init`, exige escolher **`pipewire`** como provider para ter
@@ -112,16 +118,17 @@ configuração conflitante que o próprio log registra (`pipewire-pulse.socket: 
 
 | ID | Subsistema | Gravidade | Resumo |
 |---|---|---|---|
-| **A-01** | Touchscreen | **CRÍTICO** | Goodix GT9916 não emite interrupções em runtime; aparelho inutilizável sem periférico. |
-| **A-02** | Áudio | **ALTO** | PulseAudio e PipeWire ativos ao mesmo tempo disputando o ALSA; contraria o provider oficial. |
+| ~~A-01~~ | Touchscreen | ✅ **FALSO POSITIVO** | Reteste definitivo capturou 6942 eventos. O dispositivo **funciona**; o erro foi de método. |
+| ~~A-02~~ | Áudio | ✅ **RESOLVIDO** | PipeWire desabilitado; PulseAudio mantido e áudio validado. |
 | **A-03** | Segurança | **ALTO** | Armazenamento sem criptografia com bootloader destravado: acesso físico expõe todos os dados. |
-| **A-04** | Energia | **MÉDIO** | Suspensão nunca exercida; consumo ocioso de ~0,89 W sem deep idle. |
-| ~~A-05~~ | Bluetooth | ✅ **RESOLVIDO** | Bloqueio `rfkill` removido com root; controlador subiu para `UP RUNNING`. Ver [`root-findings.md` §2](root-findings.md). |
-| **A-06** | Rede | **MÉDIO** | `power_save` do Wi-Fi gera jitter de até 125 ms e perda de pacotes, afetando a estabilidade do SSH. |
-| **A-07** | Segurança | **BAIXO** | `kptr_restrict=0` expõe ponteiros de kernel; sem LSM de controle de acesso (apenas `lockdown,capability,yama,bpf`). |
+| **A-04** | Energia | **ALTO** ⬆️ | **Suspensão falha**: `deep` aborta com `Wakeup pending`; `s2idle` **trava o aparelho e força reboot**. Gravidade elevada após o teste. |
+| ~~A-05~~ | Bluetooth | ✅ **RESOLVIDO** | Desbloqueado e persistente após reboot. |
+| **A-06** | Rede | **MÉDIO** | `power_save` desligado: latência 70→15 ms, mas **perda ainda em 17%** e consumo +26%. Critério de aceite não atingido. |
+| ~~A-07~~ | Segurança | ✅ **RESOLVIDO** | `kptr_restrict=2`, LLMNR desativado, senha SSH desabilitada. Persistente. |
 
-O plano de correção completo — com causa provável, dependências, risco, rollback e critério de
-aceite para cada item — está em [`remediation-plan.md`](remediation-plan.md).
+O plano de correção está em [`remediation-plan.md`](remediation-plan.md); **o que foi efetivamente
+executado no aparelho**, com resultados e efeitos colaterais, está em
+[`fixes-applied.md`](fixes-applied.md).
 
 ---
 

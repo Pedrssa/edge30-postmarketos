@@ -11,9 +11,14 @@ Esta pasta contém uma auditoria **executada no aparelho físico**, por SSH sobr
 24 de novembro de 2026. Não é uma revisão documental: cada classificação abaixo está amarrada a uma
 saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/sanitized/).
 
-> **Veredito: NÍVEL 2 — Sistema operacional funcional.**
-> Sistema estável e bem instalado, com aceleração gráfica comprovada e zero serviços em falha,
-> bloqueado de avançar por **um único defeito: o touchscreen não entrega eventos.**
+> **Veredito: NÍVEL 3 — Estação Linux portátil.**
+> Aparelho operável localmente: toque, GPU acelerada, Wi-Fi 6, Bluetooth, áudio, microfone e
+> bateria. O que impede o Nível 4 é parte ausência de validação (sem SIM, sem libcamera, sensores
+> bloqueados por polkit) e parte um defeito real: **a suspensão não funciona.**
+>
+> ⚠️ **Correção registrada:** a primeira versão desta auditoria classificou o touchscreen como
+> NÃO FUNCIONAL. **Era falso positivo** — erro de método, não defeito do aparelho. Ver
+> [`fixes-applied.md` §A-01](fixes-applied.md).
 
 ---
 
@@ -44,6 +49,8 @@ saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/s
 | [`battery-analysis.md`](battery-analysis.md) | 20 amostras de consumo e por que **nenhuma autonomia é estimada** |
 | [`upstream-comparison.md`](upstream-comparison.md) | Matriz oficial × auditoria, divergências, oportunidades de contribuição |
 | [`remediation-plan.md`](remediation-plan.md) | 7 problemas com causa, risco, rollback e critério de aceite |
+| [`fixes-applied.md`](fixes-applied.md) | **O que foi efetivamente corrigido, com resultados e efeitos colaterais** |
+| [`fixes-applied.md`](fixes-applied.md) | **O que foi efetivamente corrigido no aparelho, com resultados** |
 | [`root-findings.md`](root-findings.md) | **Coleta privilegiada: 3 correções de conclusões anteriores + novos achados** |
 | [`manual-validation-checklist.md`](manual-validation-checklist.md) | O que só pode ser testado com o aparelho em mãos |
 | [`system-inventory.json`](system-inventory.json) | Inventário completo, legível por máquina |
@@ -57,17 +64,17 @@ saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/s
 ## Resumo dos 34 subsistemas
 
 ```
-FUNCIONAL                 █████████████ 13   CPU · GPU · Display · Wi-Fi · Bluetooth · Áudio
-                                             Mic · Bateria · Botões · UFS · RAM · Térmico · RPROCs
+FUNCIONAL                 ██████████████ 14  CPU · GPU · Display · TOUCHSCREEN · Wi-Fi · Bluetooth
+                                             Áudio · Mic · Bateria · Botões · UFS · RAM · Térmico · RPROCs
 DETECTADO NÃO VALIDADO    █████          5   Câmera · Flash · Accel · Luz · Prox
 NÃO SUPORTADO             █████          5   Câm. frontal · OV50A · NFC · Vibração · Biometria
-NÃO TESTADO               █████          5   Telefonia · Dados · GPS · Carga · Suspensão
 PARCIALMENTE FUNCIONAL    ████           4   Estab. Wi-Fi · Volume · Codec headset · USB-C
+NÃO TESTADO               ████           4   Telefonia · Dados · GPS · Carregamento
 DETECTADO E BLOQUEADO     █              1   Modem (sem SIM — não é defeito)
-NÃO FUNCIONAL             █              1   ◄── TOUCHSCREEN
+NÃO FUNCIONAL             █              1   ◄── SUSPENSÃO (deep aborta, s2idle trava)
 ```
 
-**Compatibilidade de hardware: 53%** — metodologia, pesos e denominador explícitos em
+**Compatibilidade de hardware: 55%** — metodologia, pesos e denominador explícitos em
 [`executive-summary.md` §4](executive-summary.md). Testes não realizados **não** são contados como
 aprovados.
 
@@ -77,16 +84,17 @@ aprovados.
 
 | ID | Gravidade | Problema |
 |---|---|---|
-| A-01 | 🔴 **CRÍTICO** | Touchscreen Goodix GT9916 não emite interrupções em runtime |
-| A-02 | 🟠 ALTO | PulseAudio e PipeWire em execução simultânea |
+| ~~A-01~~ | ✅ **FALSO POSITIVO** | O touchscreen funciona; erro de método na medição |
+| ~~A-02~~ | ✅ **RESOLVIDO** | PipeWire desabilitado; PulseAudio validado |
 | A-03 | 🟠 ALTO | Armazenamento sem criptografia com bootloader destravado |
-| A-04 | 🟡 MÉDIO | Suspensão nunca exercida; 0,89 W em repouso |
+| A-04 | 🟠 **ALTO** | Suspensão falha: `deep` aborta, `s2idle` trava o aparelho |
 | ~~A-05~~ | ✅ **RESOLVIDO** | Bluetooth desbloqueado; controlador `UP RUNNING` |
-| A-06 | 🟡 MÉDIO | `power_save` do Wi-Fi degrada latência e estabilidade |
-| A-07 | 🔵 BAIXO | `kptr_restrict=0`, LLMNR exposto, SSH aceita senha |
+| A-06 | 🟡 MÉDIO | `power_save` off: latência 70→15 ms, mas perda ainda 17% |
+| ~~A-07~~ | ✅ **RESOLVIDO** | kptr_restrict=2, LLMNR off, senha SSH desabilitada |
 
-> ⚠️ **Nenhuma correção foi aplicada ao aparelho.** Diagnóstico, proposta e execução estão
-> separados por decisão metodológica. Ver [`remediation-plan.md`](remediation-plan.md).
+> **Correções aplicadas em 24/11/2026**, com autorização explícita do operador. O que foi
+> efetivamente executado, com resultados e efeitos colaterais — incluindo **um reboot que meu teste
+> de suspensão causou** — está em [`fixes-applied.md`](fixes-applied.md).
 
 ---
 

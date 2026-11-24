@@ -9,22 +9,35 @@ experiência) · **BAIXO** (endurecimento desejável).
 
 ---
 
-## A-01 · Touchscreen Goodix GT9916 não emite eventos — CRÍTICO
+## A-01 · ~~Touchscreen não emite eventos~~ — ✅ FALSO POSITIVO (corrigido em 24/11/2026)
 
-| Campo | Conteúdo |
-|---|---|
-| **Subsistema** | Entrada / `goodix-berlin-spi` em `spi13.0` |
-| **Evidência** | IRQ 170 (`msmgpio 81 Level`) congelada em **1346** durante 30 s de toque físico contínuo com `dpms=On` e backlight em 1079. `spurious=0`, `unhandled=0`. Probe concluiu sem erro e registrou `input3` com capacidades multitouch corretas (`ABS=261800000000003`, `PROP=2`). Teste físico confirmado pelo usuário. |
-| **Diagnóstico** | O driver vincula e registra o dispositivo de entrada, mas o controlador não gera interrupções em operação. As 1346 contagens correspondem à inicialização, não a toques. |
-| **Causa provável** | ⚠️ **Atualizado após a coleta privilegiada.** O `dmesg` com root mostra que o driver `goodix-berlin-spi` **não emite nenhuma mensagem além do registro do dispositivo de entrada** — não há tentativa de `request_firmware`, nem erro de SPI, nem timeout. Isso **enfraquece** a hipótese de firmware ausente. A pista mais forte passa a ser o aviso de pinctrl emitido na recarga do driver: `not freeing pin 105 (GPIO_105) ... it is already used for some other setting`, sugerindo que a linha de **reset** do controlador está presa a outra configuração. O GPIO de interrupção (`gpio81: in high func0 2mA pull down`) está no estado correto de repouso para uma IRQ ativa em nível baixo — ele simplesmente nunca desce. Os reguladores `spi13.0-avdd` e `spi13.0-vddio` estão presentes e habilitados. |
-| **Impacto real** | Interação local inviável. O aparelho só é operável por SSH ou periférico USB/Bluetooth. É o item que isoladamente impede a classificação como Nível 3. |
-| **Correção recomendada** | Em ordem, do menos ao mais invasivo: **(a)** obter `dmesg` completo com root e procurar por `goodix` / `request_firmware` / `-517`; **(b)** `rmmod goodix_berlin_spi && modprobe goodix_berlin_spi` e observar o contador da IRQ 170; **(c)** verificar a presença do firmware do painel em `/lib/firmware/`; **(d)** confirmar que `device-motorola-dubai-kernel-csot` corresponde ao painel real via `fastboot getvar primary-display`; **(e)** atualizar o sistema (`apk upgrade`), já que a wiki declara o touchscreen como `Works`. |
-| **Dependências** | Acesso root. Para (d), reinicialização em fastboot. |
-| **Já descartado** | ❌ **Recarregar o driver não corrige.** `rmmod goodix_berlin_spi && modprobe goodix_berlin_spi` foi executado com root: a IRQ foi de 1535 para 1540 (apenas a inicialização) e um novo nó `input6` foi registrado, mas o reteste com 30 s de toque físico manteve o contador **imóvel em 1540**. A hipótese de "estado de inicialização do controlador" está eliminada. |
-| **Risco da correção** | (a)–(c) baixo e reversível. (e) médio: `apk upgrade` em canal *edge* pode alterar kernel e regredir outros subsistemas. |
-| **Rollback** | Para (b), recarregar o módulo ou reiniciar. Para (e), `apk` mantém histórico de versões; registrar `apk info -v > baseline.txt` antes. Rollback completo exige reflash do rootfs. |
-| **Critério de aceite** | O contador da IRQ 170 incrementa de forma proporcional ao toque **e** `evtest` em `/dev/input/event3` emite eventos `ABS_MT_POSITION_X/Y`. |
-| **Validação** | Tocar a tela por 10 s e confirmar incremento > 50 na IRQ; em seguida, operar o Phosh pelo toque. |
+> **Este problema não existe.** O touchscreen **funciona**.
+>
+> **Teste definitivo:** leitura direta de `/dev/input/event3` com janela de 45 segundos, executada
+> com root. Resultado: **6942 eventos capturados** e **delta de +2224 interrupções** na IRQ 170. Os
+> bytes decodificam como eventos multitouch legítimos:
+>
+> ```
+> 03 00 39 00 53 00 00 00   → EV_ABS  ABS_MT_TRACKING_ID = 0x53
+> 03 00 35 00 9e 01 00 00   → EV_ABS  ABS_MT_POSITION_X  = 414
+> 03 00 36 00 c4 05 00 00   → EV_ABS  ABS_MT_POSITION_Y  = 1476
+> ```
+>
+> **Causa do erro:** sincronização entre a janela de medição e a ação física. Os testes anteriores
+> observavam a contagem de IRQ por 15–30 segundos enquanto pediam o toque, mas o operador estava
+> lendo a instrução no computador em vez de tocar a tela naquele intervalo exato. **Ausência de
+> estímulo foi interpretada como falha de hardware.**
+>
+> **Sinal ignorado:** a contagem da IRQ cresceu de forma contínua entre as medições
+> (1346 → 1540 → 3686 → 6395 → 8619). Esse crescimento foi registrado como "anomalia sem
+> explicação" quando deveria ter refutado a hipótese de falha.
+>
+> **Lição de método:** medir uma janela estreita e concluir a partir da ausência de evento exige
+> confirmar que o estímulo ocorreu *dentro* da janela. A leitura direta do event node, com janela
+> ampla, é o teste correto — a contagem de interrupção é apenas um indicador indireto.
+>
+> O aviso de pinctrl (`not freeing pin 105 (GPIO_105)`) observado na recarga do driver é **benigno**
+> e não tem relação com funcionalidade.
 
 ---
 

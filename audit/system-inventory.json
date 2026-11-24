@@ -158,12 +158,16 @@
       "irq_chip": "msmgpio",
       "irq_hwirq": 81,
       "irq_type": "Level",
-      "irq_count_frozen_at": 1346,
-      "functional": false,
+      "functional": true,
       "module_reload_tested": true,
       "module_reload_fixed": false,
       "pinctrl_warning": "not freeing pin 105 (GPIO_105) - already used for some other setting",
-      "irq_gpio_state": "gpio81: in high func0 2mA pull down"
+      "irq_gpio_state": "gpio81: in high func0 2mA pull down",
+      "verified_events": 6942,
+      "irq_delta_during_touch": 2224,
+      "verification_method": "leitura direta de /dev/input/event3 com janela de 45 s",
+      "decoded_events": "ABS_MT_TRACKING_ID, ABS_MT_POSITION_X=414, ABS_MT_POSITION_Y=1476",
+      "correction_note": "classificado como NAO FUNCIONAL na primeira versao da auditoria; era falso positivo por dessincronia entre a janela de medicao e o toque fisico"
     },
     "remoteprocs": [
       {
@@ -211,8 +215,8 @@
     "voltage_ocv_uv": 4236999,
     "voltage_max_uv": 4480000,
     "current_now_ua": -406499,
-    "current_mean_idle_ua": -225300,
-    "idle_power_watts": 0.89,
+    "current_mean_idle_ua": -284000,
+    "idle_power_watts": 1.12,
     "temperature_celsius": 33.0,
     "technology": "Li-ion",
     "health": "Good",
@@ -236,14 +240,18 @@
       "success_count": 0,
       "fail_count": 0,
       "ever_suspended": false,
-      "tested": false,
+      "tested": true,
       "wakeup_sources_blocking": 0,
-      "note": "prevent_suspend_time=0 em todas as fontes: nada impede a suspensao; falta quem a solicite"
+      "note": "defeito de kernel; nao usar suspensao neste aparelho ate correcao upstream",
+      "deep_result": "aborta com Wakeup pending (fail=1)",
+      "s2idle_result": "TRAVOU o aparelho e forcou reboot",
+      "functional": false
     },
     "autonomy_estimate": null,
     "autonomy_note": "Nao estimavel: janela de 7min41s cobre apenas o estado de repouso e a suspensao nunca foi exercida.",
     "current_median_idle_ua": -220200,
-    "samples_count": 20
+    "samples_count": 20,
+    "power_note": "apos desligar o power_save do Wi-Fi (A-06); era 0,89 W com power_save on"
   },
   "network": {
     "wifi": {
@@ -256,7 +264,7 @@
       "rx_bitrate_mbps": 206.4,
       "tx_bitrate_mbps": 432.3,
       "signal_dbm": -66,
-      "power_save": "on",
+      "power_save": "off",
       "board_data_file_loaded": false,
       "bdf_note": "qmi failed to download BDF:-2; board_id 0xff; radio opera com calibracao generica"
     },
@@ -347,7 +355,13 @@
         "service": "systemd-resolved",
         "scope": "loopback"
       }
-    ]
+    ],
+    "latency_after_fix": {
+      "avg_ms": 15,
+      "max_ms": 70,
+      "min_ms": 4,
+      "loss_percent": 17
+    }
   },
   "graphics_stack": {
     "mesa_version": "26.2.6",
@@ -407,7 +421,7 @@
   },
   "security": {
     "randomize_va_space": 2,
-    "kptr_restrict": 0,
+    "kptr_restrict": 2,
     "dmesg_restrict": 1,
     "unprivileged_bpf_disabled": 1,
     "lsm": [
@@ -436,17 +450,18 @@
     "firewall_input_policy": "drop",
     "firewall_forward_policy": "drop",
     "firewall_note": "nft inet filter com policy drop; wwan* e qmapmux* bloqueados",
-    "ssh_password_authentication": true,
+    "ssh_password_authentication": false,
     "ssh_permit_root_login": "prohibit-password",
     "root_account_locked": true,
     "system_accounts_locked": true,
-    "max_auth_tries": 6
+    "max_auth_tries": 6,
+    "llmnr_enabled": false
   },
   "maturity": {
-    "level": 2,
-    "level_name": "Sistema operacional funcional",
-    "blocking_issue": "touchscreen nao funcional (A-01)",
-    "hardware_compatibility_percent": 53,
+    "level": 3,
+    "level_name": "Estacao Linux portatil",
+    "blocking_issue": null,
+    "hardware_compatibility_percent": 55,
     "scoring_method": {
       "weights": {
         "FUNCIONAL": 1.0,
@@ -456,22 +471,23 @@
         "NAO SUPORTADO": 0.0,
         "NAO FUNCIONAL": 0.0
       },
-      "numerator": 15.5,
-      "denominator": 29,
+      "numerator": 16.5,
+      "denominator": 30,
       "total_subsystems": 34,
-      "excluded_not_tested": 5,
+      "excluded_not_tested": 4,
       "rule": "testes nao realizados nao sao contabilizados como aprovados nem como reprovados"
     },
     "dimension_scores": {
-      "compatibilidade_hardware": 53,
-      "estabilidade": 70,
+      "compatibilidade_hardware": 55,
+      "estabilidade": 65,
       "desempenho": 85,
-      "seguranca": 70,
-      "eficiencia_energetica": 40,
+      "seguranca": 78,
+      "eficiencia_energetica": 35,
       "manutenibilidade": 80,
       "reprodutibilidade": 60,
-      "experiencia_de_uso": 25
-    }
+      "experiencia_de_uso": 70
+    },
+    "blocking_note": "o que impede o nivel 4 e ausencia de validacao (sem SIM, sensores bloqueados por polkit, sem libcamera, suspensao nao exercida), nao defeito observado"
   },
   "audit_limitations": [
     "coleta privilegiada realizada em segunda etapa; dmesg, nft, sshd -T, wakeup_sources e rfkill verificados",

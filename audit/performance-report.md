@@ -160,4 +160,4 @@ pode ser inferido destes resultados.
 | GPU | ✅ Acelerada e escalando (ver [`graphics-analysis.md`](graphics-analysis.md)) |
 | Térmico | ✅ Saudável em repouso; **não caracterizado sob carga sustentada** |
 | Rede | ⚠️ Degradada por `power_save` — jitter e perda intermitente |
-| Fluidez da interface | ❓ **Não avaliável** — bloqueada pela falha do touchscreen |
+| Fluidez da interface | ❓ **Não medida** — a interface é operável por toque, mas a suavidade não foi quantificada remotamente |
