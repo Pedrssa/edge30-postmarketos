@@ -1,0 +1,13 @@
+### CLAIM ACCEL + LIGHT
+Call failed: Access denied
+Call failed: Access denied
+### LENDO 20s - GIRE O APARELHO AGORA
+t=03s orient=s "undefined" light=d 0 hasprox=b true
+t=06s orient=s "undefined" light=d 0 hasprox=b true
+t=09s orient=s "undefined" light=d 0 hasprox=b true
+t=12s orient=s "undefined" light=d 0 hasprox=b true
+t=15s orient=s "undefined" light=d 0 hasprox=b true
+t=18s orient=s "undefined" light=d 0 hasprox=b true
+t=21s orient=s "undefined" light=d 0 hasprox=b true
+Call failed: Access denied
+### fim

@@ -1,0 +1,15 @@
+21:58:15 cap=58 uV=3939116 uA=-310673 temp=330 status=Discharging 21:58:17 c21:58:35 cap=58 uV=3960525 uA=-199892 temp=330 status=Discharging load=0.05
+21:58:55 cap=58 uV=3960525 uA=-255130 temp=330 status=Discharging load=0.04
+21:59:15 cap=58 uV=3964223 uA=-233157 temp=330 status=Discharging load=0.10
+21:59:35 cap=58 uV=3962861 uA=-246890 temp=330 status=Discharging load=0.07
+21:59:55 cap=57 uV=3963445 uA=-209048 temp=330 status=Discharging load=0.05
+22:00:15 cap=57 uV=3964223 uA=-203555 temp=330 status=Discharging load=022:022:00:35 cap=57 uV=3962861 uA=-227359 temp=330 status=Discharg22:00:41 cap=522:00:55 cap=57 uV=3961499 uA=-223391 temp=330 statu22:00:59 cap=57 uV=3962422:01:15 cap=57 uV=3961693 uA=-209048 temp22:01:17 cap=57 uV=3945733 uA=-21122:01:36 cap=57 uV=3959941 uA=-206301 temp=330 status=Discharging load=0.10
+22:01:56 cap=57 uV=3959358 uA=-214236 temp=330 status=Discharging load=0.07
+22:02:16 cap=57 uV=3958774 uA=-224917 temp=330 status=Discharging load=0.05
+22:02:36 cap=57 uV=3958774 uA=-200198 temp=330 status=Discharging lo22:02:4722:02:56 cap=57 uV=3958384 uA=-215762 temp=330 status=Disc22:03:05 cap=57 uV22:03:16 cap=57 uV=3958774 uA=-212405 temp=330 s22:03:23 cap=57 uV=3952935 u22:03:36 cap=57 uV=3956438 uA=-201723 22:03:41 cap=57 uV=3957606 uA=-194094 22:03:56 cap=57 uV=3955854 uA=-221560 temp=330 status=Discharging load=0.01
+22:04:16 cap=57 uV=3953713 uA=-227053 temp=330 status=Discharging load=0.08
+22:04:36 cap=57 uV=3957022 uA=-215457 temp=330 status=Discharging load=0.26
+22:04:56 cap=57 uV=3951572 uA=-230105 temp=330 status=Discharging load=0.18
+22:05:16 cap=57 uV=3952351 uA=-218814 temp=330 status=Discharging load=0.13
+22:05:36 cap=57 uV=3954297 uA=-212405 temp=330 status=Discharging load=0.09
+22:05:56 cap=57 uV=3952351 uA=-233462 temp=330 status=Discharging load=0.07

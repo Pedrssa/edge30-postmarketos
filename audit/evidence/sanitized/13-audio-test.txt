@@ -1,0 +1,14 @@
+### VOLUME
+Volume: front-left: 0 /   0% / -inf dB,   front-right: 0 /   0% / -inf dB
+        balance 0.00
+Mute: yes
+### UNMUTE + 70%
+Volume: front-left: 45875 /  70% / -9.29 dB,   front-right: 45875 /  70% / -9.29 dB
+        balance 0.00
+### TOCANDO 3s de 440Hz
+/usr/sbin/speaker-test
+playback disparado
+### SINK STATE DURANTE/APOS
+0	alsa_output.platform-sound.HiFi__Speaker__sink	module-alsa-card.c	s16le 2ch 48000Hz	RUNNING
+### TOUCH IRQ BASELINE
+1346

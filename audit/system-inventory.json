@@ -1,0 +1,465 @@
+{
+  "metadata": {
+    "audit_date": "2026-11-24",
+    "audit_window_device_time": "21:43:00Z/22:25:00Z",
+    "auditor": "sessao assistida por LLM (Claude Opus 5 / Claude Code)",
+    "access_method": "SSH sobre Wi-Fi, usuario nao privilegiado, chave ed25519",
+    "privilege_level": "usuario comum (sem root)",
+    "read_only": true,
+    "authorized_state_changes": [
+      "ajuste de volume e mute do sink de audio (reversivel)",
+      "tentativa de reivindicacao de sensores via D-Bus (negada por polkit)"
+    ],
+    "sanitized": true
+  },
+  "device": {
+    "manufacturer": "Motorola",
+    "name": "Edge 30",
+    "model": "XT2203-1",
+    "codename": "motorola-dubai",
+    "released": 2022,
+    "dt_model": "Motorola Edge 30 (CSOT)",
+    "dt_compatible": [
+      "motorola,dubai",
+      "qcom,sm7325"
+    ],
+    "soc": "Qualcomm Snapdragon 778G+ (SM7325-AE)",
+    "kernel_family": "sc7280",
+    "architecture": "aarch64",
+    "serial": "<REDIGIDO>",
+    "imei": "<REDIGIDO>"
+  },
+  "operating_system": {
+    "id": "nura",
+    "id_like": "alpine",
+    "pretty_name": "Nura edge",
+    "version_id": "edge",
+    "channel": "edge",
+    "base": "Alpine Linux",
+    "upstream_project": "postmarketOS",
+    "home_url": "https://nura.eco/",
+    "init_system": "systemd",
+    "init_path": "/sbin/init -> ../lib/systemd/systemd",
+    "hostname": "motorola-dubai",
+    "uptime_at_audit_minutes": 31,
+    "note": "A distribuicao instalada e Nura, derivada do postmarketOS, e NAO postmarketOS puro. O init e systemd, nao OpenRC."
+  },
+  "kernel": {
+    "version": "7.2.9",
+    "build_id": "#3-postmarketos-qcom-sc7280",
+    "features": [
+      "SMP",
+      "PREEMPT"
+    ],
+    "compiler": "Alpine clang 23.1.3",
+    "linker": "LLD 23.1.3",
+    "build_date": "2026-10-17T01:53:13Z",
+    "package": "linux-postmarketos-qcom-sc7280-7.2.9-r2",
+    "architecture": "aarch64",
+    "panics": 0,
+    "oops": 0,
+    "failed_units": 0,
+    "dmesg_accessible": false,
+    "dmesg_restrict": 1
+  },
+  "hardware": {
+    "cpu": {
+      "cores": 8,
+      "clusters": [
+        {
+          "policy": "policy0",
+          "cpus": "0-3",
+          "part": "0xd05",
+          "uarch": "Cortex-A55",
+          "min_khz": 300000,
+          "max_khz": 1804800
+        },
+        {
+          "policy": "policy4",
+          "cpus": "4-6",
+          "part": "0xd41",
+          "uarch": "Cortex-A78",
+          "min_khz": 691200,
+          "max_khz": 2400000
+        },
+        {
+          "policy": "policy7",
+          "cpus": "7",
+          "part": "0xd41",
+          "uarch": "Cortex-A78 prime",
+          "min_khz": 806400,
+          "max_khz": 2515200
+        }
+      ],
+      "governor": "schedutil",
+      "bogomips": 38.4
+    },
+    "gpu": {
+      "model": "Adreno 642L",
+      "node": "3d00000.gpu",
+      "devfreq_governor": "simple_ondemand",
+      "idle_freq_hz": 315000000,
+      "max_observed_freq_hz": 608000000,
+      "transitions_observed": 191,
+      "ms_at_max_freq": 4876,
+      "hardware_accelerated": true,
+      "zap_firmware": "a660_zap.mbn"
+    },
+    "memory": {
+      "total_mb": 7368,
+      "used_mb": 637,
+      "available_mb": 6136,
+      "buff_cache_mb": 940,
+      "zram_swap_mb": 11052,
+      "zram_used_mb": 0
+    },
+    "display": {
+      "connector": "card0-DSI-1",
+      "status": "connected",
+      "enabled": true,
+      "dpms": "On",
+      "resolution": "1080x2400",
+      "panel": "CSOT Novatek NT37701",
+      "panel_variant_package": "device-motorola-dubai-kernel-csot-2-r0",
+      "backlight_device": "ae94000.dsi.0",
+      "backlight_current": 1079,
+      "backlight_max": 3514,
+      "refresh_rate_verified": false
+    },
+    "storage": {
+      "type": "UFS 3.1",
+      "vendor": "MICRON",
+      "controller": "1d84000.ufshc",
+      "rootfs": {
+        "device": "loop0p2",
+        "backing": "sde27",
+        "filesystem": "ext4",
+        "size_gb": 227,
+        "used_gb": 5.9,
+        "used_percent": 3,
+        "encrypted": false
+      },
+      "boot": {
+        "device": "loop0p1",
+        "size_mb": 478.8,
+        "used_mb": 133.5
+      },
+      "sequential_write_mbs_fsync": 499.4
+    },
+    "touchscreen": {
+      "controller": "Goodix GT9916",
+      "driver": "goodix-berlin-spi",
+      "bus": "SPI",
+      "device": "spi13.0",
+      "modalias": "spi:gt9916",
+      "input_node": "input3",
+      "event_node": "/dev/input/event3",
+      "irq": 170,
+      "irq_chip": "msmgpio",
+      "irq_hwirq": 81,
+      "irq_type": "Level",
+      "irq_count_frozen_at": 1346,
+      "functional": false
+    },
+    "remoteprocs": [
+      {
+        "node": "remoteproc0",
+        "name": "modem",
+        "state": "running"
+      },
+      {
+        "node": "remoteproc1",
+        "name": "adsp",
+        "state": "running"
+      },
+      {
+        "node": "remoteproc2",
+        "name": "wpss",
+        "state": "running"
+      },
+      {
+        "node": "remoteproc3",
+        "name": "cdsp",
+        "state": "running"
+      }
+    ],
+    "thermal_zones_count": 39,
+    "thermal_range_celsius": {
+      "min": 32.8,
+      "max": 37.2
+    },
+    "i2c_devices": {
+      "1-0034": "aw88261 (amplificador de audio)",
+      "1-0035": "aw88261 (amplificador de audio)",
+      "17-000c": "ak7375 (VCM de autofoco)",
+      "17-0050": "gt24p128e (eeprom)",
+      "17-0056": "s5kjn1 (sensor de camera Samsung)",
+      "19-0037": "gc02m1b (sensor de camera GalaxyCore)",
+      "4-0029": "wl2864c (PMIC de camera)",
+      "4-0042": "fsa4480 (comutador de audio USB-C)"
+    }
+  },
+  "power": {
+    "battery_driver": "qcom-battmgr via pmic-glink (ADSP)",
+    "compatible": "qcom,sm7325-pmic-glink",
+    "capacity_percent": 58,
+    "voltage_now_uv": 3950015,
+    "voltage_ocv_uv": 4236999,
+    "voltage_max_uv": 4480000,
+    "current_now_ua": -406499,
+    "current_mean_idle_ua": -225300,
+    "idle_power_watts": 0.89,
+    "temperature_celsius": 33.0,
+    "technology": "Li-ion",
+    "health": "Good",
+    "state_of_health": 100,
+    "internal_resistance_uohm": 148079,
+    "charge_counter_uah": 2328868,
+    "cycle_count_reported": 0,
+    "cycle_count_reliable": false,
+    "status": "Discharging",
+    "charger_online": false,
+    "suspend": {
+      "states_available": [
+        "freeze",
+        "mem"
+      ],
+      "mem_sleep_modes": [
+        "s2idle",
+        "deep"
+      ],
+      "mem_sleep_default": "deep",
+      "success_count": 0,
+      "fail_count": 0,
+      "ever_suspended": false,
+      "tested": false
+    },
+    "autonomy_estimate": null,
+    "autonomy_note": "Nao estimavel: janela de 7min41s cobre apenas o estado de repouso e a suspensao nunca foi exercida.",
+    "current_median_idle_ua": -220200,
+    "samples_count": 20
+  },
+  "network": {
+    "wifi": {
+      "chip": "Qualcomm WCN6750",
+      "interface": "wlan0",
+      "state": "connected",
+      "band_ghz": 5,
+      "frequency_mhz": 5180,
+      "standard": "Wi-Fi 6 (HE)",
+      "rx_bitrate_mbps": 206.4,
+      "tx_bitrate_mbps": 432.3,
+      "signal_dbm": -66,
+      "power_save": "on"
+    },
+    "latency_test_1": {
+      "packets": 20,
+      "loss_percent": 0,
+      "min_ms": 4,
+      "avg_ms": 70,
+      "max_ms": 125
+    },
+    "latency_test_2": {
+      "packets": 3,
+      "loss_percent": 33,
+      "min_ms": 101,
+      "avg_ms": 121,
+      "max_ms": 141
+    },
+    "ssh_session_drops": 1,
+    "ssh_drop_caused_reboot": false,
+    "modem": {
+      "manufacturer": "QUALCOMM INCORPORATED",
+      "firmware": "MPSS.HI.4.3.3.c6-00041-LC_ALL_PACK-1.501167.141",
+      "physdev": "/sys/devices/platform/soc@0/1e40000.ipa",
+      "drivers": [
+        "ipa",
+        "qrtr"
+      ],
+      "plugin": "qcom-soc",
+      "ports": [
+        "qrtr0 (qmi)",
+        "rmnet_ipa0 (net)"
+      ],
+      "supported_modes": [
+        "gsm-umts",
+        "lte",
+        "5gnr"
+      ],
+      "state": "failed",
+      "failed_reason": "sim-missing",
+      "power_state": "off",
+      "sim_present": false,
+      "note": "SIM ausente confirmado pelo usuario. O firmware carregou e a pilha QMI esta operante; nao e defeito do port."
+    },
+    "bluetooth": {
+      "chip": "Qualcomm WCN6750",
+      "driver": "btqca",
+      "transport": "UART",
+      "hci": "hci0",
+      "state": "DOWN",
+      "rfkill_soft_blocked": true,
+      "rfkill_hard_blocked": false,
+      "powered": false,
+      "power_state": "off-blocked",
+      "hci_commands_sent": 1781,
+      "hci_errors": 0,
+      "bd_address_is_placeholder": true
+    },
+    "listening_ports": [
+      {
+        "port": 22,
+        "proto": "tcp",
+        "service": "OpenSSH 10.6",
+        "scope": "all"
+      },
+      {
+        "port": 5353,
+        "proto": "udp",
+        "service": "avahi-daemon (mDNS)",
+        "scope": "all"
+      },
+      {
+        "port": 5355,
+        "proto": "tcp+udp",
+        "service": "systemd-resolved (LLMNR)",
+        "scope": "all"
+      },
+      {
+        "port": 67,
+        "proto": "udp",
+        "service": "unudhcpd@usb0",
+        "scope": "usb0"
+      },
+      {
+        "port": 53,
+        "proto": "tcp+udp",
+        "service": "systemd-resolved",
+        "scope": "loopback"
+      }
+    ]
+  },
+  "graphics_stack": {
+    "mesa_version": "26.2.6",
+    "packages": [
+      "mesa-dri-gallium",
+      "mesa-egl",
+      "mesa-gbm",
+      "mesa-gl",
+      "mesa-gles",
+      "mesa-vulkan-freedreno"
+    ],
+    "gallium_driver": "freedreno",
+    "vulkan_driver": "turnip",
+    "vulkan_loader": "libvulkan.so.1.4.360",
+    "drm_driver": "qcom,sc7280-dpu",
+    "dri_nodes": [
+      "/dev/dri/card0",
+      "/dev/dri/renderD128"
+    ],
+    "compositor": "phoc 0.58.0",
+    "shell": "phosh 0.58.0",
+    "display_server": "Wayland",
+    "greeter": "greetd",
+    "osk": "phosh-osk-stevia",
+    "render_node_held_by_compositor": true,
+    "eglinfo_available": false,
+    "vulkaninfo_available": false
+  },
+  "software": {
+    "package_manager": "apk",
+    "packages_installed": 1326,
+    "repositories": [
+      "https://mirror.nura.eco/postmarketos/extra-repos/systemd/main",
+      "https://mirror.nura.eco/postmarketos/main",
+      "https://dl-cdn.alpinelinux.org/alpine/edge/main",
+      "https://dl-cdn.alpinelinux.org/alpine/edge/community",
+      "https://dl-cdn.alpinelinux.org/alpine/edge/testing"
+    ],
+    "signing_keys_count": 19,
+    "broken_dependencies": 0,
+    "device_packages": [
+      "device-motorola-dubai-2-r0",
+      "device-motorola-dubai-kernel-csot-2-r0",
+      "firmware-motorola-dubai-20250428-r1"
+    ],
+    "audio_backend_conflict": {
+      "pulseaudio_running": true,
+      "pipewire_running": true,
+      "wireplumber_running": true,
+      "official_recommendation": "pipewire",
+      "severity": "ALTO"
+    },
+    "running_services_count": 37,
+    "failed_services_count": 0
+  },
+  "security": {
+    "randomize_va_space": 2,
+    "kptr_restrict": 0,
+    "dmesg_restrict": 1,
+    "unprivileged_bpf_disabled": 1,
+    "lsm": [
+      "lockdown",
+      "capability",
+      "yama",
+      "bpf"
+    ],
+    "mandatory_access_control": false,
+    "root_ssh_login": false,
+    "passwordless_sudo": false,
+    "disk_encryption": false,
+    "bootloader_unlocked": true,
+    "verified_boot_state": "orange",
+    "vbmeta_device_state": "unlocked",
+    "firewall_ruleset_readable": false,
+    "suid_binaries_count": 12,
+    "suid_anomalies": 0,
+    "cpu_vulnerabilities_mitigated": [
+      "spectre_v1",
+      "spectre_v2",
+      "spec_store_bypass"
+    ],
+    "cve_scan_performed": false
+  },
+  "maturity": {
+    "level": 2,
+    "level_name": "Sistema operacional funcional",
+    "blocking_issue": "touchscreen nao funcional (A-01)",
+    "hardware_compatibility_percent": 50,
+    "scoring_method": {
+      "weights": {
+        "FUNCIONAL": 1.0,
+        "PARCIALMENTE FUNCIONAL": 0.5,
+        "DETECTADO E BLOQUEADO": 0.5,
+        "DETECTADO NAO VALIDADO": 0.0,
+        "NAO SUPORTADO": 0.0,
+        "NAO FUNCIONAL": 0.0
+      },
+      "numerator": 14.5,
+      "denominator": 29,
+      "total_subsystems": 34,
+      "excluded_not_tested": 5,
+      "rule": "testes nao realizados nao sao contabilizados como aprovados nem como reprovados"
+    },
+    "dimension_scores": {
+      "compatibilidade_hardware": 50,
+      "estabilidade": 70,
+      "desempenho": 85,
+      "seguranca": 55,
+      "eficiencia_energetica": 40,
+      "manutenibilidade": 80,
+      "reprodutibilidade": 60,
+      "experiencia_de_uso": 25
+    }
+  },
+  "audit_limitations": [
+    "sem acesso root: dmesg completo, wakeup_sources, regras nft, sshd -T efetivo e rfkill inacessiveis",
+    "sem SIM inserido: telefonia, dados moveis e GPS nao verificaveis",
+    "sem libcamera instalada: nenhuma captura de imagem possivel",
+    "sessao Wayland inacessivel por SSH: eglinfo e vulkaninfo nao executaveis",
+    "medicao de bateria limitada a 7min41s em repouso: autonomia nao estimavel",
+    "suspensao nao testada por risco de perder o unico canal de acesso",
+    "nenhum teste de estresse prolongado: comportamento termico sob carga sustentada desconhecido",
+    "nenhum cruzamento de CVE sobre o inventario de pacotes"
+  ]
+}

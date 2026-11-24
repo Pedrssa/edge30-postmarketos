@@ -24,13 +24,18 @@ afirmação é marcada por grau de confirmação — nada é pintado de verde se
 | | |
 |---|---|
 | **Alvo** | Motorola Edge 30 · `XT2203-1` · `dubai` · SoC SD 778G+ (SM7325 / sc7280) · ARM64 |
-| **Sistema** | postmarketOS (**Nura**, canal *edge*) · base Alpine · **Phosh** / Wayland |
+| **Sistema** | **Nura edge** (derivada do postmarketOS) · base Alpine · **systemd** · **Phosh** / Wayland |
+| **Kernel** | `7.2.9 #3-postmarketos-qcom-sc7280` · clang 23.1.3 · build 17/10/2026 ✅ *confirmado no aparelho* |
 | **Build** | `pmbootstrap` em VM Ubuntu (VirtualBox) · gravação por `fastboot` |
-| **Comprovado** | ✅ boot em Linux · ✅ GUI Phosh · ✅ Wi‑Fi · ✅ SSH · ✅ `apk` + rollback |
-| **Não testado** | ❔ áudio · modem/chamadas · dados móveis · GPU · câmera · Bluetooth · NFC · sensores · bateria |
-| **Reconstruído** | ⚠️ passos de destravamento e gravação (sem log de flash capturado) |
+| **Comprovado** | ✅ boot · ✅ Phosh · ✅ **GPU acelerada** · ✅ Wi‑Fi 6 · ✅ SSH · ✅ **áudio + microfone** · ✅ **bateria** · ✅ botões · ✅ UFS · ✅ `apk` |
+| **Falha crítica** | 🔴 **touchscreen não entrega eventos** — aparelho só é operável por SSH |
+| **Bloqueado** | ⚠️ modem (sem SIM) · Bluetooth (`rfkill`) · sensores (polkit) · câmera (sem libcamera) |
+| **Maturidade** | **Nível 2 — Sistema operacional funcional** · compatibilidade de hardware **50%** |
 
 > Legenda completa e tabela de rastreabilidade: [`docs/evidencias.md`](docs/evidencias.md).
+> **Auditoria executada no aparelho em 24/11/2026:** [`audit/`](audit/) — 34 subsistemas
+> classificados com evidência, 7 problemas diagnosticados, painel offline em
+> [`audit/dashboard.html`](audit/dashboard.html).
 
 ---
 
@@ -56,6 +61,19 @@ edge30-postmarketos/
 │   ├── CREDITOS.md                ← fontes, licenças e marcas
 │   └── preview/                   ← capturas de validação dos slides
 ├── evidence/                      ← evidências sanitizadas (sem segredos)
+├── audit/                         ← AUDITORIA NO APARELHO (24/11/2026)
+│   ├── executive-summary.md        ← veredito, pontuação e limites
+│   ├── hardware-compatibility.csv  ← matriz dos 34 subsistemas
+│   ├── kernel-analysis.md          ← kernel, drivers e o caso do touchscreen
+│   ├── graphics-analysis.md        ← prova de aceleração por hardware
+│   ├── security-audit.md           ← postura defensiva do aparelho
+│   ├── performance-report.md       ← CPU, memória, disco, rede
+│   ├── battery-analysis.md         ← 20 amostras de consumo real
+│   ├── upstream-comparison.md      ← matriz oficial × auditoria
+│   ├── remediation-plan.md         ← 7 problemas com rollback e aceite
+│   ├── dashboard.html              ← painel offline com gráficos
+│   ├── evidence/sanitized/         ← saídas brutas redigidas
+│   └── scripts/                    ← collect-diagnostics.sh (testado no device)
 └── scripts/                       ← geradores (gen_pptx / gen_docx / gen_pdf)
 ```
 

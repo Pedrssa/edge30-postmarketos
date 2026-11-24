@@ -1,0 +1,250 @@
+{
+  "metadata": {
+    "audit_date": "2026-11-24",
+    "device": "Motorola Edge 30 (motorola-dubai, XT2203-1)",
+    "os": "Nura edge (base postmarketOS/Alpine)",
+    "kernel": "7.2.9 #3-postmarketos-qcom-sc7280",
+    "access": "SSH, usuario nao privilegiado",
+    "timezone": "GMT (horario do aparelho)",
+    "result_vocabulary": [
+      "PASS - comportamento validado empiricamente",
+      "FAIL - comportamento esperado nao ocorreu sob teste valido",
+      "BLOCKED - teste impedido por permissao ou pre-requisito ausente",
+      "NOT_RUN - teste nao executado por decisao de escopo ou risco",
+      "INCONCLUSIVE - teste executado, resultado nao decisivo"
+    ]
+  },
+
+  "summary": {
+    "total": 28,
+    "pass": 17,
+    "fail": 3,
+    "blocked": 4,
+    "not_run": 3,
+    "inconclusive": 1
+  },
+
+  "tests": [
+    {
+      "id": "T-01", "subsystem": "rede/descoberta", "name": "Localizar o aparelho na LAN",
+      "method": "nmap -sn na sub-rede local autorizada, seguido de varredura da porta 22 nos candidatos",
+      "result": "PASS",
+      "evidence": "host com SSH aberto identificado; OpenSSH 10.6 no banner",
+      "timestamp": "21:50"
+    },
+    {
+      "id": "T-02", "subsystem": "rede/autenticacao", "name": "Identificacao positiva do host",
+      "method": "comparacao da chave publica ed25519 com a entrada previa em known_hosts",
+      "result": "PASS",
+      "evidence": "chave identica byte a byte a do IP anterior; mesmo host com IP novo por DHCP. StrictHostKeyChecking mantido ativo.",
+      "timestamp": "21:52"
+    },
+    {
+      "id": "T-03", "subsystem": "acesso", "name": "Login SSH por chave",
+      "method": "ssh -o BatchMode=yes com chave ed25519 dedicada",
+      "result": "PASS",
+      "evidence": "uid=10000(user) groups=wheel,netdev,plugdev,feedbackd",
+      "timestamp": "21:54"
+    },
+    {
+      "id": "T-04", "subsystem": "acesso", "name": "Login direto como root por SSH",
+      "method": "tentativa com a mesma chave",
+      "result": "PASS",
+      "expected": "negado",
+      "evidence": "Permission denied (publickey,password,keyboard-interactive) - comportamento seguro desejado",
+      "timestamp": "21:54"
+    },
+    {
+      "id": "T-05", "subsystem": "sistema", "name": "Identificacao de distribuicao e init",
+      "method": "leitura de /etc/os-release e ls -l /sbin/init",
+      "result": "PASS",
+      "evidence": "ID=nura, ID_LIKE=alpine; /sbin/init -> systemd. Contradiz a premissa de postmarketOS puro com OpenRC.",
+      "timestamp": "21:55"
+    },
+    {
+      "id": "T-06", "subsystem": "kernel", "name": "Confirmar versao do kernel por leitura direta",
+      "method": "uname -a e /proc/version",
+      "result": "PASS",
+      "evidence": "7.2.9 #3-postmarketos-qcom-sc7280, clang 23.1.3, build 2026-10-17. Resolve a pendencia P-02.",
+      "timestamp": "21:55"
+    },
+    {
+      "id": "T-07", "subsystem": "kernel", "name": "Integridade de servicos",
+      "method": "systemctl --failed",
+      "result": "PASS",
+      "evidence": "0 unidades em falha; 37 servicos em execucao",
+      "timestamp": "21:56"
+    },
+    {
+      "id": "T-08", "subsystem": "kernel", "name": "Estado dos remote processors",
+      "method": "leitura de /sys/class/remoteproc/*/state",
+      "result": "PASS",
+      "evidence": "modem, adsp, wpss e cdsp todos em running",
+      "timestamp": "21:56"
+    },
+    {
+      "id": "T-09", "subsystem": "kernel", "name": "Busca por panic, oops e falhas de probe",
+      "method": "journalctl -b -p err (dmesg restrito)",
+      "result": "INCONCLUSIVE",
+      "evidence": "nenhum panic/oops/deferred probe visivel, porem dmesg_restrict=1 impede leitura completa; falhas silenciosas nao seriam detectadas por este metodo",
+      "timestamp": "21:57"
+    },
+    {
+      "id": "T-10", "subsystem": "gpu", "name": "Aceleracao grafica por hardware",
+      "method": "descritores de /dev/dri/renderD128 abertos por phoc + historico de devfreq",
+      "result": "PASS",
+      "evidence": "5 fds em renderD128; libgallium-26.2.6, libEGL, libGLESv2 e libvulkan mapeados; GPU escalou de 315 a 608 MHz com 191 transicoes e 4876 ms no pico",
+      "timestamp": "22:02"
+    },
+    {
+      "id": "T-11", "subsystem": "display", "name": "Estado do painel",
+      "method": "sysfs DRM e backlight",
+      "result": "PASS",
+      "evidence": "card0-DSI-1 connected/enabled/dpms=On, 1080x2400, backlight 1079 de 3514",
+      "timestamp": "22:03"
+    },
+    {
+      "id": "T-12", "subsystem": "touchscreen", "name": "Entrega de eventos de toque",
+      "method": "contagem da IRQ 170 em /proc/interrupts durante 30 s de toque fisico continuo, com display verificado como aceso",
+      "result": "FAIL",
+      "evidence": "contador imovel em 1346; spurious=0; unhandled=0; backlight 1079 e dpms=On durante todo o teste; toque confirmado pelo usuario",
+      "severity": "CRITICO",
+      "issue_id": "A-01",
+      "timestamp": "22:12"
+    },
+    {
+      "id": "T-13", "subsystem": "botoes", "name": "Eventos de botao fisico",
+      "method": "delta da IRQ 117 (pmic_resin) apos pressionamento fisico",
+      "result": "PASS",
+      "evidence": "contador subiu de 0 para 4 apos o usuario pressionar o botao de volume",
+      "timestamp": "22:09"
+    },
+    {
+      "id": "T-14", "subsystem": "audio", "name": "Reproducao pelo alto-falante",
+      "method": "speaker-test com tom senoidal de 440 Hz via PulseAudio, com confirmacao auditiva humana",
+      "result": "PASS",
+      "evidence": "sink HiFi__Speaker__sink entrou em RUNNING a 48 kHz; usuario confirmou que o tom foi audivel",
+      "note": "o sink iniciava mutado e com volume 0% - corrigido para 70% durante o teste",
+      "timestamp": "22:07"
+    },
+    {
+      "id": "T-15", "subsystem": "audio", "name": "Captura pelo microfone",
+      "method": "parecord por 4 s, medindo apenas o nivel de sinal; audio descartado imediatamente",
+      "result": "PASS",
+      "evidence": "1042600 bytes capturados com sinal nao nulo",
+      "privacy_note": "nenhum audio foi retido ou transmitido",
+      "timestamp": "22:08"
+    },
+    {
+      "id": "T-16", "subsystem": "audio", "name": "Conflito de servidores de som",
+      "method": "pgrep de pulseaudio/pipewire/wireplumber e inspecao de pacotes",
+      "result": "FAIL",
+      "evidence": "pulseaudio (3445), pipewire (5231) e wireplumber (5232) ativos simultaneamente; log registra 'pipewire-pulse.socket: refusing' e 'Daemon already running'",
+      "severity": "ALTO",
+      "issue_id": "A-02",
+      "timestamp": "22:05"
+    },
+    {
+      "id": "T-17", "subsystem": "wifi", "name": "Conectividade e taxa de enlace",
+      "method": "iw dev wlan0 link e uso real da sessao",
+      "result": "PASS",
+      "evidence": "5 GHz, Wi-Fi 6 HE, RX 206,4 / TX 432,3 Mbit/s, sinal -66 dBm; sessao SSH sustentada por ~40 min",
+      "timestamp": "21:58"
+    },
+    {
+      "id": "T-18", "subsystem": "wifi", "name": "Estabilidade e latencia",
+      "method": "duas series de ping a partir do host",
+      "result": "FAIL",
+      "expected": "perda 0% e jitter baixo",
+      "evidence": "1a serie: 0% de perda, 4-125 ms. 2a serie: 33% de perda, media 121 ms. Uma queda de sessao SSH sem reboot (uptime continuo). power_save=on.",
+      "severity": "MEDIO",
+      "issue_id": "A-06",
+      "timestamp": "22:14"
+    },
+    {
+      "id": "T-19", "subsystem": "bluetooth", "name": "Ativacao do controlador",
+      "method": "bluetoothctl power on e scan, seguidos de rfkill list",
+      "result": "BLOCKED",
+      "evidence": "Soft blocked=yes; power on falhou com org.bluez.Error.Failed; scan retornou NotReady. Controlador responde (1781 comandos HCI, 0 erros). Remocao do bloqueio exige root.",
+      "severity": "MEDIO",
+      "issue_id": "A-05",
+      "timestamp": "22:06"
+    },
+    {
+      "id": "T-20", "subsystem": "modem", "name": "Inicializacao do modem",
+      "method": "mmcli -m 0 e journalctl -u ModemManager",
+      "result": "BLOCKED",
+      "evidence": "firmware MPSS carregado, QMI sobre qrtr0 operante, suporta gsm-umts/lte/5gnr; estado failed por 'sim-missing' com ausencia de SIM confirmada pelo usuario",
+      "note": "nao e defeito do port",
+      "timestamp": "22:04"
+    },
+    {
+      "id": "T-21", "subsystem": "sensores", "name": "Leitura de acelerometro, luz e proximidade",
+      "method": "busctl introspect em net.hadess.SensorProxy e tentativa de Claim durante rotacao fisica do aparelho",
+      "result": "BLOCKED",
+      "evidence": "HasAccelerometer=true, HasAmbientLight=true, HasProximity=true; ClaimAccelerometer e ClaimLight negados com 'Access denied' por polkit em sessao SSH sem seat grafico; AccelerometerOrientation permaneceu undefined",
+      "note": "limitacao do metodo, nao evidencia de falha de hardware",
+      "timestamp": "22:18"
+    },
+    {
+      "id": "T-22", "subsystem": "camera", "name": "Captura de imagem",
+      "method": "verificacao de libcamera e enumeracao v4l2",
+      "result": "BLOCKED",
+      "evidence": "qcom_camss carregado com 19 /dev/video e 30 v4l-subdev; sensores s5kjn1 e gc02m1b presentes; utilitario 'cam' do libcamera ausente e instalar violaria o escopo somente-leitura",
+      "timestamp": "22:04"
+    },
+    {
+      "id": "T-23", "subsystem": "armazenamento", "name": "Escrita sequencial no rootfs",
+      "method": "dd de 128 MiB com conv=fsync, seguido de remocao do arquivo",
+      "result": "PASS",
+      "evidence": "499,4 MB/s",
+      "timestamp": "22:05"
+    },
+    {
+      "id": "T-24", "subsystem": "bateria", "name": "Medicao de consumo em repouso",
+      "method": "24 amostras de current_now, voltage_now e temp em intervalos de 20 s",
+      "result": "PASS",
+      "evidence": "media de -210 mA a 3,95 V (~0,83 W); temperatura constante em 33,0 C; SOH=100; resistencia interna 148 mOhm",
+      "limitation": "7min41s em um unico estado nao permite estimar autonomia",
+      "timestamp": "21:58-22:06"
+    },
+    {
+      "id": "T-25", "subsystem": "energia", "name": "Suspensao do sistema",
+      "method": "nao executado",
+      "result": "NOT_RUN",
+      "evidence": "suspend_stats success=0 e fail=0 indicam que o aparelho nunca suspendeu; teste omitido por risco de encerrar o unico canal de acesso SSH",
+      "issue_id": "A-04"
+    },
+    {
+      "id": "T-26", "subsystem": "telefonia", "name": "Chamadas, SMS e dados moveis",
+      "method": "nao executado",
+      "result": "NOT_RUN",
+      "evidence": "sem SIM inserido; VoiceMMode1 presente no ALSA e modulos q6voice carregados, mas validacao impossivel"
+    },
+    {
+      "id": "T-27", "subsystem": "gps", "name": "Fixo de posicao",
+      "method": "nao executado",
+      "result": "NOT_RUN",
+      "evidence": "sem dispositivo gnss dedicado; ModemManager tentou carregar SUPL e assistance data, indicando capacidade via modem, bloqueada pelo estado do modem"
+    },
+    {
+      "id": "T-28", "subsystem": "seguranca", "name": "Protecoes de kernel e superficie de rede",
+      "method": "leitura de sysctl, LSM, portas em escuta, SUID e chaves apk",
+      "result": "PASS",
+      "evidence": "ASLR=2, dmesg_restrict=1, unprivileged_bpf_disabled=1, 12 SUID padrao sem anomalias, repositorios assinados",
+      "findings": "kptr_restrict=0, sem MAC (SELinux/AppArmor), LLMNR exposto, sem criptografia de disco, bootloader destravado",
+      "issue_ids": ["A-03", "A-07"],
+      "timestamp": "22:04"
+    }
+  ],
+
+  "issues_found": [
+    {"id": "A-01", "severity": "CRITICO", "subsystem": "touchscreen", "summary": "Goodix GT9916 nao emite interrupcoes em runtime"},
+    {"id": "A-02", "severity": "ALTO", "subsystem": "audio", "summary": "PulseAudio e PipeWire em execucao simultanea"},
+    {"id": "A-03", "severity": "ALTO", "subsystem": "seguranca", "summary": "Armazenamento sem criptografia com bootloader destravado"},
+    {"id": "A-04", "severity": "MEDIO", "subsystem": "energia", "summary": "Suspensao nunca exercida e consumo ocioso de 0,83 W"},
+    {"id": "A-05", "severity": "MEDIO", "subsystem": "bluetooth", "summary": "Bloqueio rfkill persistente"},
+    {"id": "A-06", "severity": "MEDIO", "subsystem": "rede", "summary": "power_save do Wi-Fi degrada latencia e estabilidade"},
+    {"id": "A-07", "severity": "BAIXO", "subsystem": "seguranca", "summary": "kptr_restrict=0, LLMNR exposto, firewall nao verificado"}
+  ]
+}

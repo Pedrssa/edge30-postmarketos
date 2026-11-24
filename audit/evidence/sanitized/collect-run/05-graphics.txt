@@ -1,0 +1,128 @@
+
+===== nós DRM =====
+$ ls -l /dev/dri/
+total 0
+drwxr-xr-x    2 root     root            80 Nov 24 21:43 by-path
+crw-rw----    1 root     video     226,   0 Nov 24 21:44 card0
+crw-rw-rw-    1 root     render    226, 128 Nov 24 21:43 renderD128
+[exit=0]
+
+===== conectores =====
+$ ls /sys/class/drm/
+card0
+card0-DSI-1
+card0-Writeback-1
+renderD128
+version
+[exit=0]
+
+===== painel =====
+--- /sys/class/drm/card0-DSI-1/status ---
+connected
+
+--- /sys/class/drm/card0-DSI-1/modes ---
+1080x2400
+1080x2400
+1080x2400
+1080x2400
+1080x2400
+
+--- /sys/class/drm/card0-DSI-1/enabled ---
+enabled
+
+
+===== devfreq (GPU) =====
+--- 1d84000.ufshc ---
+governor=simple_ondemand cur_freq=75000000
+     From  :   To
+           :  75000000 150000000 300000000   time(ms)
+*  75000000:         0         0        13     34704
+  150000000:         7         0         1       796
+  300000000:         7         8         0      1952
+Total transition : 36
+--- 3d00000.gpu ---
+governor=simple_ondemand cur_freq=315000000
+     From  :   To
+           : 315000000 450000000 550000000 608000000   time(ms)
+* 315000000:         0         0         0       158     33496
+  450000000:         2         0         0         0       120
+  550000000:         0         0         0         0         0
+  608000000:       157         2         0         0      8168
+Total transition : 319
+
+===== clientes do render node =====
+pid=3281 comm=phoc fds_renderD=5
+pid=3353 comm=gnome-session-i fds_renderD=0
+pid=3376 comm=gnome-session-s fds_renderD=0
+pid=3382 comm=phosh fds_renderD=0
+pid=3731 comm=phosh-osk-stevi fds_renderD=0
+pid=5209 comm=xdg-desktop-por fds_renderD=0
+
+===== drivers mesa =====
+$ ls /usr/lib/dri/
+apple_dri.so
+armada-drm_dri.so
+asahi_dri.so
+etnaviv_dri.so
+exynos_dri.so
+gm12u320_dri.so
+hdlcd_dri.so
+hx8357d_dri.so
+ili9163_dri.so
+ili9225_dri.so
+ili9341_dri.so
+ili9486_dri.so
+imx-dcss_dri.so
+imx-drm_dri.so
+imx-lcdif_dri.so
+ingenic-drm_dri.so
+kgsl_dri.so
+kirin_dri.so
+kms_swrast_dri.so
+komeda_dri.so
+libdril_dri.so
+lima_dri.so
+mali-dp_dri.so
+mcde_dri.so
+mediatek_dri.so
+meson_dri.so
+mi0283qt_dri.so
+msm_dri.so
+mxsfb-drm_dri.so
+nouveau_dri.so
+panel-mipi-dbi_dri.so
+panfrost_dri.so
+panthor_dri.so
+pl111_dri.so
+r600_dri.so
+radeonsi_dri.so
+rcar-du_dri.so
+repaper_dri.so
+rockchip-ebc_dri.so
+rockchip_dri.so
+rzg2l-du_dri.so
+ssd130x_dri.so
+st7586_dri.so
+st7735r_dri.so
+sti_dri.so
+stm_dri.so
+sun4i-drm_dri.so
+swrast_dri.so
+tegra_dri.so
+udl_dri.so
+v3d_dri.so
+vc4_dri.so
+virtio_gpu_dri.so
+vkms_dri.so
+vmwgfx_dri.so
+zink_dri.so
+zynqmp-dpsub_dri.so
+[exit=0]
+
+===== eglinfo =====
+$ eglinfo
+[AUSENTE] ferramenta "eglinfo" não encontrada
+
+===== vulkaninfo =====
+$ vulkaninfo --summary
+[AUSENTE] ferramenta "vulkaninfo" não encontrada

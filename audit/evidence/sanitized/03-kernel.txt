@@ -1,0 +1,99 @@
+### DMESG ERR
+
+### DEFERRED
+sem acesso
+### REMOTEPROC
+remoteproc0: modem -> running
+remoteproc1: adsp -> running
+remoteproc2: wpss -> running
+remoteproc3: cdsp -> running
+### DRM
+total 0
+drwxr-xr-x    2 root     root            80 Nov 24 21:43 by-path
+crw-rw----    1 root     video     226,   0 Nov 24 21:44 card0
+crw-rw-rw-    1 root     render    226, 128 Nov 24 21:43 renderD128
+### DRM DRIVER
+/sys/class/drm/card0-DSI-1/
+/sys/class/drm/card0-Writeback-1/
+/sys/class/drm/card0/
+### MODULES
+Module                  Size  Used by
+binfmt_misc            24576  1
+rfcomm                 94208  4
+algif_hash             16384  1
+algif_skcipher         16384  1
+bnep                   32768  2
+snd_usb_audio_qmi      36864  0
+q6voice_dai            28672  1
+q6voice                20480  1 q6voice_dai
+q6cvs                  12288  0
+q6mvm                  12288  1 q6voice
+q6cvp                  16384  1 q6voice
+q6usb                  12288  1
+q6voice_common         20480  4 q6cvp,q6voice,q6mvm,q6cvs
+fastrpc                36864  0
+snd_soc_sm8250         12288  3
+snd_soc_qcom_offload_utils    12288  1 snd_soc_sm8250
+snd_soc_qcom_sdw       12288  1 snd_soc_sm8250
+snd_soc_qcom_common    12288  1 snd_soc_sm8250
+soc_usb                16384  3 snd_soc_qcom_offload_utils,q6usb,snd_usb_audio_qmi
+qcom_pd_mapper         28672  0
+hci_uart               98304  0
+btqca                  28672  1 hci_uart
+snd_usb_audio         544768  2 soc_usb,snd_usb_audio_qmi
+btbcm                  24576  1 hci_uart
+bluetooth             987136  30 btqca,hci_uart,btbcm,bnep,rfcomm
+snd_ump                32768  1 snd_usb_audio
+snd_hwdep              24576  1 snd_usb_audio
+qcom_iris             184320  0
+ecdh_generic           16384  1 bluetooth
+snd_usbmidi_lib        49152  1 snd_usb_audio
+ledtrig_pattern        16384  0
+ecc                    53248  1 ecdh_generic
+qcom_camss            679936  15
+snd_rawmidi            45056  2 snd_usbmidi_lib,snd_ump
+fsa4480                16384  4
+pwrseq_qcom_wcn        16384  1
+s5kjn1                 28672  3
+at24                   28672  0
+videobuf2_dma_contig    24576  1 qcom_iris
+### THERMAL
+thermal_zone0 aoss0-thermal 36000
+thermal_zone1 cpu0-thermal 36800
+thermal_zone10 cpu7-thermal 35600
+thermal_zone11 cpu8-thermal 36400
+thermal_zone12 cpu9-thermal 36000
+thermal_zone13 cpu10-thermal 36800
+thermal_zone14 cpu11-thermal 35600
+thermal_zone15 aoss1-thermal 35500
+thermal_zone16 gpuss0-thermal 35100
+thermal_zone17 gpuss1-thermal 35500
+thermal_zone18 nspss0-thermal 34700
+thermal_zone19 nspss1-thermal 35100
+thermal_zone2 cpu1-thermal 36800
+thermal_zone20 video-thermal 35500
+thermal_zone21 ddr-thermal 35900
+thermal_zone22 mdmss0-thermal 35100
+thermal_zone23 mdmss1-thermal 35100
+thermal_zone24 mdmss2-thermal 35500
+thermal_zone25 mdmss3-thermal 35100
+thermal_zone26 camera0-thermal 35900
+thermal_zone27 pm7325-thermal 37000
+thermal_zone28 pm8350c-thermal 37000
+thermal_zone29 qcom-battmgr-bat 33000
+thermal_zone3 cpu2-thermal 36400
+thermal_zone30 chg-skin-thermal 34852
+thermal_zone31 conn-thermal 33235
+thermal_zone32 xo-thermal 35611
+thermal_zone33 quiet-thermal 35149
+thermal_zone34 cam-flash-thermal 36100
+thermal_zone35 sdm-skin-thermal 35401
+thermal_zone36 chg-thermal 35878
+thermal_zone37 pa-1-thermal 32877
+thermal_zone38 pm7250b-thermal 32883
+thermal_zone4 cpu3-thermal 36800
+thermal_zone5 cpuss0-thermal 36400
+thermal_zone6 cpuss1-thermal 36400
+thermal_zone7 cpu4-thermal 37200
+thermal_zone8 cpu5-thermal 36400
+thermal_zone9 cpu6-thermal 36400

@@ -47,3 +47,37 @@ sessão em `.claude/projects/`. Não houve varredura indiscriminada de arquivos 
 **Correção importante (E24):** material de *root* via `boot.img`/Magisk/firmware `CEBU…XT2091`
 pertence ao **Moto G9**, projeto distinto. Ele **não** é evidência do port do Edge 30 e foi separado
 para não contaminar a narrativa.
+
+---
+
+## Auditoria no aparelho — 24/11/2026
+
+Evidências obtidas por acesso SSH ao aparelho físico. Saídas completas e sanitizadas em
+[`audit/evidence/sanitized/`](../audit/evidence/sanitized/); matriz em
+[`audit/hardware-compatibility.csv`](../audit/hardware-compatibility.csv).
+
+| ID | Afirmação | Evidência | Localização | Grau |
+|----|-----------|-----------|-------------|------|
+| E25 | O sistema instalado é **Nura edge**, não postmarketOS puro | `/etc/os-release`: `ID=nura`, `ID_LIKE=alpine`, repos `mirror.nura.eco` | `audit/evidence/sanitized/01-base.txt` | CONFIRMADO |
+| E26 | O init é **systemd**, não OpenRC | `/sbin/init -> ../lib/systemd/systemd`; 37 serviços systemd ativos | `audit/evidence/sanitized/02-os.txt` | CONFIRMADO |
+| E27 | Kernel **7.2.9** `#3-postmarketos-qcom-sc7280`, clang 23.1.3, build 17/10/2026 | `uname -a` e `/proc/version` lidos no aparelho — **substitui o "[RELATADO]" de E05 e encerra P-02** | `audit/evidence/sanitized/01-base.txt` | CONFIRMADO |
+| E28 | Hardware reconhecido como `Motorola Edge 30 (CSOT)` / `motorola,dubai` / `qcom,sm7325` | Device tree em `/sys/firmware/devicetree/base/model` e `compatible` | `audit/evidence/sanitized/01-base.txt` | CONFIRMADO |
+| E29 | **Bootloader destravado** | `cmdline`: `verifiedbootstate=orange`, `vbmeta.device_state=unlocked` — **eleva E11 de RECONSTRUÍDO a CONFIRMADO** | `audit/evidence/sanitized/02-os.txt` | CONFIRMADO |
+| E30 | **Aceleração gráfica por hardware ativa** | `phoc` com 5 fds em `/dev/dri/renderD128`; `libgallium-26.2.6`, `libEGL`, `libGLESv2`, `libvulkan` mapeadas; devfreq da GPU com 191 transições e 4876 ms a 608 MHz | `audit/evidence/sanitized/07-perf.txt`, `09-extra.txt` | CONFIRMADO |
+| E31 | **Áudio de saída funcional** | Sink `HiFi__Speaker__sink` em RUNNING a 48 kHz; tom de 440 Hz confirmado como audível pelo operador | `audit/evidence/sanitized/13-audio-test.txt` | CONFIRMADO |
+| E32 | **Microfone funcional** | `parecord` capturou 1 042 600 bytes em 4 s com sinal não nulo; áudio descartado após medição de nível | `audit/evidence/sanitized/12-input-audio.txt` | CONFIRMADO |
+| E33 | **Touchscreen NÃO funcional** | IRQ 170 (`goodix-berlin`) imóvel em 1346 durante 30 s de toque físico, com `dpms=On` e backlight 1079; `spurious=0` | `audit/evidence/sanitized/14-goodix.txt` | CONFIRMADO |
+| E34 | **Botões físicos funcionais** | IRQ 117 (`pmic_resin`) subiu de 0 para 4 após pressionamento físico | `audit/evidence/sanitized/12-input-audio.txt` | CONFIRMADO |
+| E35 | Modem inicializado, bloqueado por **ausência de SIM** | `mmcli`: firmware MPSS carregado, QMI sobre `qrtr0` operante, suporta 5gnr; `failed reason: sim-missing`. Ausência de SIM confirmada pelo operador | `audit/evidence/sanitized/10-faults.txt` | CONFIRMADO |
+| E36 | Wi-Fi funcional em **Wi-Fi 6 / 5 GHz** | TX 432,3 Mbit/s, RX 206,4 Mbit/s, −66 dBm; SSH sustentado por ~40 min | `audit/evidence/sanitized/05-devices.txt` | CONFIRMADO |
+| E37 | Bluetooth detectado, **bloqueado por rfkill** | 1781 comandos HCI sem erro, porém `Soft blocked: yes` e `power on` falhou | `audit/evidence/sanitized/11-bt-test.txt` | CONFIRMADO (bloqueio) / AUSENTE (função) |
+| E38 | Bateria funcional, **0,89 W em repouso** | 20 amostras: −225 mA médios a 3,958 V, 33,0 °C constante, SOH 100 | `audit/evidence/sanitized/08-battery-samples.txt` | CONFIRMADO |
+| E39 | **Suspensão nunca exercida** | `/sys/power/suspend_stats/success = 0` e `fail = 0` | `audit/evidence/sanitized/05-devices.txt` | CONFIRMADO |
+| E40 | **Conflito PulseAudio × PipeWire** | Ambos em execução; log: `pipewire-pulse.socket: refusing` e `Daemon already running` | `audit/evidence/sanitized/10-faults.txt` | CONFIRMADO |
+| E41 | **Armazenamento sem criptografia** | Nenhum mapeamento LUKS em `lsblk`; rootfs ext4 de 227 GB em claro | `audit/evidence/sanitized/06-sec.txt` | CONFIRMADO |
+| E42 | Matriz oficial do device obtida da wiki | Página `wiki.nura.eco` acessada por navegador, contornando o Anubis — **encerra P-04** | `audit/upstream-comparison.md` | EXTERNO |
+| E43 | Sensores presentes no hub ADSP, não validados | `iio-sensor-proxy`: `HasAccelerometer/HasAmbientLight/HasProximity = true`; `Claim` negado por polkit em sessão SSH | `audit/evidence/sanitized/15-sensors.txt`, `16-accel.txt` | CONFIRMADO (presença) / AUSENTE (função) |
+
+**Efeito sobre E23:** a afirmação "áudio, modem, dados, GPU, câmera, BT, NFC, sensores, bateria —
+nenhuma verificação", antes `AUSENTE`, está **substituída** por E30–E43 e pela matriz completa de
+34 subsistemas.

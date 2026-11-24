@@ -1,0 +1,75 @@
+
+===== sysctl =====
+--- /proc/sys/kernel/randomize_va_space ---
+2
+
+--- /proc/sys/kernel/kptr_restrict ---
+0
+
+--- /proc/sys/kernel/dmesg_restrict ---
+1
+
+--- /proc/sys/kernel/unprivileged_bpf_disabled ---
+1
+
+--- /sys/kernel/security/lsm ---
+lockdown,capability,yama,bpf
+
+===== usuários =====
+$ awk -F: $3>=1000||$3==0 {print $1,$3,$7} /etc/passwd
+root 0 /bin/sh
+nobody 65534 /sbin/nologin
+user 10000 /bin/ash
+[exit=0]
+
+===== grupos admin =====
+$ getent group wheel sudo adm
+wheel:x:10:root,user
+[exit=2]
+
+===== suid =====
+$ find /usr/bin /usr/sbin /bin /sbin -perm -4000 -type f
+/usr/bin/su
+/usr/bin/chfn
+/usr/bin/sudo
+/usr/bin/suexec
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/fusermount3
+/usr/bin/umount
+/usr/bin/chage
+/usr/bin/pkexec
+/usr/bin/gpasswd
+/usr/bin/mount
+[exit=0]
+
+===== sshd config =====
+$ grep -vE ^#|^$ /etc/ssh/sshd_config
+Include /etc/ssh/sshd_config.d/*.conf
+AuthorizedKeysFile	.ssh/authorized_keys
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+Subsystem	sftp	internal-sftp
+[exit=0]
+
+===== vulnerabilidades de cpu =====
+gather_data_sampling: Not affected
+ghostwrite: Not affected
+indirect_target_selection: Not affected
+itlb_multihit: Not affected
+l1tf: Not affected
+mds: Not affected
+meltdown: Not affected
+mmio_stale_data: Not affected
+old_microcode: Not affected
+reg_file_data_sampling: Not affected
+retbleed: Not affected
+spec_rstack_overflow: Not affected
+spec_store_bypass: Mitigation: Speculative Store Bypass disabled via prctl
+spectre_v1: Mitigation: __user pointer sanitization
+spectre_v2: Mitigation: CSV2, BHB
+srbds: Not affected
+tsa: Not affected
+tsx_async_abort: Not affected
+vmscape: Not affected
