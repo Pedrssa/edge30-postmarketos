@@ -1,0 +1,199 @@
+### PHOC GPU USE
+phoc pid=3281
+lrwx------    1 user     user            64 Nov 24 21:44 17 -> /dev/dri/card0
+lrwx------    1 user     user            64 Nov 24 21:44 18 -> /dev/dri/card0
+lrwx------    1 user     user            64 Nov 24 21:44 19 -> /dev/dri/renderD128
+lrwx------    1 user     user            64 Nov 24 21:44 20 -> /dev/dri/renderD128
+lrwx------    1 user     user            64 Nov 24 21:56 21 -> /dev/dri/renderD128
+lrwx------    1 user     user            64 Nov 24 21:56 22 -> /dev/dri/card0
+lrwx------    1 user     user            64 Nov 24 21:56 23 -> /dev/dri/renderD128
+lrwx------    1 user     user            64 Nov 24 21:56 24 -> /dev/dri/card0
+lrwx------    1 user     user            64 Nov 24 21:56 25 -> /dev/dri/card0
+lrwx------    1 user     user            64 Nov 24 21:56 26 -> /dev/dri/renderD128
+--- fdinfo ---
+libEGL.so.1.0.0
+libGLESv2.so.2.0.0
+libgallium-26.2.6.so
+libvulkan.so.1.4.360
+### DRM CLIENTS
+debugfs sem acesso
+### MESA DRIVER VIA GBM
+apple_dri.so
+armada-drm_dri.so
+asahi_dri.so
+etnaviv_dri.so
+exynos_dri.so
+gm12u320_dri.so
+hdlcd_dri.so
+hx8357d_dri.so
+ili9163_dri.so
+ili9225_dri.so
+### WAKEUP
+### USB-C / TYPEC
+port0
+/sys/class/typec/port0/
+source [sink]
+host [device]
+### UDC
+a600000.usb
+not attached
+### NFC detail
+1-0034: aw88261
+1-0035: aw88261
+17-000c: ak7375
+17-0050: gt24p128e
+17-0056: s5kjn1
+19-0037: gc02m1b
+4-0029: wl2864c
+4-0042: fsa4480
+i2c-1: Geni-I2C
+i2c-16: Qualcomm-CCI
+i2c-17: Qualcomm-CCI
+i2c-18: Qualcomm-CCI
+i2c-19: Qualcomm-CCI
+i2c-4: Geni-I2C
+### CAMERA ENTITIES
+ak7375 17-000c
+gc02m1b 19-0037
+msm_csid0
+msm_csid1
+msm_csid2
+msm_csid3
+msm_csid4
+msm_csiphy0
+msm_csiphy1
+msm_csiphy2
+msm_csiphy3
+msm_csiphy4
+msm_vfe0_rdi0
+msm_vfe0_rdi1
+msm_vfe0_rdi2
+msm_vfe0_video0
+msm_vfe0_video1
+msm_vfe0_video2
+msm_vfe1_rdi0
+msm_vfe1_rdi1
+### MEDIA TOPOLOGY sensors
+v4l-subdev0
+v4l-subdev1
+v4l-subdev10
+v4l-subdev11
+v4l-subdev12
+v4l-subdev13
+v4l-subdev14
+v4l-subdev15
+v4l-subdev16
+v4l-subdev17
+v4l-subdev18
+v4l-subdev19
+v4l-subdev2
+v4l-subdev20
+v4l-subdev21
+v4l-subdev22
+v4l-subdev23
+v4l-subdev24
+v4l-subdev25
+v4l-subdev26
+v4l-subdev27
+v4l-subdev28
+v4l-subdev29
+v4l-subdev3
+v4l-subdev4
+v4l-subdev5
+v4l-subdev6
+v4l-subdev7
+v4l-subdev8
+v4l-subdev9
+video0
+video1
+video10
+video11
+video12
+video13
+video14
+video15
+video16
+video17
+video18
+video2
+video3
+video4
+video5
+video6
+video7
+video8
+video9
+--- subdevs ---
+/dev/v4l-subdev0
+/dev/v4l-subdev1
+/dev/v4l-subdev10
+/dev/v4l-subdev11
+/dev/v4l-subdev12
+/dev/v4l-subdev13
+/dev/v4l-subdev14
+/dev/v4l-subdev15
+/dev/v4l-subdev16
+/dev/v4l-subdev17
+/dev/v4l-subdev18
+/dev/v4l-subdev19
+/dev/v4l-subdev2
+/dev/v4l-subdev20
+/dev/v4l-subdev21
+/dev/v4l-subdev22
+/dev/v4l-subdev23
+/dev/v4l-subdev24
+/dev/v4l-subdev25
+/dev/v4l-subdev26
+/dev/v4l-subdev27
+/dev/v4l-subdev28
+/dev/v4l-subdev29
+/dev/v4l-subdev3
+/dev/v4l-subdev4
+/dev/v4l-subdev5
+/dev/v4l-subdev6
+/dev/v4l-subdev7
+/dev/v4l-subdev8
+/dev/v4l-subdev9
+### FW LOADED
+motorola
+a660_zap.mbn
+adsp.mbn
+adspr.jsn
+adsps.jsn
+adspua.jsn
+aw88261_acf.bin
+cdsp.mbn
+cdspr.jsn
+modem.mbn
+modem_pr
+### JOURNAL ERRORS (user-visible)
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:36 motorola-dubai pulseaudio[1778]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:43:36 motorola-dubai pulseaudio[1795]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:44:07 motorola-dubai [2856]: gkr-pam: unable to locate daemon control file
+Nov 24 21:44:12 motorola-dubai pulseaudio[3166]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:44:13 motorola-dubai systemd[3238]: pipewire-pulse.socket: Socket service pipewire-pulse.service not loaded, refusing.
+Nov 24 21:44:13 motorola-dubai systemd[3238]: Failed to listen on PipeWire PulseAudio.
+Nov 24 21:44:13 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:15 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:16 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:17 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:19 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:20 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.

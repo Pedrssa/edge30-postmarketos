@@ -1,0 +1,39 @@
+### GOODIX DEVICE
+driver dir: /sys/bus/spi/drivers/goodix-berlin-spi
+total 0
+--w-------    1 root     root          4096 Nov 24 22:11 bind
+lrwxrwxrwx    1 root     root             0 Nov 24 22:11 module -> ../../../../module/goodix_berlin_spi
+lrwxrwxrwx    1 root     root             0 Nov 24 22:11 spi13.0 -> ../../../../devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0
+--w-------    1 root     root          4096 Nov 24 21:43 uevent
+--w-------    1 root     root          4096 Nov 24 22:11 unbind
+--- modalias/driver do gt24p128e? ---
+=== /sys/bus/i2c/devices/17-0050/ (gt24p128e)
+lrwxrwxrwx    1 root     root             0 Nov 24 22:11 /sys/bus/i2c/devices/17-0050//driver -> ../../../../../../bus/i2c/drivers/at24
+of:NeepromT(null)Cgiantec,gt24p128eCatmel,24c128
+
+### SPI touch?
+spi13.0
+spi13.0: spi:gt9916
+../../../../../../../../bus/spi/drivers/goodix-berlin-spi
+
+### GOODIX INPUT CAPS
+N: Name="Goodix Berlin Capacitive TouchScreen"
+P: Phys=input/ts
+S: Sysfs=/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/input/input3
+U: Uniq=
+H: Handlers=event3 
+B: PROP=2
+B: EV=b
+B: KEY=400 0 0 0 0 0
+B: ABS=261800000000003
+
+
+### IRQ 170 affinity/status
+count 0
+unhandled 0
+last_unhandled 0 ms
+--- gpio ---
+debugfs sem acesso
+
+### JOURNAL GOODIX
+Nov 24 21:43:29 motorola-dubai kernel: input: Goodix Berlin Capacitive TouchScreen as /devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/input/input3

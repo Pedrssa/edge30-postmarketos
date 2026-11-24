@@ -1,0 +1,119 @@
+### NET
+wlan0:wifi:connected:<SSID-REDIGIDO>
+lo:loopback:connected (externally):lo
+qrtr0:gsm:unavailable:
+usb0:ethernet:unmanaged:
+
+GENERAL.STATE:100 (connected)
+GENERAL.CONNECTION:<SSID-REDIGIDO>
+### WIFI LINK
+Connected to <MAC-REDIGIDO> (on wlan0)
+	SSID: <REDIGIDO>
+	freq: 5180.0
+	RX: 535649 bytes (2956 packets)
+	TX: 114780 bytes (436 packets)
+	signal: -66 dBm
+	rx bitrate: 206.4 MBit/s 40MHz HE-MCS 4 HE-NSS 2 HE-GI 0 HE-DCM 0
+	tx bitrate: 432.3 MBit/s 160MHz HE-MCS 2 HE-NSS 2 HE-GI 0 HE-DCM 0
+	bss flags: short-slot-time
+	dtim period: 1
+	beacon int: 100
+### MODEM
+    /org/freedesktop/ModemManager1/Modem/0 [QUALCOMM INCORPORATED] 0
+           |             model: 0
+           | firmware revision: MPSS.HI.4.3.3.c6-00041-LC_ALL_PACK-1.501167.141  1  [Jan 09 2024 09:00:00]
+           |      equipment id: <IMEI-REDIGIDO>
+  Status   |             state: [31mfailed[0m
+           |       power state: off
+  3GPP     |              imei: <IMEI-REDIGIDO>
+### BT
+Controller <MAC-REDIGIDO> (public)
+	Manufacturer: 0x001d (29)
+	Version: 0x0d (13)
+	Name: Motorola Edge 30
+	Alias: Motorola Edge 30
+	Class: 0x00000000 (0)
+	Powered: no
+	PowerState: off-blocked
+	Discoverable: no
+	DiscoverableTimeout: 0x000000b4 (180)
+	Pairable: no
+	UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
+	UUID: Handsfree Audio Gateway   (0000111f-0000-1000-8000-00805f9b34fb)
+	UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+	UUID: Audio Sink                (0000110b-0000-1000-8000-00805f9b34fb)
+hci0:	Type: Primary  Bus: UART
+	BD Address: <MAC-REDIGIDO>  ACL MTU: 1024:7  SCO MTU: 240:8
+	DOWN 
+	RX bytes:1858 acl:0 sco:0 events:117 errors:0
+	TX bytes:427702 acl:0 sco:0 commands:1781 errors:0
+	Features: 0xff 0xfe 0x8f 0xfe 0xd8 0x3f 0x7b 0x87
+	Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3 
+	Link policy: RSWITCH HOLD SNIFF 
+	Link mode: PERIPHERAL ACCEPT 
+
+### ALSA
+**** List of PLAYBACK Hardware Devices ****
+card 0: Motoroladubai [Motorola-dubai], device 0: MultiMedia1 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: Motoroladubai [Motorola-dubai], device 1: MultiMedia2 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: Motoroladubai [Motorola-dubai], device 2: MultiMedia3 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: Motoroladubai [Motorola-dubai], device 5: VoiceMMode1 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+
+**** List of CAPTURE Hardware Devices ****
+card 0: Motoroladubai [Motorola-dubai], device 0: MultiMedia1 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: Motoroladubai [Motorola-dubai], device 1: MultiMedia2 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+card 0: Motoroladubai [Motorola-dubai], device 2: MultiMedia3 (*) []
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+### PIPEWIRE
+E 21:56:27.527552             mod.rt ../src/modules/module-rt.c:295:pw_rtkit_bus_get: Failed to connect to session bus: Unable to autolaunch a dbus-daemon without a $DISPLAY for X11
+Could not connect to PipeWire
+### CAMERA
+crw-rw----    1 root     video     250,   0 Nov 24 21:44 /dev/media0
+crw-rw----    1 root     video      81,   0 Nov 24 21:44 /dev/video0
+crw-rw----    1 root     video      81,   1 Nov 24 21:44 /dev/video1
+crw-rw----    1 root     video      81,  10 Nov 24 21:44 /dev/video10
+crw-rw----    1 root     video      81,  11 Nov 24 21:44 /dev/video11
+crw-rw----    1 root     video      81,  12 Nov 24 21:44 /dev/video12
+crw-rw----    1 root     video      81,  13 Nov 24 21:44 /dev/video13
+crw-rw----    1 root     video      81,  14 Nov 24 21:44 /dev/video14
+crw-rw----    1 root     video      81,  15 Nov 24 21:44 /dev/video15
+crw-rw----    1 root     video      81,  16 Nov 24 21:44 /dev/video16
+ash: line 6: cam: not found
+### LEDS
+white:flash
+white:flash_1
+### NFC
+1-0034
+1-0035
+17-000c
+17-0050
+17-0056
+19-0037
+4-0029
+4-0042
+i2c-1
+i2c-16
+i2c-17
+i2c-18
+i2c-19
+i2c-4
+### GPS
+---
+### SUSPEND
+freeze mem
+s2idle [deep]
+0
+0

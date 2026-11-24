@@ -1,0 +1,462 @@
+
+===== memória =====
+$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:           7368         662        5687         291        1019        6093
+Swap:         11052           0       11052
+[exit=0]
+
+===== disco =====
+$ df -h
+Filesystem                Size      Used Available Use% Mounted on
+dev                       3.5G         0      3.5G   0% /dev
+run                       3.6G      2.4M      3.6G   0% /run
+/dev/loop0p2            220.1G      5.8G    202.9G   3% /
+tmpfs                     3.6G    168.0K      3.6G   0% /dev/shm
+none                      1.0M         0      1.0M   0% /run/credentials/systemd-journald.service
+none                      1.0M         0      1.0M   0% /run/credentials/systemd-resolved.service
+/dev/loop0p1            478.8M    133.5M    345.3M  28% /boot
+tmpfs                     3.6G     32.0K      3.6G   0% /tmp
+none                      1.0M         0      1.0M   0% /run/credentials/serial-getty@ttyMSM0.service
+tmpfs                   736.8M     64.0K    736.7M   0% /run/user/10000
+[exit=0]
+
+===== blocos =====
+$ lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT
+NAME                   SIZE TYPE FSTYPE MOUNTPOINT
+loop0                227.5G loop        
+├─loop0p1              480M part        /boot
+└─loop0p2              227G part        /
+sda                     16M disk        
+├─sda1                   8M part        
+└─sda2                   1M part        
+sdb                      8M disk        
+├─sdb1                   5M part        
+├─sdb2                 256K part        
+└─sdb3                 128K part        
+sdc                      8M disk        
+├─sdc1                   5M part        
+├─sdc2                 256K part        
+└─sdc3                 128K part        
+sdd                    1.2G disk        
+├─sdd1                 512K part        
+├─sdd2                   4M part        
+├─sdd3                   8M part        
+├─sdd4                 128K part        
+├─sdd5                 128K part        
+├─sdd6                 512K part        
+├─sdd7                 256K part        
+├─sdd8                   1M part        
+├─sdd9                   1M part        
+├─sdd10                 80K part        
+├─sdd11                  2M part        
+├─sdd12                 64K part        
+├─sdd13                 64K part        
+├─sdd14                128M part        
+├─sdd15                395M part        
+├─sdd16                  2M part        
+├─sdd17                 64M part        
+├─sdd18                 32M part        
+├─sdd19                 96M part        
+├─sdd20                 96M part        
+└─sdd21                 24M part        
+sde                    236G disk        
+├─sde1                   8K part        
+├─sde2                  32M part        
+├─sde3                   8M part        
+├─sde4                   1M part        
+├─sde5                 512K part        
+├─sde6                 512K part        
+├─sde7                 512K part        
+├─sde8                 128K part        
+├─sde9                  16M part        
+├─sde10                  8M part        
+├─sde11               15.6M part        
+├─sde12                  3M part        
+├─sde13                  3M part        
+├─sde14                128K part        
+├─sde15                  8M part        
+├─sde16                 30M part        
+├─sde17                  4K part        
+├─sde18                256K part        
+├─sde19                  4K part        
+├─sde20                  4K part        
+├─sde21                512K part        
+├─sde22                128K part        
+├─sde23                128K part        
+├─sde24                512K part        
+├─sde25                768K part        
+├─sde26                8.3G part        
+│ ├─product_a            4G dm          
+│ ├─system_a         924.5M dm          
+│ ├─system_ext_a       1.1G dm          
+│ ├─vendor_a           1.2G dm          
+│ ├─product_a-cow     82.9M dm          
+│ ├─system_a-cow     695.3M dm          
+│ ├─system_ext_a-cow 416.7M dm          
+│ └─system_b          38.5M dm          
+└─sde27              227.5G part        
+sdf                    1.2G disk        
+├─sdf1                 512K part        
+├─sdf2                   4M part        
+├─sdf3                   8M part        
+├─sdf4                 128K part        
+├─sdf5                 128K part        
+├─sdf6                 512K part        
+├─sdf7                 256K part        
+├─sdf8                   1M part        
+├─sdf9                   1M part        
+├─sdf10                 80K part        
+├─sdf11                  2M part        
+├─sdf12                 64K part        
+├─sdf13                 64K part        
+├─sdf14                128M part        
+├─sdf15                395M part        
+├─sdf16                  2M part        
+├─sdf17                 64M part        
+├─sdf18                 32M part        
+├─sdf19                 96M part        
+├─sdf20                 96M part        
+└─sdf21                 24M part        
+zram0                 10.8G disk        [SWAP]
+[exit=0]
+
+===== loop =====
+$ losetup -a
+/dev/loop0: []: (/dev/sde27)
+[exit=0]
+
+===== montagens =====
+$ mount
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+dev on /dev type devtmpfs (rw,nosuid,relatime,size=3694600k,nr_inodes=923650,mode=755)
+run on /run type tmpfs (rw,nosuid,nodev,relatime,mode=755)
+configfs on /sys/kernel/config type configfs (rw,nosuid,nodev,noexec,relatime)
+devpts on /dev/pts type devpts (rw,relatime,mode=600,ptmxmode=000)
+/dev/loop0p2 on / type ext4 (rw,relatime)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot,memory_hugetlb_accounting)
+none on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=39,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=13601)
+debugfs on /sys/kernel/debug type debugfs (rw,nosuid,nodev,noexec,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,nosuid,nodev,relatime,pagesize=2M)
+mqueue on /dev/mqueue type mqueue (rw,nosuid,nodev,noexec,relatime)
+tracefs on /sys/kernel/tracing type tracefs (rw,nosuid,nodev,noexec,relatime)
+none on /run/credentials/systemd-journald.service type tmpfs (ro,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,noswap)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,nosuid,nodev,noexec,relatime)
+none on /run/credentials/systemd-resolved.service type tmpfs (ro,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,noswap)
+/dev/loop0p1 on /boot type vfat (rw,nosuid,nodev,noexec,relatime,nosymfollow,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=mixed,errors=remount-ro)
+tmpfs on /tmp type tmpfs (rw,nosuid,nodev,size=3772424k,nr_inodes=1048576)
+none on /run/credentials/serial-getty@ttyMSM0.service type tmpfs (ro,nosuid,nodev,noexec,relatime,nosymfollow,size=1024k,nr_inodes=1024,mode=700,noswap)
+tmpfs on /run/user/10000 type tmpfs (rw,nosuid,nodev,relatime,size=754484k,nr_inodes=188621,mode=700,uid=10000,gid=10000)
+gvfsd-fuse on /run/user/10000/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,relatime,user_id=10000,group_id=10000)
+portal on /run/user/10000/doc type fuse.portal (rw,nosuid,nodev,relatime,user_id=10000,group_id=10000)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+[exit=0]
+
+===== carga =====
+$ cat /proc/loadavg
+0.01 0.06 0.08 3/575 6578
+[exit=0]
+
+===== processos =====
+$ ps -eo pid,user,rss,comm
+PID   USER     RSS  COMMAND
+    1 root      13m systemd
+    2 root        0 kthreadd
+    3 root        0 pool_workqueue_
+    4 root        0 kworker/R-rcu_g
+    5 root        0 kworker/R-sync_
+    6 root        0 kworker/R-kvfre
+    7 root        0 kworker/R-slub_
+    8 root        0 kworker/R-netns
+   10 root        0 kworker/0:1-eve
+   11 root        0 kworker/0:0H-kb
+   13 root        0 kworker/R-mm_pe
+   14 root        0 ksoftirqd/0
+   15 root        0 rcu_preempt
+   16 root        0 rcu_exp_par_gp_
+   17 root        0 rcu_exp_gp_kthr
+   18 root        0 migration/0
+   19 root        0 cpuhp/0
+   20 root        0 cpuhp/1
+   21 root        0 migration/1
+   22 root        0 ksoftirqd/1
+   25 root        0 cpuhp/2
+   26 root        0 migration/2
+   27 root        0 ksoftirqd/2
+   29 root        0 kworker/2:0H-kb
+   30 root        0 cpuhp/3
+   31 root        0 migration/3
+   32 root        0 ksoftirqd/3
+   35 root        0 cpuhp/4
+   36 root        0 migration/4
+   37 root        0 ksoftirqd/4
+   40 root        0 cpuhp/5
+   41 root        0 migration/5
+   42 root        0 ksoftirqd/5
+   44 root        0 kworker/5:0H
+   45 root        0 cpuhp/6
+   46 root        0 migration/6
+   47 root        0 ksoftirqd/6
+   49 root        0 kworker/6:0H-kb
+   50 root        0 cpuhp/7
+   51 root        0 migration/7
+   52 root        0 ksoftirqd/7
+   53 root        0 kworker/7:0-mm_
+   54 root        0 kworker/7:0H-kb
+   55 root        0 kdevtmpfs
+   56 root        0 kworker/R-inet_
+   57 root        0 rcu_tasks_kthre
+   58 root        0 rcu_tasks_rude_
+   60 root        0 oom_reaper
+   61 root        0 kworker/R-write
+   62 root        0 kcompactd0
+   63 root        0 ksmd
+   64 root        0 khugepaged
+   65 root        0 kworker/R-kbloc
+   66 root        0 kworker/R-blkcg
+   67 root        0 kworker/R-kinte
+   70 root        0 kworker/R-md_bi
+   71 root        0 kworker/R-md_ll
+   72 root        0 kworker/R-md_ll
+   74 root        0 kworker/R-devfr
+   75 root        0 watchdogd
+   76 root        0 kworker/R-quota
+   80 root        0 kswapd0
+   81 root        0 kworker/R-kthro
+   83 root        0 kworker/7:3-eve
+   84 root        0 kworker/4:1-ino
+   85 root        0 kworker/u33:0-u
+   86 root        0 irq/116-pmic_pw
+   87 root        0 irq/117-pmic_re
+   88 root        0 irq/118-c263000
+   89 root        0 irq/119-c263000
+   90 root        0 irq/120-c265000
+   91 root        0 irq/121-c265000
+   92 root        0 irq/124-temp-al
+   93 root        0 irq/125-temp-al
+   94 root        0 hwrng
+   95 root        0 kworker/R-mld
+   96 root        0 kworker/R-ipv6_
+  100 root        0 irq/132-dcvsh-i
+  101 root        0 sugov:0
+  102 root        0 irq/133-dcvsh-i
+  103 root        0 sugov:4
+  104 root        0 irq/134-dcvsh-i
+  105 root        0 sugov:7
+  107 root        0 irq/151-99c000.
+  109 root        0 kworker/R-pdr_n
+  113 root        0 irq/16-smp2p-ad
+  115 root        0 kworker/5:8-eve
+  116 root        0 irq/17-smp2p-cd
+  117 root        0 kworker/5:9-mm_
+  118 root        0 irq/18-smp2p-mp
+  121 root        0 irq/19-smp2p-wp
+  122 root        0 irq/152-9091000
+  123 root        0 irq/153-90b6400
+  131 root        0 kworker/6:5-mm_
+  132 root        0 kworker/6:6-rcu
+  135 root        0 irq/122-pm-adc-
+  136 root        0 irq/123-pm-adc-
+  137 root        0 irq/157-temp-al
+  140 root        0 irq/161-dp_hs_p
+  141 root        0 irq/162-dm_hs_p
+  142 root        0 irq/163-ss_phy_
+  143 root        0 scsi_eh_0
+  144 root        0 kworker/R-scsi_
+  145 root        0 kworker/R-ufs_e
+  146 root        0 kworker/R-ufs_c
+  147 root        0 kworker/R-ufs_c
+  148 root        0 kworker/u32:6-a
+  152 root        0 kworker/0:1H-kb
+  154 root        0 kworker/1:1H-kb
+  155 root        0 kworker/7:1H-kb
+  156 root        0 kworker/6:1H-kb
+  157 root        0 kworker/4:1H-kb
+  167 root        0 kworker/0:2-eve
+  180 root        0 kworker/u33:1-h
+  219 root        0 spi13
+  221 root        0 kworker/5:1H-kb
+  222 root        0 kworker/3:1H-kb
+  223 root        0 gpu-worker
+  224 root        0 irq/23-arm-smmu
+  225 root        0 kworker/R-ring0
+  226 root        0 irq/24-arm-smmu
+  227 root        0 disp_snapshot
+  228 root        0 atomic-worker-0
+  229 root        0 atomic-worker-1
+  230 root        0 atomic-worker-2
+  231 root        0 atomic-worker-3
+  232 root        0 atomic-worker-4
+  233 root        0 atomic-worker-5
+  234 root        0 atomic-worker-6
+  235 root        0 atomic-worker-7
+  236 root        0 crtc_event:67
+  237 root        0 crtc_event:68
+  238 root        0 card0-crtc0
+  239 root        0 card0-crtc1
+  240 root        0 irq/170-goodix-
+  259 root        0 irq/164-dwc3
+  270 root        0 kworker/3:2-eve
+  274 root        0 kworker/4:2-mm_
+  284 root        0 kworker/R-kdmfl
+  285 root        0 kworker/R-kdmfl
+  286 root        0 kworker/R-kdmfl
+  287 root        0 kworker/R-kdmfl
+  290 root        0 kworker/R-kdmfl
+  293 root        0 kworker/R-kdmfl
+  295 root        0 kworker/R-kdmfl
+  301 root        0 kworker/R-kdmfl
+  305 root        0 kworker/R-kdmfl
+  307 root        0 kworker/R-kdmfl
+  309 root        0 kworker/R-kdmfl
+  615 root        0 jbd2/loop0p2-8
+  616 root        0 kworker/R-ext4-
+  678 root      14m systemd-journal
+  715 systemd- 9.8m systemd-resolve
+  741 root      12m systemd-udevd
+  745 systemd- 5312 systemd-oomd
+  746 root        0 kworker/1:2-eve
+  750 systemd- 5180 systemd-timesyn
+  757 root        0 psimon
+  815 root        0 irq/171-q6v5 wd
+  816 root        0 irq/173-ipa
+  820 root        0 kworker/R-cfg80
+  821 root        0 irq/180-q6v5 wd
+  822 root        0 kworker/R-ath11
+  823 root        0 kworker/R-ath11
+  824 root        0 irq/186-q6v5 wd
+  825 root        0 irq/206-q6v5 wd
+  827 root        0 irq/243-iris
+  829 root        0 kworker/R-qcom_
+  830 root        0 kworker/R-pdr_n
+  886 root        0 irq/246-soundwi
+  887 root        0 irq/247-soundwi
+  888 root        0 irq/248-swr_wak
+  923 root     6164 systemd-coredum
+  937 messageb 2348 dbus-broker-lau
+  938 messageb 2772 dbus-broker
+  939 root     5300 81voltd
+  941 root      908 apk-inhibit
+  942 root     5680 apk-polkit-serv
+  943 avahi    1776 avahi-daemon
+  944 root      540 inotifywait
+  945 root     3428 bluetoothd
+  950 fastrpc   544 hexagonrpcd
+  952 fastrpc   548 hexagonrpcd
+  953 root     1276 hkdm
+  974 root     6380 iio-sensor-prox
+  987 polkitd  8984 polkitd
+  991 root     7032 rmtfs
+  996 root      16m NetworkManager
+ 1004 rtkit    1280 rtkit-daemon
+ 1008 root     5920 systemd-logind
+ 1013 root      14m udisksd
+ 1015 root     2168 usb-signaller
+ 1018 avahi     832 avahi-daemon
+ 1019 root     8072 wpa_supplicant
+ 1031 root      744 tqftpserv
+ 1086 root        0 kworker/R-pmic_
+ 1088 routewra 2188 routewrangler
+ 1092 root     4816 sshd.pam
+ 1096 root      30m tuned
+ 1099 root      476 unudhcpd
+ 1111 root     1616 greetd
+ 1112 root      864 agetty
+ 1163 root        0 psimon
+ 1202 root      30m tuned-ppd
+ 1208 root     6788 upowerd
+ 1218 root        0 kworker/2:4-mm_
+ 1791 root        0 krfcommd
+ 2395 root     5288 accounts-daemon
+ 2856 root     3296 greetd
+ 2927 root      13m ModemManager
+ 2978 root     4692 qmi-proxy
+ 3119 root        0 kworker/2:2H-kb
+ 3238 user      11m systemd
+ 3240 user     6036 (sd-pam)
+ 3250 user     1856 dbus-broker-lau
+ 3251 user     2016 dbus-broker
+ 3252 user      912 call_audio_idle
+ 3253 user     6464 cellbroadcastd
+ 3254 user     7796 gnome-keyring-d
+ 3255 user     1068 dbus-monitor
+ 3256 user      912 call_audio_idle
+ 3267 user     5388 gvfsd
+ 3277 user     5208 gvfsd-fuse
+ 3281 user     135m phoc
+ 3349 root        0 kworker/3:4-eve
+ 3353 user     9100 gnome-session-i
+ 3365 user     3436 gnome-session-c
+ 3366 user      49m udiskie
+ 3376 user      10m gnome-session-s
+ 3382 user     169m phosh
+ 3396 user     5412 at-spi-bus-laun
+ 3406 user     2452 dbus-daemon
+ 3421 user     8372 feedbackd
+ 3439 user     4472 dconf-service
+ 3445 user      16m pulseaudio
+ 3450 user     6072 at-spi2-registr
+ 3457 user     6856 gsettings-helpe
+ 3483 user     4852 gvfsd-metadata
+ 3690 user     9128 gvfs-udisks2-vo
+ 3696 user     4544 gvfs-mtp-volume
+ 3701 user     4904 gvfs-gphoto2-vo
+ 3706 user     4420 gvfs-goa-volume
+ 3710 user      33m goa-daemon
+ 3717 user     6708 goa-identity-se
+ 3723 user     7304 gvfs-afc-volume
+ 3731 user      53m phosh-osk-stevi
+ 3735 user     9.9m gsd-a11y-settin
+ 3737 user     4676 gcr-ssh-agent
+ 3739 user     9352 gsd-color
+ 3740 user     2428 mpris-proxy
+ 3747 user      10m gsd-datetime
+ 3749 user     8396 gsd-housekeepin
+ 3753 user     5480 gsd-keyboard
+ 3754 user      15m gsd-media-keys
+ 3755 user      10m gsd-power
+ 3756 user      12m gsd-print-notif
+ 3759 user     5080 gsd-rfkill
+ 3768 user     4620 gsd-screensaver
+ 3770 user     8584 gsd-sharing
+ 3777 user     6016 gsd-smartcard
+ 3784 user     6932 gsd-sound
+ 3785 user     8188 gsd-usb-protect
+ 3786 user     7440 gsd-wwan
+ 3816 user      11m gsd-printer
+ 3853 user      32m python3
+ 5114 user      76m kgx
+ 5144 user      12m xdg-desktop-por
+ 5157 user     4072 xdg-permission-
+ 5189 user     4584 xdg-document-po
+ 5195 root      556 fusermount3
+ 5199 user      22m xdg-desktop-por
+ 5209 user      10m xdg-desktop-por
+ 5215 user      51m xdg-desktop-por
+ 5231 user      19m pipewire
+ 5232 user      40m wireplumber
+ 5241 user     4288 xdg-desktop-por
+ 5255 user     1116 ash
+ 5270 root        0 kworker/R-msm-v
+ 5272 root        0 kworker/R-msm-v
+ 5324 root        0 kworker/u32:2-a
+ 5340 root        0 kworker/4:2H
+ 5663 root        0 kworker/1:0H
+ 5714 root        0 kworker/2:1-cgr
+ 6095 root        0 kworker/u32:0-a
+ 6356 root        0 kworker/1:0-mm_
+ 6494 root        0 kworker/3:2H
+ 6527 root        0 kworker/u32:1-u
+ 6552 root        0 kworker/u32:3-e
+ 6557 root     5392 sshd-session.pa
+ 6559 user     5356 sshd-session.pa
+ 6560 user      976 ash
+ 6561 user     1116 sh
+ 6562 user      912 tail
+ 6579 user      976 ps
+[exit=0]

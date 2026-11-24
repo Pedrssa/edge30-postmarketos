@@ -1,0 +1,120 @@
+
+===== interfaces =====
+$ ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+usb0             DOWN           172.16.42.1/16 
+rmnet_ipa0       DOWN           
+wlan0            UP             <IP-PRIVADO-REDIGIDO>/24 fe80::6a:2fe1:1aeb:15ea/64 
+[exit=0]
+
+===== rotas =====
+$ ip route
+default via <IP-PRIVADO-REDIGIDO> dev wlan0 proto dhcp src <IP-PRIVADO-REDIGIDO> metric 600 
+172.16.0.0/16 dev usb0 proto kernel scope link src 172.16.42.1 linkdown 
+<IP-PRIVADO-REDIGIDO>/24 dev wlan0 proto kernel scope link src <IP-PRIVADO-REDIGIDO> metric 600 
+[exit=0]
+
+===== escuta =====
+$ ss -tulnp
+Netid State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+udp   UNCONN 0      0            0.0.0.0:5353      0.0.0.0:*   
+udp   UNCONN 0      0            0.0.0.0:5355      0.0.0.0:*   
+udp   UNCONN 0      0         127.0.0.54:53        0.0.0.0:*   
+udp   UNCONN 0      0         127.0.0.53:53        0.0.0.0:*   
+udp   UNCONN 0      0            0.0.0.0:67        0.0.0.0:*   
+udp   UNCONN 0      0                  *:5353            *:*   
+udp   UNCONN 0      0                  *:5355            *:*   
+tcp   LISTEN 0      4096      127.0.0.54:53        0.0.0.0:*   
+tcp   LISTEN 0      4096         0.0.0.0:5355      0.0.0.0:*   
+tcp   LISTEN 0      4096   127.0.0.53%lo:53        0.0.0.0:*   
+tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*   
+tcp   LISTEN 0      4096            [::]:5355         [::]:*   
+tcp   LISTEN 0      128             [::]:22           [::]:*   
+[exit=0]
+
+===== nmcli =====
+$ nmcli -t device status
+wlan0:wifi:connected:<SSID-REDIGIDO>
+lo:loopback:connected (externally):lo
+qrtr0:gsm:unavailable:
+usb0:ethernet:unmanaged:
+[exit=0]
+
+===== wifi link =====
+$ iw dev wlan0 link
+Connected to <MAC-REDIGIDO> (on wlan0)
+	SSID: <REDIGIDO>
+	freq: 5180.0
+	RX: 1172463 bytes (6119 packets)
+	TX: 339840 bytes (1248 packets)
+	signal: -68 dBm
+	rx bitrate: 137.6 MBit/s 40MHz HE-MCS 3 HE-NSS 2 HE-GI 0 HE-DCM 0
+	tx bitrate: 68.8 MBit/s 40MHz HE-MCS 1 HE-NSS 2 HE-GI 0 HE-DCM 0
+	bss flags: short-slot-time
+	dtim period: 1
+	beacon int: 100
+[exit=0]
+
+===== power save =====
+$ iw dev wlan0 get power_save
+Power save: on
+[exit=0]
+
+===== modem =====
+$ mmcli -L
+    /org/freedesktop/ModemManager1/Modem/0 [QUALCOMM INCORPORATED] 0
+[exit=0]
+
+===== bluetooth =====
+$ bluetoothctl show
+Controller <MAC-REDIGIDO> (public)
+	Manufacturer: 0x001d (29)
+	Version: 0x0d (13)
+	Name: Motorola Edge 30
+	Alias: Motorola Edge 30
+	Class: 0x00000000 (0)
+	Powered: no
+	PowerState: off-blocked
+	Discoverable: no
+	DiscoverableTimeout: 0x000000b4 (180)
+	Pairable: no
+	UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
+	UUID: Handsfree Audio Gateway   (0000111f-0000-1000-8000-00805f9b34fb)
+	UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+	UUID: Audio Sink                (0000110b-0000-1000-8000-00805f9b34fb)
+	UUID: Headset                   (00001108-0000-1000-8000-00805f9b34fb)
+	UUID: A/V Remote Control Target (0000110c-0000-1000-8000-00805f9b34fb)
+	UUID: Generic Access Profile    (00001800-0000-1000-8000-00805f9b34fb)
+	UUID: Audio Source              (0000110a-0000-1000-8000-00805f9b34fb)
+	UUID: Generic Attribute Profile (00001801-0000-1000-8000-00805f9b34fb)
+	UUID: Device Information        (0000180a-0000-1000-8000-00805f9b34fb)
+	Modalias: usb:v1D6Bp0246d0557
+	Discovering: no
+	Roles: central
+	Roles: peripheral
+Advertising Features:
+	ActiveInstances: 0x00 (0)
+	SupportedInstances: 0x10 (16)
+	SupportedIncludes: tx-power
+	SupportedIncludes: appearance
+	SupportedIncludes: local-name
+	SupportedSecondaryChannels: 1M
+	SupportedSecondaryChannels: 2M
+	SupportedSecondaryChannels: Coded
+	SupportedCapabilities.MinTxPower: 0xffffffe2 (-30)
+	SupportedCapabilities.MaxTxPower: 0x0010 (16)
+	SupportedCapabilities.MaxAdvLen: 0xfb (251)
+	SupportedCapabilities.MaxScnRspLen: 0xfb (251)
+	SupportedFeatures: CanSetTxPower
+	SupportedFeatures: HardwareOffload
+[exit=0]
+
+===== rfkill =====
+$ rfkill list
+0: hci0: Bluetooth
+	Soft blocked: yes
+	Hard blocked: no
+1: phy0: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no
+[exit=0]

@@ -1,0 +1,205 @@
+### INIT
+lrwxrwxrwx    1 root     root            22 Nov  4 14:52 /sbin/init -> ../lib/systemd/systemd
+ps: unrecognized option: p
+BusyBox v1.38.0 (2026-10-25 19:58:26 UTC) multi-call binary.
+
+Usage: ps [-o COL1,COL2=HEADER] [-T]
+
+Show list of processes
+
+	-o COL1,COL2=HEADER	Select columns for display
+	-T			Show threads
+### LOOP ROOT
+/dev/loop0: []: (/dev/sde27)
+NAME                   SIZE TYPE FSTYPE MOUNTPOINT
+loop0                227.5G loop        
+├─loop0p1              480M part        /boot
+└─loop0p2              227G part        /
+sda                     16M disk        
+├─sda1                   8M part        
+└─sda2                   1M part        
+sdb                      8M disk        
+├─sdb1                   5M part        
+├─sdb2                 256K part        
+└─sdb3                 128K part        
+sdc                      8M disk        
+├─sdc1                   5M part        
+├─sdc2                 256K part        
+└─sdc3                 128K part        
+sdd                    1.2G disk        
+├─sdd1                 512K part        
+├─sdd2                   4M part        
+├─sdd3                   8M part        
+├─sdd4                 128K part        
+├─sdd5                 128K part        
+├─sdd6                 512K part        
+├─sdd7                 256K part        
+├─sdd8                   1M part        
+├─sdd9                   1M part        
+├─sdd10                 80K part        
+├─sdd11                  2M part        
+├─sdd12                 64K part        
+├─sdd13                 64K part        
+├─sdd14                128M part        
+├─sdd15                395M part        
+├─sdd16                  2M part        
+├─sdd17                 64M part        
+├─sdd18                 32M part        
+├─sdd19                 96M part        
+├─sdd20                 96M part        
+└─sdd21                 24M part        
+sde                    236G disk        
+├─sde1                   8K part        
+├─sde2                  32M part        
+├─sde3                   8M part        
+├─sde4                   1M part        
+├─sde5                 512K part        
+├─sde6                 512K part        
+├─sde7                 512K part        
+├─sde8                 128K part        
+├─sde9                  16M part        
+├─sde10                  8M part        
+├─sde11               15.6M part        
+├─sde12                  3M part        
+├─sde13                  3M part        
+├─sde14                128K part        
+├─sde15                  8M part        
+├─sde16                 30M part        
+├─sde17                  4K part        
+├─sde18                256K part        
+├─sde19                  4K part        
+├─sde20                  4K part        
+├─sde21                512K part        
+├─sde22                128K part        
+├─sde23                128K part        
+├─sde24                512K part        
+├─sde25                768K part        
+├─sde26                8.3G part        
+│ ├─product_a            4G dm          
+│ ├─system_a         924.5M dm          
+│ ├─system_ext_a       1.1G dm          
+│ ├─vendor_a           1.2G dm          
+│ ├─product_a-cow     82.9M dm          
+│ ├─system_a-cow     695.3M dm          
+│ ├─system_ext_a-cow 416.7M dm          
+│ └─system_b          38.5M dm          
+└─sde27              227.5G part        
+sdf                    1.2G disk        
+├─sdf1                 512K part        
+├─sdf2                   4M part        
+├─sdf3                   8M part        
+├─sdf4                 128K part        
+├─sdf5                 128K part        
+├─sdf6                 512K part        
+├─sdf7                 256K part        
+├─sdf8                   1M part        
+├─sdf9                   1M part        
+├─sdf10                 80K part        
+├─sdf11                  2M part        
+├─sdf12                 64K part        
+├─sdf13                 64K part        
+├─sdf14                128M part        
+├─sdf15                395M part        
+├─sdf16                  2M part        
+├─sdf17                 64M part        
+├─sdf18                 32M part        
+├─sdf19                 96M part        
+├─sdf20                 96M part        
+└─sdf21                 24M part        
+zram0                 10.8G disk        [SWAP]
+### CMDLINE
+quiet splash plymouth.ignore-serial-consoles plymouth.prefer-fbcon pmos_boot_uuid=6452-DE85 pmos_root_uuid=1f50d877-ee0f-45f6-bb81-e79892f0e975 pmos_rootfsopts=defaults quiet androidboot.verifiedbootstate=orange androidboot.keymaster=1 androidboot.vbmeta.device=PARTUUID=cc6cf68a-9070-d10d-a496-bdd1fae8ee7d androidboot.vbmeta.avb_version=1.0 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=6592 androidboot.vbmeta.digest=<REDIGIDO> androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc androidboot.serialno=<REDIGIDO> androidboot.device=dubai androidboot.revision=pvt androidboot.hwrev=0xC000 androidboot.radio=ROW androidboot.powerup_reason=0x00000080 androidboot.bootreason=power_key_press msm_poweroff.download_mode=0 wifimacaddr=<REDIGIDO> androidboot.btmacaddr=<MAC-REDIGIDO> androidboot.bootloader=MBM-3.0-dubai_g-68ad1f84891-250428-U1RDS34.80-40-5-6-ba4fd androidboot.carrier= androidboot.hardware.sku=XT2203-1 androidboot.mode=normal androidboot.baseband=msm msm_drm.dsi_display0=qcom,mdss_dsi_mot_csot_nt37701_655_1080x2400_dsc_cmd_v1:timing1: androidboot.slot_suffix=_b rootwait ro init=/init androidboot.force_normal_boot=1 storage_mfrid=0x12C androidboot.secure_hardware=1 androidboot.cid=0x0032 androidboot.write_protect=0 androidboot.bl_state=2 androidboot.ssm_data=0000000000010001
+### REPOS
+https://mirror.nura.eco/postmarketos/extra-repos/systemd/main
+https://mirror.nura.eco/postmarketos/main
+https://dl-cdn.alpinelinux.org/alpine/edge/main
+https://dl-cdn.alpinelinux.org/alpine/edge/community
+https://dl-cdn.alpinelinux.org/alpine/edge/testing
+### PKGCOUNT
+1326
+### KEY PKGS
+gnome-shell-schemas-999951.0-r0
+linux-firmware-ath11k-20260916-r0
+linux-firmware-qca-20260916-r0
+linux-headers-7.2.1-r0
+linux-pam-1.7.1-r4
+linux-pam-systemd-1.7.1-r4
+linux-postmarketos-qcom-sc7280-7.2.9-r2
+mesa-26.2.6-r0
+mesa-dri-gallium-26.2.6-r0
+mesa-egl-26.2.6-r0
+mesa-gbm-26.2.6-r0
+mesa-gl-26.2.6-r0
+mesa-gles-26.2.6-r0
+mesa-vulkan-freedreno-26.2.6-r0
+modemmanager-1.25.95_git20261005-r0
+modemmanager-lang-1.25.95_git20261005-r0
+modemmanager-systemd-1.25.95_git20261005-r0
+modemmanager-udev-1.25.95_git20261005-r0
+networkmanager-99991.58.0-r2
+networkmanager-bluetooth-99991.58.0-r2
+networkmanager-cli-99991.58.0-r2
+networkmanager-lang-99991.58.0-r2
+networkmanager-systemd-99991.58.0-r2
+networkmanager-tui-99991.58.0-r2
+networkmanager-wifi-99991.58.0-r2
+networkmanager-wwan-99991.58.0-r2
+phoc-0.58.0-r0
+phoc-lang-0.58.0-r0
+phoc-schemas-0.58.0-r0
+phosh-99990.58.0-r0
+phosh-lang-99990.58.0-r0
+phosh-mobile-settings-0.58.0-r0
+phosh-mobile-settings-lang-0.58.0-r0
+phosh-mobile-settings-libs-0.58.0-r0
+phosh-portalsconf-99990.58.0-r0
+phosh-schemas-99990.58.0-r0
+phosh-systemd-99990.58.0-r0
+phosh-wallpapers-0.55.0-r1
+pipewire-1.6.9-r0
+pipewire-lang-1.6.9-r0
+### FAILED UNITS
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+### RUNNING SVC
+  UNIT                               LOAD   ACTIVE SUB     DESCRIPTION
+  81voltd.service                    loaded active running IMS Data service on QMI/QRTR
+  accounts-daemon.service            loaded active running Accounts Service
+  apk-inhibit.service                loaded active running Hold sleep inhibitor while apk is running
+  apk-polkit-server.service          loaded active running PolKit server to manage APK through DBus
+  avahi-daemon.service               loaded active running Avahi mDNS/DNS-SD Stack
+  bluetooth.service                  loaded active running Bluetooth service
+  dbus-broker.service                loaded active running D-Bus System Message Bus
+  greetd.service                     loaded active running Greeter daemon
+  hexagonrpcd-adsp-rootpd.service    loaded active running Server for FastRPC remote procedure calls from Qualcomm ADSP - RootPD
+  hexagonrpcd-adsp-sensorspd.service loaded active running Server for FastRPC remote procedure calls from Qualcomm ADSP - sensorspd
+  hkdm.service                       loaded active running Hotkey Daemon for Mobile
+  iio-sensor-proxy.service           loaded active running IIO Sensor Proxy service
+  ModemManager.service               loaded active running Modem Manager
+  NetworkManager.service             loaded active running Network Manager
+  polkit.service                     loaded active running Authorization Manager
+  rmtfs.service                      loaded active running Qualcomm remotefs service
+  routewrangler.service              loaded active running Routing policy daemon
+  rtkit-daemon.service               loaded active running RealtimeKit Scheduling Policy Service
+  serial-getty@ttyMSM0.service       loaded active running Serial Getty on ttyMSM0
+  sshd.service                       loaded active running OpenSSH Daemon
+  systemd-coredumpd.service          loaded active running Listen Kernel Core Dump Socket
+  systemd-journald.service           loaded active running Journal Service
+  systemd-logind.service             loaded active running User Login Management
+  systemd-oomd.service               loaded active running Userspace Out-Of-Memory (OOM) Killer
+  systemd-resolved.service           loaded active running Network Name Resolution
+  systemd-timesyncd.service          loaded active running Network Time Synchronization
+  systemd-udevd.service              loaded active running Rule-based Manager for Device Events and Files
+  tqftpserv.service                  loaded active running QRTR TFTP service
+  tuned-ppd.service                  loaded active running PPD-to-TuneD API Translation Daemon
+  tuned.service                      loaded active running Dynamic System Tuning Daemon
+  udisks2.service                    loaded active running Disk Manager
+  unudhcpd@usb0.service              loaded active running unudhcpd
+  upower.service                     loaded active running Daemon for power management
+  usb-signaller.service              loaded active running usb-signaller
+  user@10000.service                 loaded active running User Manager for UID 10000
+  wpa_supplicant.service             loaded active running WPA supplicant
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.

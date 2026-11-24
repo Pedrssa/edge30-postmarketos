@@ -1,0 +1,106 @@
+### MODEMMANAGER LOG
+Nov 24 21:43:42 motorola-dubai [2927]: <msg> [qrtr0/probe] probe step: QMI
+Nov 24 21:43:44 motorola-dubai [2927]: <msg> [base-manager] couldn't check support for device '/sys/devices/platform/soc@0/17a10040.wifi': not supported by any plugin
+Nov 24 21:43:44 motorola-dubai [2927]: <msg> [device qcom-soc] creating modem with plugin 'qcom-soc' and '2' ports
+Nov 24 21:43:44 motorola-dubai [2927]: <msg> [base-manager] couldn't check support for device '/sys/devices/platform/soc@0/a600000.usb': not supported by any plugin
+Nov 24 21:43:44 motorola-dubai [2927]: <wrn> [modem0] couldn't reset QMI port 'qrtr0' with data interface 'rmnet_ipa0': Couldn't query file info: Error when getting information for file “/dev/qrtr0”: No such file or directory
+Nov 24 21:43:44 motorola-dubai [2927]: <wrn> [location-cache] Error loading cached location from /var/lib/ModemManager/location.ini: No such file or directory
+Nov 24 21:44:03 motorola-dubai [2927]: <msg> [modem0] state changed (unknown -> locked)
+Nov 24 21:44:03 motorola-dubai [2927]: <wrn> [modem0] modem couldn't be initialized: Couldn't check unlock status: QMI operation failed: GW primary session index unknown
+Nov 24 21:44:03 motorola-dubai [2927]: <msg> [modem0] state changed (locked -> failed)
+Nov 24 21:44:10 motorola-dubai [2927]: <wrn> [modem0] couldn't load SUPL server: Failed to receive indication with the current server settings
+Nov 24 21:44:20 motorola-dubai [2927]: <wrn> [modem0] couldn't load supported assistance data types: Failed to receive indication with the predicted orbits data source
+Nov 24 21:44:20 motorola-dubai [2927]: <wrn> [device qcom-soc] error initializing: Modem in failed state: sim-missing
+
+### MODEM FULL
+  -----------------------------
+  General  |              path: /org/freedesktop/ModemManager1/Modem/0
+           |         device id: <REDIGIDO>
+  -----------------------------
+  Hardware |      manufacturer: QUALCOMM INCORPORATED
+           |             model: 0
+           | firmware revision: MPSS.HI.4.3.3.c6-00041-LC_ALL_PACK-1.501167.141  1  [Jan 09 2024 09:00:00]
+           |      h/w revision: 10000
+           |         supported: gsm-umts, lte, 5gnr
+           |           current: gsm-umts, lte, 5gnr
+           |      equipment id: <IMEI-REDIGIDO>
+  -----------------------------
+  System   |            device: qcom-soc
+           |           physdev: /sys/devices/platform/soc@0/1e40000.ipa
+           |           drivers: ipa, qrtr
+           |            plugin: qcom-soc
+           |      primary port: qrtr0
+           |             ports: qrtr0 (qmi), rmnet_ipa0 (net)
+  -----------------------------
+  Status   |             state: [31mfailed[0m
+           |     failed reason: [31msim-missing[0m
+           |       power state: off
+  -----------------------------
+  Modes    |         supported: allowed: 2g; preferred: none
+           |                    allowed: 3g; preferred: none
+           |                    allowed: 4g; preferred: none
+           |                    allowed: 2g, 3g; preferred: 3g
+           |                    allowed: 2g, 3g; preferred: 2g
+           |                    allowed: 2g, 4g; preferred: 4g
+           |                    allowed: 2g, 4g; preferred: 2g
+           |                    allowed: 3g, 4g; preferred: 4g
+           |                    allowed: 3g, 4g; preferred: 3g
+           |                    allowed: 2g, 3g, 4g; preferred: 4g
+           |                    allowed: 2g, 3g, 4g; preferred: 3g
+           |                    allowed: 2g, 3g, 4g; preferred: 2g
+           |                    allowed: 5g; preferred: none
+           |                    allowed: 4g, 5g; preferred: 5g
+           |                    allowed: 4g, 5g; preferred: 4g
+           |                    allowed: 2g, 5g; preferred: 5g
+           |                    allowed: 2g, 5g; preferred: 2g
+
+### QRTR
+/dev/qrtr-tun
+ash: line 2: qrtr-lookup: not found
+
+### AUDIO CONFLICT
+Failed to connect to user scope bus via local transport: $DBUS_SESSION_BUS_ADDRESS and $XDG_RUNTIME_DIR not defined (consider using --machine=<user>@.host --user to connect to bus of other user)
+--- pulse? ---
+3445 /usr/bin/pulseaudio
+5231 /usr/bin/pipewire
+5232 /usr/bin/wireplumber
+
+### APK CONFLICT CHECK
+gst-plugin-pipewire-1.6.9-r0
+pipewire-1.6.9-r0
+pipewire-lang-1.6.9-r0
+pipewire-libs-1.6.9-r0
+pipewire-spa-libcamera-1.6.9-r0
+pipewire-systemd-1.6.9-r0
+pipewire-udev-1.6.9-r0
+pipewire-webrtc-1.6.9-r0
+postmarketos-base-ui-audio-backend-pulseaudio-63-r0
+pulseaudio-17.0-r9
+pulseaudio-alsa-17.0-r9
+pulseaudio-bluez-17.0-r9
+pulseaudio-lang-17.0-r9
+pulseaudio-utils-17.0-r9
+pulseaudio-wireplumber-17.0-r9
+soc-qcom-pulseaudio-14-r0
+soc-qcom-pulseaudio-systemd-14-r0
+wireplumber-0.5.19-r0
+wireplumber-lang-0.5.19-r0
+wireplumber-libs-0.5.19-r0
+wireplumber-systemd-0.5.19-r0
+
+### DT CAMERAS
+/sys/firmware/devicetree/base/soc@0/cci@ac4a000/i2c-bus@1/camera-lens@c
+/sys/firmware/devicetree/base/thermal-zones/camera0-thermal
+/sys/firmware/devicetree/base/thermal-zones/camera0-thermal/trips/camera0-crit
+
+### BT RFKILL
+0: hci0: Bluetooth
+	Soft blocked: yes
+	Hard blocked: no
+1: phy0: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no
+
+### STEVIA
+-- No entries --
+Failed to connect to user scope bus via local transport: $DBUS_SESSION_BUS_ADDRESS and $XDG_RUNTIME_DIR not defined (consider using --machine=<user>@.host --user to connect to bus of other user)

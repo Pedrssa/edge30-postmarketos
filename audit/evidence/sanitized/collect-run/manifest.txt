@@ -1,0 +1,58 @@
+Coleta iniciada em 2026-11-24 22:22:15 UTC
+----------------------------------------------------------------
+
+01-system.txt                identificação                              lidos
+01-system.txt                uname                                        exit=0
+01-system.txt                uptime                                       exit=0
+01-system.txt                hostname                                     exit=0
+01-system.txt                device tree                                  lidos
+01-system.txt                init                                         exit=0
+02-resources.txt             memória                                     exit=0
+02-resources.txt             disco                                        exit=0
+02-resources.txt             blocos                                       exit=0
+02-resources.txt             loop                                         exit=0
+02-resources.txt             montagens                                    exit=0
+02-resources.txt             carga                                        exit=0
+02-resources.txt             processos                                    exit=0
+03-packages.txt              repositórios                                exit=0
+03-packages.txt              chaves apk                                   exit=0
+03-packages.txt              pacotes                                      exit=0
+03-packages.txt              unidades falhas                              exit=0
+03-packages.txt              serviços ativos                             exit=0
+04-kernel.txt                módulos                                     exit=0
+04-kernel.txt                interrupções                               exit=0
+04-kernel.txt                erros do boot                                exit=0
+04-kernel.txt                kernel                                       exit=0
+04-kernel.txt                dmesg                                        exit=1
+04-kernel.txt                deferred probe                               lidos
+05-graphics.txt              nós DRM                                     exit=0
+05-graphics.txt              conectores                                   exit=0
+05-graphics.txt              painel                                       lidos
+05-graphics.txt              drivers mesa                                 exit=0
+05-graphics.txt              eglinfo                                      AUSENTE
+05-graphics.txt              vulkaninfo                                   AUSENTE
+06-hardware.txt              entradas                                     exit=0
+06-hardware.txt              leds                                         exit=0
+06-hardware.txt              v4l2                                         exit=0
+06-hardware.txt              typec                                        exit=0
+06-hardware.txt              udc                                          exit=0
+07-power.txt                 suspensão                                   lidos
+07-power.txt                 wakeup sources                               lidos
+08-network.txt               interfaces                                   exit=0
+08-network.txt               rotas                                        exit=0
+08-network.txt               escuta                                       exit=0
+08-network.txt               nmcli                                        exit=0
+08-network.txt               wifi link                                    exit=0
+08-network.txt               power save                                   exit=0
+08-network.txt               modem                                        exit=0
+08-network.txt               bluetooth                                    exit=0
+08-network.txt               rfkill                                       exit=0
+09-security.txt              sysctl                                       lidos
+09-security.txt              usuários                                    exit=0
+09-security.txt              grupos admin                                 exit=2
+09-security.txt              suid                                         exit=0
+09-security.txt              sshd config                                  exit=0
+
+Sanitização aplicada.
+
+Coleta concluída em 2026-11-24 22:22:16 UTC

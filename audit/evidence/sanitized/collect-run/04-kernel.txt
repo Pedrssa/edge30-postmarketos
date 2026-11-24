@@ -1,0 +1,1461 @@
+
+===== módulos =====
+$ lsmod
+Module                  Size  Used by
+binfmt_misc            24576  1
+rfcomm                 94208  4
+algif_hash             16384  1
+algif_skcipher         16384  1
+bnep                   32768  2
+snd_usb_audio_qmi      36864  0
+q6voice_dai            28672  1
+q6voice                20480  1 q6voice_dai
+q6cvs                  12288  0
+q6mvm                  12288  1 q6voice
+q6cvp                  16384  1 q6voice
+q6usb                  12288  1
+q6voice_common         20480  4 q6cvp,q6voice,q6mvm,q6cvs
+fastrpc                36864  0
+snd_soc_sm8250         12288  3
+snd_soc_qcom_offload_utils    12288  1 snd_soc_sm8250
+snd_soc_qcom_sdw       12288  1 snd_soc_sm8250
+snd_soc_qcom_common    12288  1 snd_soc_sm8250
+soc_usb                16384  3 snd_soc_qcom_offload_utils,q6usb,snd_usb_audio_qmi
+qcom_pd_mapper         28672  0
+hci_uart               98304  0
+btqca                  28672  1 hci_uart
+snd_usb_audio         544768  2 soc_usb,snd_usb_audio_qmi
+btbcm                  24576  1 hci_uart
+bluetooth             987136  30 btqca,hci_uart,btbcm,bnep,rfcomm
+snd_ump                32768  1 snd_usb_audio
+snd_hwdep              24576  1 snd_usb_audio
+qcom_iris             184320  0
+ecdh_generic           16384  1 bluetooth
+snd_usbmidi_lib        49152  1 snd_usb_audio
+ledtrig_pattern        16384  0
+ecc                    53248  1 ecdh_generic
+qcom_camss            679936  15
+snd_rawmidi            45056  2 snd_usbmidi_lib,snd_ump
+fsa4480                16384  4
+pwrseq_qcom_wcn        16384  1
+s5kjn1                 28672  3
+at24                   28672  0
+videobuf2_dma_contig    24576  1 qcom_iris
+wl2864c_regulator      16384  7
+snd_soc_aw88261        32768  2
+ak7375                 12288  2
+v4l2_mem2mem           49152  1 qcom_iris
+gc02m1b                24576  3
+videobuf2_dma_sg       20480  1 qcom_camss
+snd_soc_aw88395_lib    57344  1 snd_soc_aw88261
+ath11k_ahb             28672  0
+v4l2_cci               12288  2 s5kjn1,gc02m1b
+videobuf2_memops       16384  2 videobuf2_dma_contig,videobuf2_dma_sg
+ath11k                491520  1 ath11k_ahb
+videobuf2_v4l2         36864  3 qcom_iris,qcom_camss,v4l2_mem2mem
+mac80211             1355776  1 ath11k
+videobuf2_common       77824  7 qcom_iris,qcom_camss,videobuf2_dma_contig,videobuf2_v4l2,videobuf2_dma_sg,v4l2_mem2mem,videobuf2_memops
+snd_soc_wcd937x        86016  1
+cfg80211             1409024  2 ath11k,mac80211
+snd_soc_wcd937x_sdw    20480  1 snd_soc_wcd937x
+snd_soc_lpass_tx_macro   102400  2
+snd_soc_wcd_common     16384  2 snd_soc_wcd937x_sdw,snd_soc_wcd937x
+snd_soc_lpass_rx_macro   122880  1
+snd_soc_lpass_va_macro    61440  3
+ipa                   286720  0
+qcom_q6v5_pas          49152  1
+regmap_sdw             12288  1 snd_soc_wcd937x_sdw
+snd_soc_wcd_classh     24576  1 snd_soc_wcd937x
+rfkill                 36864  8 bluetooth,cfg80211
+qcom_pil_info          12288  1 qcom_q6v5_pas
+soundwire_qcom         40960  1
+qcom_q6v5              16384  1 qcom_q6v5_pas
+qcom_common            20480  2 ipa,qcom_q6v5_pas
+snd_soc_lpass_macro_common    12288  3 snd_soc_lpass_va_macro,snd_soc_lpass_rx_macro,snd_soc_lpass_tx_macro
+libarc4                12288  1 mac80211
+snd_soc_wcd_mbhc       36864  1 snd_soc_wcd937x
+nft_reject_inet        12288  1
+nf_reject_ipv6         24576  1 nft_reject_inet
+nf_reject_ipv4         12288  1 nft_reject_inet
+nft_reject             12288  1 nft_reject_inet
+nft_ct                 20480  3
+nf_conntrack          155648  1 nft_ct
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+nf_tables             323584  133 nft_ct,nft_reject_inet,nft_reject
+uhid                   20480  0
+fuse                  237568  5
+usb_f_ncm              32768  2
+u_ether                36864  1 usb_f_ncm
+goodix_berlin_spi      12288  0
+goodix_berlin_core     24576  1 goodix_berlin_spi
+panel_novatek_nt37701    24576  0
+spi_geni_qcom          40960  0
+evdev                  24576  12
+libcomposite          102400  11 u_ether,usb_f_ncm
+[exit=0]
+
+===== interrupções =====
+$ cat /proc/interrupts
+            CPU0       CPU1       CPU2       CPU3       CPU4       CPU5       CPU6       CPU7       
+  11:      35642      23743      44728      24995       8331       4797       4497      14324  GICv3       27 Level     arch_timer
+  13:      17937          0          0          0          0          0          0          0  GICv3      261 Level     ipcc_0
+  14:      41797          0          0          0          0          0          0          0  GICv3       37 Level     18200000.rsc
+  15:       1104          0          0          0          0          0          0          0  ipcc         0 Edge      aoss-qmp
+  16:         48          0          0          0          0          0          0          0  ipcc      196610 Edge      smp2p-adsp
+  17:          4          0          0          0          0          0          0          0  ipcc      393218 Edge      smp2p-cdsp
+  18:          5          0          0          0          0          0          0          0  ipcc      131074 Edge      smp2p-mpss
+  19:          4          0          0          0          0          0          0          0  ipcc      1572866 Edge      smp2p-wpss
+  21:          0          0          0          0          0          0          0          0  GICv3      705 Level     arm-smmu global fault
+  22:          0          0          0          0          0          0          0          0  GICv3      707 Level     arm-smmu global fault
+  23:          0          0          0          0          0          0          0          0  GICv3      710 Level     arm-smmu-context-fault
+  24:          0          0          0          0          0          0          0          0  GICv3      711 Level     arm-smmu-context-fault
+  33:          0          0          0          0          0          0          0          0  GICv3       97 Level     arm-smmu global fault
+  34:          0          0          0          0          0          0          0          0  GICv3      128 Level     arm-smmu-context-fault
+  35:          0          0          0          0          0          0          0          0  GICv3      129 Level     arm-smmu-context-fault
+  36:          0          0          0          0          0          0          0          0  GICv3      130 Level     arm-smmu-context-fault
+  37:          0          0          0          0          0          0          0          0  GICv3      131 Level     arm-smmu-context-fault
+  38:          0          0          0          0          0          0          0          0  GICv3      132 Level     arm-smmu-context-fault
+  39:          0          0          0          0          0          0          0          0  GICv3      133 Level     arm-smmu-context-fault
+  40:          0          0          0          0          0          0          0          0  GICv3      134 Level     arm-smmu-context-fault
+  41:          0          0          0          0          0          0          0          0  GICv3      135 Level     arm-smmu-context-fault
+  42:          0          0          0          0          0          0          0          0  GICv3      136 Level     arm-smmu-context-fault
+  43:          0          0          0          0          0          0          0          0  GICv3      137 Level     arm-smmu-context-fault
+  44:          0          0          0          0          0          0          0          0  GICv3      138 Level     arm-smmu-context-fault
+  45:          0          0          0          0          0          0          0          0  GICv3      139 Level     arm-smmu-context-fault
+  46:          0          0          0          0          0          0          0          0  GICv3      140 Level     arm-smmu-context-fault
+  47:          0          0          0          0          0          0          0          0  GICv3      141 Level     arm-smmu-context-fault
+  48:          0          0          0          0          0          0          0          0  GICv3      142 Level     arm-smmu-context-fault
+  49:          0          0          0          0          0          0          0          0  GICv3      143 Level     arm-smmu-context-fault
+  50:          0          0          0          0          0          0          0          0  GICv3      144 Level     arm-smmu-context-fault
+  51:          0          0          0          0          0          0          0          0  GICv3      145 Level     arm-smmu-context-fault
+  52:          0          0          0          0          0          0          0          0  GICv3      146 Level     arm-smmu-context-fault
+  53:          0          0          0          0          0          0          0          0  GICv3      147 Level     arm-smmu-context-fault
+  54:          0          0          0          0          0          0          0          0  GICv3      148 Level     arm-smmu-context-fault
+  55:          0          0          0          0          0          0          0          0  GICv3      149 Level     arm-smmu-context-fault
+  56:          0          0          0          0          0          0          0          0  GICv3      150 Level     arm-smmu-context-fault
+  57:          0          0          0          0          0          0          0          0  GICv3      213 Level     arm-smmu-context-fault
+  58:          0          0          0          0          0          0          0          0  GICv3      214 Level     arm-smmu-context-fault
+  59:          0          0          0          0          0          0          0          0  GICv3      215 Level     arm-smmu-context-fault
+  60:          0          0          0          0          0          0          0          0  GICv3      216 Level     arm-smmu-context-fault
+  61:          0          0          0          0          0          0          0          0  GICv3      217 Level     arm-smmu-context-fault
+  62:          0          0          0          0          0          0          0          0  GICv3      218 Level     arm-smmu-context-fault
+  63:          0          0          0          0          0          0          0          0  GICv3      219 Level     arm-smmu-context-fault
+ 115:          0          0          0          0          0          0          0          0  pmic_arb  6430824 Edge      pm8xxx_rtc_alarm
+ 116:          4          0          0          0          0          0          0          0  pmic_arb  1302629 Edge      pmic_pwrkey
+ 117:          4          0          0          0          0          0          0          0  pmic_arb  1294437 Edge      pmic_resin
+ 118:          0          0          0          0          0          0          0          0  GICv3      538 Level     c263000.thermal-sensor
+ 119:          0          0          0          0          0          0          0          0  GICv3      540 Level     c263000.thermal-sensor
+ 120:          0          0          0          0          0          0          0          0  GICv3      539 Level     c265000.thermal-sensor
+ 121:          0          0          0          0          0          0          0          0  GICv3      541 Level     c265000.thermal-sensor
+ 122:          0          0          0          0          0          0          0          0  pmic_arb  137691312 Edge      pm-adc-tm5
+ 123:          0          0          0          0          0          0          0          0  pmic_arb  3407975 Edge      pm-adc-tm5-gen2
+ 124:          0          0          0          0          0          0          0          0  pmic_arb  17432707 Edge      temp-alarm
+ 125:          0          0          0          0          0          0          0          0  pmic_arb  34209930 Edge      temp-alarm
+ 127:      57454      32566      46785      28007      14555       1653       1287      10019  GICv3       38 Level     arch_mem_timer
+ 128:          6          0          0          0          0          0          0          0  pmic_arb  137429167 Edge      pm-adc5
+ 129:         12          0          0          0          0          0          0          0  pmic_arb  3211366 Edge      pm-adc5
+ 130:          0          0          0          0          0          0          0          0  GICv3       23 Level     arm-pmu
+ 132:          0          0          0          0          0          0          0          0  GICv3       62 Level     dcvsh-irq-0
+ 133:          0          0          0          0          0          0          0          0  GICv3       63 Level     dcvsh-irq-4
+ 134:          0          0          0          0          0          0          0          0  GICv3       51 Level     dcvsh-irq-7
+ 146:          0          0          0          0          0          0          0          0  GICv3      304 Level     bam_dma
+ 147:       3490          0          0          0          0          0          0          0  GICv3      634 Level     984000.i2c
+ 148:        406          0          0          0          0          0          0          0  GICv3      637 Level     990000.i2c
+ 149:         34          0          0          0          0          0          0          0  GICv3      638 Level     qcom_geni_serial_uart0
+ 150:       2130          0          0          0          0          0          0          0  GICv3      640 Level     qcom_geni_serial_uart1
+ 151:          0          0          0          0          0          0          0          0  msmgpio     31 Edge      99c000.serial:wakeup
+ 152:        771          0          0          0          0          0          0          0  GICv3      113 Level     9091000.pmu
+ 153:        664          0          0          0          0          0          0          0  GICv3      613 Level     90b6400.pmu
+ 155:         27          0          0          0          0          0          0          0  GICv3      492 Edge      ac4a000.cci
+ 156:          3          0          0          0          0          0          0          0  GICv3      303 Edge      ac4b000.cci
+ 157:          0          0          0          0          0          0          0          0  pmic_arb  136577198 Edge      temp-alarm
+ 158:      19787          0          0          0          0          0          0          0  GICv3      297 Level     ufshcd
+ 159:       8271          0          0          0          0          0          0          0  msm_mdss     0 Edge      msm
+ 160:       2366          0          0          0          0          0          0          0  msm_mdss     4 Edge      dsi_isr
+ 161:          0          0          0          0          0          0          0          0  PDC         14 Edge      dp_hs_phy_irq
+ 162:          0          0          0          0          0          0          0          0  PDC         15 Edge      dm_hs_phy_irq
+ 163:          0          0          0          0          0          0          0          0  PDC         17 Level     ss_phy_irq
+ 164:          2          0          0          0          0          0          0          0  GICv3      165 Level     dwc3
+ 165:          4          0          0          0          0          0          0          0  spmi-gpio    5 Edge      Volume Up
+ 166:       2447          0          0          0          0          0          0          0  GICv3      390 Level     a94000.spi
+ 167:       3444          0          0          0          0          0          0          0  GICv3      332 Level     gpu-irq
+ 168:          8          0          0          0          0          0          0          0  GICv3      336 Level     hfi
+ 169:          0          0          0          0          0          0          0          0  GICv3      337 Level     gmu
+ 170:       1364          0          0          0          0          0          0          0  msmgpio     81 Level     goodix-berlin
+ 171:          0          0          0          0          0          0          0          0  GICv3      296 Edge      q6v5 wdog
+ 172:          0          0          0          0          0          0          0          0  smp2p-mpss    0 Edge      q6v5 fatal
+ 173:          1          0          0          0          0          0          0          0  GICv3      686 Edge      ipa
+ 174:          0          0          0          0          0          0          0          3  smp2p-mpss    1 Edge      q6v5 ready
+ 175:         18          0          0          0          0          0          0          0  GICv3      464 Level     gsi
+ 176:          0          0          0          0          0          0          0          1  smp2p-mpss    2 Edge      q6v5 handover
+ 177:          0          0          0          0          0          0          0          0  smp2p-mpss    0 Edge      ipa-clock-query
+ 178:          0          0          0          0          0          0          0          0  smp2p-mpss    3 Edge      q6v5 stop
+ 179:          0          0          0          0          0          0          0          0  smp2p-mpss    7 Edge      q6v5 shutdown-ack
+ 180:          0          0          0          0          0          0          0          0  PDC          6 Edge      q6v5 wdog
+ 181:          0          0          0          0          0          0          0          0  smp2p-adsp    0 Edge      q6v5 fatal
+ 182:          0          0          0          0          0          0          0         47  smp2p-adsp    1 Edge      q6v5 ready
+ 183:          0          0          0          0          0          0          0          1  smp2p-adsp    2 Edge      q6v5 handover
+ 184:          0          0          0          0          0          0          0          0  smp2p-adsp    3 Edge      q6v5 stop
+ 185:          0          0          0          0          0          0          0          0  smp2p-adsp    7 Edge      q6v5 shutdown-ack
+ 186:          0          0          0          0          0          0          0          0  GICv3      619 Edge      q6v5 wdog
+ 187:          0          0          0          0          0          0          0          0  smp2p-wpss    0 Edge      q6v5 fatal
+ 188:          0          0          0          0          0          0          0          2  smp2p-wpss    1 Edge      q6v5 ready
+ 189:          0          0          0          0          0          0          0          1  smp2p-wpss    2 Edge      q6v5 handover
+ 190:          0          0          0          0          0          0          0          0  smp2p-wpss    3 Edge      q6v5 stop
+ 191:          0          0          0          0          0          0          0          0  smp2p-wpss    7 Edge      q6v5 shutdown-ack
+ 192:          3          0          0          0          0          0          0          0  GICv3      800 Edge      ce0
+ 193:          2          0          0          0          0          0          0          0  GICv3      801 Edge      ce1
+ 194:      31110          0          0          0          0          0          0          0  GICv3      802 Edge      ce2
+ 195:      23803          0          0          0          0          0          0          0  GICv3      803 Edge      ce3
+ 196:          0          0          0          0          0          0          0          0  GICv3      804 Edge      ce5
+ 197:          1          0          0          0          0          0          0          0  GICv3      805 Edge      ce7
+ 198:          0          0          0          0          0          0          0          0  GICv3      806 Edge      ce8
+ 202:        263          0          0          0          0          0          0          0  GICv3      810 Edge      DP_EXT_IRQ
+ 203:          5          0          0          0          0          0          0          0  GICv3      811 Edge      DP_EXT_IRQ
+ 204:        391          0          0          0          0          0          0          0  GICv3      812 Edge      DP_EXT_IRQ
+ 206:          0          0          0          0          0          0          0          0  GICv3      610 Edge      q6v5 wdog
+ 207:        500          0          0          0          0          0          0          0  GICv3      814 Edge      DP_EXT_IRQ
+ 209:          1          0          0          0          0          0          0          0  GICv3      816 Edge      DP_EXT_IRQ
+ 210:        731          0          0          0          0          0          0          0  GICv3      817 Edge      DP_EXT_IRQ
+ 211:        190          0          0          0          0          0          0          0  GICv3      818 Edge      DP_EXT_IRQ
+ 212:        255          0          0          0          0          0          0          0  GICv3      819 Edge      DP_EXT_IRQ
+ 213:        263          0          0          0          0          0          0          0  GICv3      820 Edge      DP_EXT_IRQ
+ 221:          0          0          0          0          0          0          0          0  smp2p-cdsp    0 Edge      q6v5 fatal
+ 222:          0          0          0          0          0          0          0          2  smp2p-cdsp    1 Edge      q6v5 ready
+ 223:          0          0          0          0          0          0          0          1  smp2p-cdsp    2 Edge      q6v5 handover
+ 224:          0          0          0          0          0          0          0          0  smp2p-cdsp    3 Edge      q6v5 stop
+ 225:          0          0          0          0          0          0          0          0  smp2p-cdsp    7 Edge      q6v5 shutdown-ack
+ 227:          0          0          0          0          0          0          0          0  GICv3      509 Edge      acb3000.isp_msm_csiphy0
+ 228:          0          0          0          0          0          0          0          0  GICv3      510 Edge      acb3000.isp_msm_csiphy1
+ 229:          0          0          0          0          0          0          0          0  GICv3      511 Edge      acb3000.isp_msm_csiphy2
+ 230:          0          0          0          0          0          0          0          0  GICv3      480 Edge      acb3000.isp_msm_csiphy3
+ 231:          0          0          0          0          0          0          0          0  GICv3      154 Edge      acb3000.isp_msm_csiphy4
+ 232:          0          0          0          0          0          0          0          0  GICv3      497 Edge      acb3000.isp_msm_vfe0
+ 233:        160          0          0          1          0          0          0          0  ipcc      1572864 Edge      glink-smem
+ 234:          0          0          0          0          0          0          0          0  GICv3      499 Edge      acb3000.isp_msm_vfe1
+ 235:          0          0          0          0          0          0          0          0  GICv3      673 Edge      acb3000.isp_msm_vfe2
+ 236:          0          0          0          0          0          0          0          0  GICv3      501 Edge      acb3000.isp_msm_vfe3
+ 237:          0          0          0          0          0          0          0          0  GICv3      392 Edge      acb3000.isp_msm_vfe4
+ 238:          0          0          0          0          0          0          0          0  GICv3      496 Edge      acb3000.isp_msm_csid0
+ 239:          0          0          0          0          0          0          0          0  GICv3      498 Edge      acb3000.isp_msm_csid1
+ 240:          0          0          0          0          0          0          0          0  GICv3      672 Edge      acb3000.isp_msm_csid2
+ 241:          0          0          0          0          0          0          0          0  GICv3      500 Edge      acb3000.isp_msm_csid3
+ 242:          0          0          0          0          0          0          0          0  GICv3      391 Edge      acb3000.isp_msm_csid4
+ 243:          7          0          0          0          0          0          0          0  GICv3      206 Level     iris
+ 244:      16471          0          0          0          0          0          1          0  ipcc      196608 Edge      glink-smem
+ 245:        100          0          1          0          0          0          0          0  ipcc      393216 Edge      glink-smem
+ 246:          7          0          0          0          0          0          0          0  GICv3      187 Edge      soundwire
+ 247:         42          0          0          0          0          0          0          0  GICv3      528 Edge      soundwire
+ 248:          1          0          0          0          0          0          0          0  PDC        130 Level     swr_wake_irq
+ 249:          1          0          0          0          0          0          0          0  WCD937x      0 Edge      wcd937x
+ 250:          0          0          0          0          0          0          0          0  wcd937x     14 Edge      HPHR PDM WDOG INT
+ 251:          0          0          0          0          0          0          0          0  wcd937x     13 Edge      HPHL PDM WDOG INT
+ 252:          0          0          0          0          0          0          0          0  wcd937x     15 Edge      AUX PDM WDOG INT
+ 253:          1          0          0          0          0          0          0          0  wcd937x      4 Edge      mbhc sw intr
+ 254:          0          0          0          0          0          0          0          0  wcd937x      0 Edge      Button Press detect
+ 255:          0          0          0          0          0          0          0          0  wcd937x      1 Edge      Button Release detect
+ 256:          0          0          0          0          0          0          0          0  wcd937x      3 Edge      Elect Insert
+ 257:          0          0          0          0          0          0          0          0  wcd937x      2 Edge      Elect Remove
+ 258:          0          0          0          0          0          0          0          0  wcd937x      7 Edge      HPH_L OCP detect
+ 259:          0          0          0          0          0          0          0          0  wcd937x      5 Edge      HPH_R OCP detect
+ 260:        609          0          0          0          0          0          0          0  ipcc      131072 Edge      glink-smem
+IPI0:       4211       3001       2654       2926       4050       2230       1531       4751  Rescheduling interrupts
+IPI1:      51861      37505      31984      32582      25956      15062      13941      30485  Function call interrupts
+IPI2:          0          0          0          0          0          0          0          0  CPU stop interrupts
+IPI3:          0          0          0          0          0          0          0          0  CPU stop NMIs
+IPI4:      26230       8196      24335      21300      22259       2659       2510      11148  Timer broadcast interrupts
+IPI5:       5214       4429       8845       4781       1499       1322       1169       8785  IRQ work interrupts
+IPI6:          0          0          0          0          0          0          0          0  CPU backtrace interrupts
+IPI7:          0          0          0          0          0          0          0          0  KGDB roundup interrupts
+ Err:          0
+[exit=0]
+
+===== erros do boot =====
+$ journalctl -b -p err --no-pager
+Nov 24 21:43:29 motorola-dubai kernel: qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier a600000.usb for /pmic-glink/connector@0
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+Nov 24 21:43:29 motorola-dubai systemd[1]: bpf-restrict-fs: Failed to link 'restrict_filesystems' LSM BPF program: Not supported
+Nov 24 21:43:29 motorola-dubai udevadm[682]: qcom-battmgr-bat: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai udevadm[682]: qcom-battmgr-usb: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai udevadm[682]: qcom-battmgr-wls: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO0, min:48
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO0, default:36
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO1, min:48
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO1, default:48
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO2, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO2, default:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO3, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO3, default:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO4, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO4, default:128
+Nov 24 21:43:30 motorola-dubai kernel: qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier 4-0042 for /pmic-glink/connector@0
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c_regulator_init: LDO5, min:128
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO5, default:48
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c_regulator_init: LDO6, min:128
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO6, default:48
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: unexpected event for opcode 0xfc48
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3210000.soundwire: din-ports (0) mismatch with controller (1)
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3210000.soundwire: dout-ports (5) mismatch with controller (6)
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3230000.soundwire: din-ports (3) mismatch with controller (4)
+Nov 24 21:43:31 motorola-dubai kernel: wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x70, z_val=268435454 (milliohm)
+Nov 24 21:43:31 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:32 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:32 motorola-dubai kernel: wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x94a, z_val=268435454 (milliohm)
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: unexpected event for opcode 0xfc48
+Nov 24 21:43:33 motorola-dubai systemd[1168]: pipewire-pulse.socket: Socket service pipewire-pulse.service not loaded, refusing.
+Nov 24 21:43:33 motorola-dubai systemd[1168]: Failed to listen on PipeWire PulseAudio.
+Nov 24 21:43:33 motorola-dubai [1113]: gkr-pam: couldn't unlock the login keyring.
+Nov 24 21:43:33 motorola-dubai bluetoothd[945]: Failed to set mode: Failed (0x03)
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:36 motorola-dubai pulseaudio[1778]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:43:36 motorola-dubai pulseaudio[1795]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:44:07 motorola-dubai [2856]: gkr-pam: unable to locate daemon control file
+Nov 24 21:44:12 motorola-dubai pulseaudio[3166]: [pulseaudio] pid.c: Daemon already running.
+Nov 24 21:44:13 motorola-dubai systemd[3238]: pipewire-pulse.socket: Socket service pipewire-pulse.service not loaded, refusing.
+Nov 24 21:44:13 motorola-dubai systemd[3238]: Failed to listen on PipeWire PulseAudio.
+Nov 24 21:44:13 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:15 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:16 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:17 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:19 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 21:44:20 motorola-dubai systemd[1168]: Failed to start Stevia, a user friendly on screen keyboard.
+Nov 24 22:06:24 motorola-dubai bluetoothd[945]: Failed to set mode: Failed (0x03)
+Nov 24 22:07:49 motorola-dubai pulseaudio[3445]: [alsa-sink-MultiMedia1 (*)] alsa-sink.c: ALSA woke us up to write new data to the device, but there was actually nothing to write.
+Nov 24 22:07:49 motorola-dubai pulseaudio[3445]: [alsa-sink-MultiMedia1 (*)] alsa-sink.c: Most likely this is a bug in the ALSA driver 'snd_soc_sm8250'. Please report this issue to the ALSA developers.
+Nov 24 22:07:49 motorola-dubai pulseaudio[3445]: [alsa-sink-MultiMedia1 (*)] alsa-sink.c: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
+Nov 24 22:08:20 motorola-dubai pulseaudio[3445]: [alsa-source-MultiMedia3 (*)] alsa-source.c: ALSA woke us up to read new data from the device, but there was actually nothing to read.
+Nov 24 22:08:20 motorola-dubai pulseaudio[3445]: [alsa-source-MultiMedia3 (*)] alsa-source.c: Most likely this is a bug in the ALSA driver 'snd_soc_sm8250'. Please report this issue to the ALSA developers.
+Nov 24 22:08:20 motorola-dubai pulseaudio[3445]: [alsa-source-MultiMedia3 (*)] alsa-source.c: We were woken up with POLLIN set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
+[exit=0]
+
+===== kernel =====
+$ journalctl -k -b --no-pager
+Nov 24 21:43:29 motorola-dubai kernel: Booting Linux on physical CPU 0x0000000000 [0x412fd050]
+Nov 24 21:43:29 motorola-dubai kernel: Linux version 7.2.9 (pmos@build) (Alpine clang version 23.1.3, LLD 23.1.3) #3-postmarketos-qcom-sc7280 SMP PREEMPT Sat Oct 17 01:53:13 UTC 
+Nov 24 21:43:29 motorola-dubai kernel: KASLR enabled
+Nov 24 21:43:29 motorola-dubai kernel: random: crng init done
+Nov 24 21:43:29 motorola-dubai kernel: Machine model: Motorola Edge 30 (CSOT)
+Nov 24 21:43:29 motorola-dubai kernel: efi: UEFI not found.
+Nov 24 21:43:29 motorola-dubai kernel: [Firmware Bug]: Kernel image misaligned at boot, please fix your bootloader!
+Nov 24 21:43:29 motorola-dubai kernel: Reserved memory: created CMA memory pool at 0x00000000ff800000, size 8 MiB
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: initialized node adsp-rpc-remote-heap, compatible id shared-dma-pool
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000ff800000..0x00000000ffffffff (8192 KiB) map reusable adsp-rpc-remote-heap
+Nov 24 21:43:29 motorola-dubai kernel: Reserved memory: created CMA memory pool at 0x0000000278000000, size 128 MiB
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000278000000..0x000000027fffffff (131072 KiB) map reusable linux,cma
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000004cd000..0x00000000004cdfff (4 KiB) nomap non-reusable wlan-ce@4cd000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080000000..0x00000000805fffff (6144 KiB) nomap non-reusable hyp@80000000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080600000..0x00000000807fffff (2048 KiB) nomap non-reusable xbl@80600000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080800000..0x000000008085ffff (384 KiB) nomap non-reusable aop@80800000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080860000..0x000000008087ffff (128 KiB) nomap non-reusable aop-cmd-db@80860000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080884000..0x0000000080893fff (64 KiB) nomap non-reusable xbl-uefi-res@80880000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000808ff000..0x00000000808fffff (4 KiB) nomap non-reusable sec-apps@808ff000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080900000..0x0000000080afffff (2048 KiB) nomap non-reusable smem@80900000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080b00000..0x0000000080bfffff (1024 KiB) nomap non-reusable cpucp@80b00000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000080c00000..0x00000000817fffff (12288 KiB) nomap non-reusable wlan-fw@80c00000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000086700000..0x0000000088efffff (40960 KiB) nomap non-reusable adsp@86700000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000008b200000..0x000000008b6fffff (5120 KiB) nomap non-reusable video@8b200000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x0000000088f00000..0x000000008acfffff (30720 KiB) nomap non-reusable cdsp@88f00000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000008b700000..0x000000008b70ffff (64 KiB) nomap non-reusable ipa-fw@8b700000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000008b71a000..0x000000008b71bfff (8 KiB) nomap non-reusable zap@8b71a000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000008b800000..0x000000009adfffff (251904 KiB) nomap non-reusable mpss@8b800000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000009ae00000..0x000000009c6fffff (25600 KiB) nomap non-reusable wpss@9ae00000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x000000009c900000..0x000000009cb7ffff (2560 KiB) nomap non-reusable rmtfs@9c900000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000ae000000..0x00000000ae0bffff (768 KiB) map non-reusable ramoops@ae000000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000c0000000..0x00000000c50fffff (82944 KiB) nomap non-reusable removed@c0000000
+Nov 24 21:43:29 motorola-dubai kernel: OF: reserved mem: 0x00000000e1000000..0x00000000e19e33ff (10125 KiB) nomap non-reusable framebuffer@e1000000
+Nov 24 21:43:29 motorola-dubai kernel: NUMA: Faking a node at [mem 0x0000000080000000-0x000000027fffffff]
+Nov 24 21:43:29 motorola-dubai kernel: NODE_DATA(0) allocated [mem 0x277011980-0x27701413f]
+Nov 24 21:43:29 motorola-dubai kernel: psci: probing for conduit method from DT.
+Nov 24 21:43:29 motorola-dubai kernel: psci: PSCIv1.1 detected in firmware.
+Nov 24 21:43:29 motorola-dubai kernel: psci: Using standard PSCI v0.2 function IDs
+Nov 24 21:43:29 motorola-dubai kernel: psci: MIGRATE_INFO_TYPE not supported.
+Nov 24 21:43:29 motorola-dubai kernel: psci: SMC Calling Convention v1.0
+Nov 24 21:43:29 motorola-dubai kernel: psci: OSI mode supported.
+Nov 24 21:43:29 motorola-dubai kernel: Zone ranges:
+Nov 24 21:43:29 motorola-dubai kernel:   DMA      [mem 0x0000000080000000-0x00000000ffffffff]
+Nov 24 21:43:29 motorola-dubai kernel:   DMA32    empty
+Nov 24 21:43:29 motorola-dubai kernel:   Normal   [mem 0x0000000100000000-0x000000027fffffff]
+Nov 24 21:43:29 motorola-dubai kernel: Movable zone start for each node
+Nov 24 21:43:29 motorola-dubai kernel: Early memory node ranges
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000080000000-0x000000008087ffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000080880000-0x0000000080883fff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000080884000-0x0000000080893fff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000080894000-0x00000000808fefff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x00000000808ff000-0x00000000817fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000081800000-0x00000000866fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x0000000086700000-0x000000008acfffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008ad00000-0x000000008b1fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008b200000-0x000000008b70ffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008b710000-0x000000008b719fff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008b71a000-0x000000008b71bfff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008b71c000-0x000000008b7fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000008b800000-0x000000009c6fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000009c700000-0x000000009c8fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000009c900000-0x000000009cb7ffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x000000009cb80000-0x00000000b96fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x00000000c0000000-0x00000000c50fffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x00000000c5100000-0x00000000e0ffffff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x00000000e1000000-0x00000000e19e2fff]
+Nov 24 21:43:29 motorola-dubai kernel:   node   0: [mem 0x00000000e19e4000-0x000000027fffffff]
+Nov 24 21:43:29 motorola-dubai kernel: Initmem setup node 0 [mem 0x0000000080000000-0x000000027fffffff]
+Nov 24 21:43:29 motorola-dubai kernel: On node 0, zone DMA: 26880 pages in unavailable ranges
+Nov 24 21:43:29 motorola-dubai kernel: On node 0, zone DMA: 1 pages in unavailable ranges
+Nov 24 21:43:29 motorola-dubai kernel: percpu: Embedded 35 pages/cpu s103704 r8192 d31464 u143360
+Nov 24 21:43:29 motorola-dubai kernel: pcpu-alloc: s103704 r8192 d31464 u143360 alloc=35*4096
+Nov 24 21:43:29 motorola-dubai kernel: pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 [0] 4 [0] 5 [0] 6 [0] 7 
+Nov 24 21:43:29 motorola-dubai kernel: Detected VIPT I-cache on CPU0
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: GICv3 CPU interface
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: kernel page table isolation forced ON by KASLR
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Kernel page table isolation (KPTI)
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Broken broadcast TLBI completion
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+Nov 24 21:43:29 motorola-dubai kernel: alternatives: applying boot alternatives
+Nov 24 21:43:29 motorola-dubai kernel: Kernel command line: quiet splash plymouth.ignore-serial-consoles plymouth.prefer-fbcon pmos_boot_uuid=6452-DE85 pmos_root_uuid=1f50d877-ee0f-45f6-bb81-e79892f0e975 pmos_rootfsopts=defaults quiet androidboot.verifiedbootstate=orange androidboot.keymaster=1 androidboot.vbmeta.device=PARTUUID=cc6cf68a-9070-d10d-a496-bdd1fae8ee7d androidboot.vbmeta.avb_version=1.0 androidboot.vbmeta.device_state=unlocked androidboot.vbmeta.hash_alg=sha256 androidboot.vbmeta.size=6592 androidboot.vbmeta.digest=<REDIGIDO> androidboot.vbmeta.invalidate_on_error=yes androidboot.veritymode=enforcing androidboot.bootdevice=1d84000.ufshc androidboot.fstab_suffix=default androidboot.boot_devices=soc/1d84000.ufshc androidboot.serialno=<REDIGIDO> androidboot.device=dubai androidboot.revision=pvt androidboot.hwrev=0xC000 androidboot.radio=ROW androidboot.powerup_reason=0x00000080 androidboot.bootreason=power_key_press msm_poweroff.download_mode=0 \
+Nov 24 21:43:29 motorola-dubai kernel: Kernel command line: wifimacaddr=<REDIGIDO> androidboot.btmacaddr=<REDIGIDO> androidboot.bootloader=MBM-3.0-dubai_g-68ad1f84891-250428-U1RDS34.80-40-5-6-ba4fd androidboot.carrier= androidboot.hardware.sku=XT2203-1 androidboot.mode=normal androidboot.baseband=msm msm_drm.dsi_display0=qcom,mdss_dsi_mot_csot_nt37701_655_1080x2400_dsc_cmd_v1:timing1: androidboot.slot_suffix=_b rootwait ro init=/init androidboot.force_normal_boot=1 storage_mfrid=0x12C androidboot.secure_hardware=1 androidboot.cid=0x0032 androidboot.write_protect=0 androidboot.bl_state=2 androidboot.ssm_data=0000000000010001
+Nov 24 21:43:29 motorola-dubai kernel: Unknown kernel command line parameters "pmos_boot_uuid=6452-DE85 pmos_root_uuid=1f50d877-ee0f-45f6-bb81-e79892f0e975 pmos_rootfsopts=defaults wifimacaddr=<REDIGIDO> storage_mfrid=0x12C", will be passed to user space.
+Nov 24 21:43:29 motorola-dubai kernel: printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+Nov 24 21:43:29 motorola-dubai kernel: Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: software IO TLB: area num 8.
+Nov 24 21:43:29 motorola-dubai kernel: software IO TLB: mapped [mem 0x00000000fb800000-0x00000000ff800000] (64MB)
+Nov 24 21:43:29 motorola-dubai kernel: Fallback order for Node 0: 0 
+Nov 24 21:43:29 motorola-dubai kernel: Built 1 zonelists, mobility grouping on.  Total pages: 2070271
+Nov 24 21:43:29 motorola-dubai kernel: Policy zone: Normal
+Nov 24 21:43:29 motorola-dubai kernel: mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+Nov 24 21:43:29 motorola-dubai kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+Nov 24 21:43:29 motorola-dubai kernel: ftrace: allocating 50607 entries in 198 pages
+Nov 24 21:43:29 motorola-dubai kernel: ftrace: allocated 198 pages with 4 groups
+Nov 24 21:43:29 motorola-dubai kernel: rcu: Preemptible hierarchical RCU implementation.
+Nov 24 21:43:29 motorola-dubai kernel: rcu:         RCU event tracing is enabled.
+Nov 24 21:43:29 motorola-dubai kernel: rcu:         RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=8.
+Nov 24 21:43:29 motorola-dubai kernel:         Trampoline variant of Tasks RCU enabled.
+Nov 24 21:43:29 motorola-dubai kernel:         Rude variant of Tasks RCU enabled.
+Nov 24 21:43:29 motorola-dubai kernel:         Tracing variant of Tasks RCU enabled.
+Nov 24 21:43:29 motorola-dubai kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+Nov 24 21:43:29 motorola-dubai kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
+Nov 24 21:43:29 motorola-dubai kernel: RCU Tasks: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+Nov 24 21:43:29 motorola-dubai kernel: RCU Tasks Rude: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+Nov 24 21:43:29 motorola-dubai kernel: NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: 988 SPIs implemented
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: 0 Extended SPIs implemented
+Nov 24 21:43:29 motorola-dubai kernel: Root IRQ handler: gic_handle_irq
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: GICv3 features: 16 PPIs
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: GICD_CTLR.DS=1, SCR_EL3.FIQ=0
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU0: found redistributor 0 region 0:0x0000000017a60000
+Nov 24 21:43:29 motorola-dubai kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+Nov 24 21:43:29 motorola-dubai kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+Nov 24 21:43:29 motorola-dubai kernel: arch_timer: cp15 timer running at 19.20MHz (virt).
+Nov 24 21:43:29 motorola-dubai kernel: clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+Nov 24 21:43:29 motorola-dubai kernel: sched_clock: 56 bits at 19MHz, resolution 52ns, wraps every 4398046511078ns
+Nov 24 21:43:29 motorola-dubai kernel: Console: colour dummy device 80x25
+Nov 24 21:43:29 motorola-dubai kernel: printk: legacy console [tty0] enabled
+Nov 24 21:43:29 motorola-dubai kernel: Calibrating delay loop (skipped), value calculated using timer frequency.. 38.40 BogoMIPS (lpj=76800)
+Nov 24 21:43:29 motorola-dubai kernel: pid_max: default: 32768 minimum: 301
+Nov 24 21:43:29 motorola-dubai kernel: Yama: becoming mindful.
+Nov 24 21:43:29 motorola-dubai kernel: LSM support for eBPF active
+Nov 24 21:43:29 motorola-dubai kernel: Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: VFS: Finished mounting rootfs on nullfs
+Nov 24 21:43:29 motorola-dubai kernel: rcu: Hierarchical SRCU implementation.
+Nov 24 21:43:29 motorola-dubai kernel: rcu:         Max phase no-delay instances is 1000.
+Nov 24 21:43:29 motorola-dubai kernel: Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+Nov 24 21:43:29 motorola-dubai kernel: EFI services will not be available.
+Nov 24 21:43:29 motorola-dubai kernel: smp: Bringing up secondary CPUs ...
+Nov 24 21:43:29 motorola-dubai kernel: Detected VIPT I-cache on CPU1
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU1: found redistributor 100 region 0:0x0000000017a80000
+Nov 24 21:43:29 motorola-dubai kernel: CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
+Nov 24 21:43:29 motorola-dubai kernel: Detected VIPT I-cache on CPU2
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU2: found redistributor 200 region 0:0x0000000017aa0000
+Nov 24 21:43:29 motorola-dubai kernel: CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
+Nov 24 21:43:29 motorola-dubai kernel: Detected VIPT I-cache on CPU3
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU3: found redistributor 300 region 0:0x0000000017ac0000
+Nov 24 21:43:29 motorola-dubai kernel: CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Spectre-v4
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Spectre-BHB
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: SSBS not fully self-synchronizing
+Nov 24 21:43:29 motorola-dubai kernel: Detected PIPT I-cache on CPU4
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU4: found redistributor 400 region 0:0x0000000017ae0000
+Nov 24 21:43:29 motorola-dubai kernel: CPU4: Booted secondary processor 0x0000000400 [0x411fd411]
+Nov 24 21:43:29 motorola-dubai kernel: Detected PIPT I-cache on CPU5
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU5: found redistributor 500 region 0:0x0000000017b00000
+Nov 24 21:43:29 motorola-dubai kernel: CPU5: Booted secondary processor 0x0000000500 [0x411fd411]
+Nov 24 21:43:29 motorola-dubai kernel: Detected PIPT I-cache on CPU6
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU6: found redistributor 600 region 0:0x0000000017b20000
+Nov 24 21:43:29 motorola-dubai kernel: CPU6: Booted secondary processor 0x0000000600 [0x411fd411]
+Nov 24 21:43:29 motorola-dubai kernel: Detected PIPT I-cache on CPU7
+Nov 24 21:43:29 motorola-dubai kernel: GICv3: CPU7: found redistributor 700 region 0:0x0000000017b40000
+Nov 24 21:43:29 motorola-dubai kernel: CPU7: Booted secondary processor 0x0000000700 [0x411fd411]
+Nov 24 21:43:29 motorola-dubai kernel: smp: Brought up 1 node, 8 CPUs
+Nov 24 21:43:29 motorola-dubai kernel: SMP: Total of 8 processors activated.
+Nov 24 21:43:29 motorola-dubai kernel: CPU: All CPU(s) started at EL1
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: 32-bit EL0 Support
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Common not Private translations
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: CRC32 instructions
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: RCpc load-acquire (LDAPR)
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: LSE atomic instructions
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Privileged Access Never
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: PMUv3
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: RAS Extension Support
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: XNX
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+Nov 24 21:43:29 motorola-dubai kernel: alternatives: applying system-wide alternatives
+Nov 24 21:43:29 motorola-dubai kernel: CPU features: detected: Hardware dirty bit management on CPU4-7
+Nov 24 21:43:29 motorola-dubai kernel: Memory: 7382256K/8281084K available (17088K kernel code, 2358K rwdata, 12768K rodata, 2368K init, 1496K bss, 752616K reserved, 139264K cma-reserved)
+Nov 24 21:43:29 motorola-dubai kernel: devtmpfs: initialized
+Nov 24 21:43:29 motorola-dubai kernel: posixtimers hash table entries: 4096 (order: 4, 65536 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: futex hash table entries: 2048 (131072 bytes on 1 NUMA nodes, total 128 KiB, linear).
+Nov 24 21:43:29 motorola-dubai kernel: 2G module region forced by RANDOMIZE_MODULE_REGION_FULL
+Nov 24 21:43:29 motorola-dubai kernel: 0 pages in range for non-PLT usage
+Nov 24 21:43:29 motorola-dubai kernel: 515200 pages in range for PLT usage
+Nov 24 21:43:29 motorola-dubai kernel: DMI: not present or invalid.
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+Nov 24 21:43:29 motorola-dubai kernel: DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+Nov 24 21:43:29 motorola-dubai kernel: DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+Nov 24 21:43:29 motorola-dubai kernel: thermal_sys: Registered thermal governor 'step_wise'
+Nov 24 21:43:29 motorola-dubai kernel: thermal_sys: Registered thermal governor 'power_allocator'
+Nov 24 21:43:29 motorola-dubai kernel: cpuidle: using governor menu
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_QIPCRTR protocol family
+Nov 24 21:43:29 motorola-dubai kernel: hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+Nov 24 21:43:29 motorola-dubai kernel: ASID allocator initialised with 32768 entries
+Nov 24 21:43:29 motorola-dubai kernel: Serial: AMBA PL011 UART driver
+Nov 24 21:43:29 motorola-dubai kernel: CPUidle PSCI: Initialized CPU PM domain topology using OSI mode
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/ufshc@1d84000: Fixed dependency cycle(s) with /soc@0/phy@1d87000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/phy@1d87000: Fixed dependency cycle(s) with /soc@0/ufshc@1d84000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/stm@6002000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/funnel@6005000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/tpdm@600f000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6005000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6005000: Fixed dependency cycle(s) with /soc@0/tpda@6004000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@600f000: Fixed dependency cycle(s) with /soc@0/tpda@6004000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/stm@6002000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/funnel@6005000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6042000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/etr@6048000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etr@6048000: Fixed dependency cycle(s) with /soc@0/replicator@6046000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/etf@6b05000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etf@6b05000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etf@6b05000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6b06000: Fixed dependency cycle(s) with /soc@0/etf@6b05000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6b06000: Fixed dependency cycle(s) with /soc@0/replicator@6046000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0d000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0c000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0b000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0a000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b09000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b09000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0a000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0b000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0c000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0d000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7040000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7140000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7240000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7340000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7440000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7540000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7640000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7740000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7740000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7640000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7540000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7440000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7340000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7240000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7140000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7040000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7810000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7810000: Fixed dependency cycle(s) with /soc@0/funnel@6042000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4a000/i2c-bus@1/sensor@56: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4b000/i2c-bus@1/sensor@37: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4b000/i2c-bus@1/sensor@37
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4a000/i2c-bus@1/sensor@56
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/clock-controller@af00000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/phy@ae94400
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/display-controller@ae01000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/display-controller@ae01000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/phy@ae94400: Fixed dependency cycle(s) with /soc@0/clock-controller@af00000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/interrupt-controller@17a00000: Fixed dependency cycle(s) with /soc@0/interrupt-controller@17a00000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/ufshc@1d84000: Fixed dependency cycle(s) with /soc@0/phy@1d87000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/ufshc@1d84000: Fixed dependency cycle(s) with /soc@0/phy@1d87000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/phy@1d87000: Fixed dependency cycle(s) with /soc@0/ufshc@1d84000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/stm@6002000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/funnel@6005000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/tpdm@600f000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/funnel@6005000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6005000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6005000: Fixed dependency cycle(s) with /soc@0/tpda@6004000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6004000: Fixed dependency cycle(s) with /soc@0/tpdm@600f000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@600f000: Fixed dependency cycle(s) with /soc@0/tpda@6004000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6005000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/stm@6002000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/stm@6002000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/funnel@6005000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6041000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6042000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6041000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/etr@6048000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/etr@6048000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etr@6048000: Fixed dependency cycle(s) with /soc@0/replicator@6046000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6045000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/funnel@6045000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/etf@6b05000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/etf@6b05000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etf@6b05000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etf@6b05000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etf@6b05000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6046000: Fixed dependency cycle(s) with /soc@0/replicator@6b06000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6b06000: Fixed dependency cycle(s) with /soc@0/etf@6b05000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/replicator@6b06000: Fixed dependency cycle(s) with /soc@0/replicator@6046000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6b04000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/funnel@6b04000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0d000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0c000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0b000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0a000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b09000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b09000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b09000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0a000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0a000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0b000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0b000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0c000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0c000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpda@6b08000: Fixed dependency cycle(s) with /soc@0/tpdm@6b0d000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/tpdm@6b0d000: Fixed dependency cycle(s) with /soc@0/tpda@6b08000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7040000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7140000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7240000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7340000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7440000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7540000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7640000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7740000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7740000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7640000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7540000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7440000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7340000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7240000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7140000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/etm@7040000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7740000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7640000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7540000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7440000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7340000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7240000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7140000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/etm@7040000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7800000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@6042000: Fixed dependency cycle(s) with /soc@0/funnel@7810000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7810000: Fixed dependency cycle(s) with /soc@0/funnel@7800000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/funnel@7810000: Fixed dependency cycle(s) with /soc@0/funnel@6042000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4a000/i2c-bus@1/sensor@56: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4b000/i2c-bus@1/sensor@37: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4b000/i2c-bus@1/sensor@37: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4a000/i2c-bus@1/sensor@56: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4b000/i2c-bus@1/sensor@37
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4a000/i2c-bus@1/sensor@56
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/clock-controller@af00000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/phy@ae94400
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000: Fixed dependency cycle(s) with /soc@0/clock-controller@af00000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/display-controller@ae01000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/display-controller@ae01000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/phy@ae94400: Fixed dependency cycle(s) with /soc@0/clock-controller@af00000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-0: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-0/smps1
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-0: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-0/smps8
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-0: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-0/smps7
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-1: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-0/smps7
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-1: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-1/bob
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/rsc@18200000/regulators-1: Fixed dependency cycle(s) with /soc@0/rsc@18200000/regulators-0/smps1
+Nov 24 21:43:29 motorola-dubai kernel: /pmic-glink/connector@0: Fixed dependency cycle(s) with /soc@0/geniqup@9c0000/i2c@990000/typec-mux@42
+Nov 24 21:43:29 motorola-dubai kernel: /pmic-glink/connector@0: Fixed dependency cycle(s) with /soc@0/usb@a600000
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+Nov 24 21:43:29 motorola-dubai kernel: HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+Nov 24 21:43:29 motorola-dubai kernel: iommu: Default domain type: Translated
+Nov 24 21:43:29 motorola-dubai kernel: iommu: DMA domain TLB invalidation policy: strict mode
+Nov 24 21:43:29 motorola-dubai kernel: SCSI subsystem initialized
+Nov 24 21:43:29 motorola-dubai kernel: usbcore: registered new interface driver usbfs
+Nov 24 21:43:29 motorola-dubai kernel: usbcore: registered new interface driver hub
+Nov 24 21:43:29 motorola-dubai kernel: usbcore: registered new device driver usb
+Nov 24 21:43:29 motorola-dubai kernel: mc: Linux media interface: v0.10
+Nov 24 21:43:29 motorola-dubai kernel: videodev: Linux video capture interface: v2.00
+Nov 24 21:43:29 motorola-dubai kernel: pps_core: LinuxPPS API ver. 1 registered
+Nov 24 21:43:29 motorola-dubai kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+Nov 24 21:43:29 motorola-dubai kernel: PTP clock support registered
+Nov 24 21:43:29 motorola-dubai kernel: scmi_core: SCMI protocol bus registered
+Nov 24 21:43:29 motorola-dubai kernel: qcom_scm: convention: smc arm 64
+Nov 24 21:43:29 motorola-dubai kernel: qcom_scm firmware:scm: qseecom: found qseecom with version 0x1402000
+Nov 24 21:43:29 motorola-dubai kernel: qcom_scm firmware:scm: qseecom: untested machine, skipping
+Nov 24 21:43:29 motorola-dubai kernel: Advanced Linux Sound Architecture Driver Initialized.
+Nov 24 21:43:29 motorola-dubai kernel: vgaarb: loaded
+Nov 24 21:43:29 motorola-dubai kernel: clocksource: Switched to clocksource arch_sys_counter
+Nov 24 21:43:29 motorola-dubai kernel: VFS: Disk quotas dquot_6.6.0
+Nov 24 21:43:29 motorola-dubai kernel: VFS: Dquot-cache hash table entries: 512 (4096 bytes)
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_INET protocol family
+Nov 24 21:43:29 motorola-dubai kernel: IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: TCP: Hash tables configured (established 65536 bind 65536)
+Nov 24 21:43:29 motorola-dubai kernel: UDP hash table entries: 4096 (order: 6, 262144 bytes, linear)
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+Nov 24 21:43:29 motorola-dubai kernel: PCI: CLS 0 bytes, default 64
+Nov 24 21:43:29 motorola-dubai kernel: Unpacking initramfs...
+Nov 24 21:43:29 motorola-dubai kernel: kvm [1]: HYP mode not available
+Nov 24 21:43:29 motorola-dubai kernel: Initialise system trusted keyrings
+Nov 24 21:43:29 motorola-dubai kernel: workingset: timestamp_bits=42 (anon: 37) max_order=21 bucket_order=0 (anon: 0)
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_ALG protocol family
+Nov 24 21:43:29 motorola-dubai kernel: Key type asymmetric registered
+Nov 24 21:43:29 motorola-dubai kernel: Asymmetric key parser 'x509' registered
+Nov 24 21:43:29 motorola-dubai kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 243)
+Nov 24 21:43:29 motorola-dubai kernel: io scheduler mq-deadline registered
+Nov 24 21:43:29 motorola-dubai kernel: io scheduler kyber registered
+Nov 24 21:43:29 motorola-dubai kernel: qcom-ice 1d88000.crypto: Found QC Inline Crypto Engine (ICE) v3.2.0
+Nov 24 21:43:29 motorola-dubai kernel: qcom-ice 1d88000.crypto: QC Hardware Key Manager (HWKM) version v1
+Nov 24 21:43:29 motorola-dubai kernel: qcom-ice 1d88000.crypto: A supported HWKM is not present. Supporting raw keys only.
+Nov 24 21:43:29 motorola-dubai kernel: vreg_s1c_2p2: Setting 2192000-2208000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_s9c_0p676: Setting 1012000-1168000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l1c_1p8: Setting 1800000-1976000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l2c_1p8: Setting 1800000-1800000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l3c_3p0: Setting 3000000-3304000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l4c_1p8_3p0: Setting 1624000-3296000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l5c_1p8_3p0: Setting 1624000-3296000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l6c_2p96: Setting 1656000-3544000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l7c_3p0: Setting 3000000-3544000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l8c_1p8: Setting 1624000-2000000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l9c_2p96: Setting 3008000-3296000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l10c_0p88: Setting 720000-1048000uV
+Nov 24 21:43:29 motorola-dubai kernel: Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l11c_2p8: Setting 2800000-3544000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l12c_1p8: Setting 1800000-1800000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l13c_3p0: Setting 3000000-3000000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_bob: Setting 3032000-3960000uV
+Nov 24 21:43:29 motorola-dubai kernel: msm_serial: driver initialized
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu: probing hardware configuration...
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu: SMMUv2 with:
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         stage 1 translation
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         coherent table walk
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         stream matching with 6 register groups
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         7 context banks (0 stage-2 only)
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         Supported page sizes: 0x61311000
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         Stage-1: 48-bit VA -> 36-bit IPA
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 3da0000.iommu:         preserved 0 boot mappings
+Nov 24 21:43:29 motorola-dubai kernel: platform 3d00000.gpu: Adding to iommu group 0
+Nov 24 21:43:29 motorola-dubai kernel: platform 3d6a000.gmu: Adding to iommu group 1
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu: probing hardware configuration...
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu: SMMUv2 with:
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         stage 1 translation
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         coherent table walk
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         stream matching with 77 register groups
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         61 context banks (0 stage-2 only)
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         Supported page sizes: 0x61311000
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         Stage-1: 36-bit VA -> 36-bit IPA
+Nov 24 21:43:29 motorola-dubai kernel: arm-smmu 15000000.iommu:         preserved 0 boot mappings
+Nov 24 21:43:29 motorola-dubai kernel: platform 900000.dma-controller: Adding to iommu group 2
+Nov 24 21:43:29 motorola-dubai kernel: platform 9c0000.geniqup: Adding to iommu group 3
+Nov 24 21:43:29 motorola-dubai kernel: platform a00000.dma-controller: Adding to iommu group 4
+Nov 24 21:43:29 motorola-dubai kernel: platform ac0000.geniqup: Adding to iommu group 5
+Nov 24 21:43:29 motorola-dubai kernel: platform 17a10040.wifi: Adding to iommu group 6
+Nov 24 21:43:29 motorola-dubai kernel: platform 1d84000.ufshc: Adding to iommu group 7
+Nov 24 21:43:29 motorola-dubai kernel: platform 1dc4000.dma-controller: Adding to iommu group 8
+Nov 24 21:43:29 motorola-dubai kernel: platform 1dfa000.crypto: Adding to iommu group 8
+Nov 24 21:43:29 motorola-dubai kernel: platform 1e40000.ipa: Adding to iommu group 9
+Nov 24 21:43:29 motorola-dubai kernel: platform a600000.usb: Adding to iommu group 10
+Nov 24 21:43:29 motorola-dubai kernel: platform aa00000.video-codec: Adding to iommu group 11
+Nov 24 21:43:29 motorola-dubai kernel: platform acb3000.isp: Adding to iommu group 12
+Nov 24 21:43:29 motorola-dubai kernel: platform ae00000.display-subsystem: Adding to iommu group 13
+Nov 24 21:43:29 motorola-dubai kernel: amba 6048000.etr: Adding to iommu group 14
+Nov 24 21:43:29 motorola-dubai kernel: loop: module loaded
+Nov 24 21:43:29 motorola-dubai kernel: zram: Added device: zram0
+Nov 24 21:43:29 motorola-dubai kernel: spmi_pmic_arb c440000.spmi: PMIC arbiter version v5 (0x50020000)
+Nov 24 21:43:29 motorola-dubai kernel: leds-qcom-flash c440000.spmi:pmic@2:led-controller@ee00: Led white:flash renamed to white:flash_1 due to name collision
+Nov 24 21:43:29 motorola-dubai kernel: rtc-pm8xxx c440000.spmi:pmic@0:rtc@6100: registered as rtc0
+Nov 24 21:43:29 motorola-dubai kernel: rtc-pm8xxx c440000.spmi:pmic@0:rtc@6100: setting system clock to 1970-01-13T22:21:26 UTC (1117286)
+Nov 24 21:43:29 motorola-dubai kernel: i2c_dev: i2c /dev entries driver
+Nov 24 21:43:29 motorola-dubai kernel: input: pmic_pwrkey as /devices/platform/soc@0/c440000.spmi/spmi-0/0-00/c440000.spmi:pmic@0:pon@1300/c440000.spmi:pmic@0:pon@1300:pwrkey/input/input0
+Nov 24 21:43:29 motorola-dubai kernel: input: pmic_resin as /devices/platform/soc@0/c440000.spmi/spmi-0/0-00/c440000.spmi:pmic@0:pon@1300/c440000.spmi:pmic@0:pon@1300:resin/input/input1
+Nov 24 21:43:29 motorola-dubai kernel: device-mapper: ioctl: 4.50.0-ioctl (2025-04-28) initialised: dm-devel@lists.linux.dev
+Nov 24 21:43:29 motorola-dubai kernel: clocksource: arch_mmio_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+Nov 24 21:43:29 motorola-dubai kernel: arch-timer-mmio 17c20000.timer: mmio timer running at 19.20MHz (virt)
+Nov 24 21:43:29 motorola-dubai kernel: hid: raw HID events driver (C) Jiri Kosina
+Nov 24 21:43:29 motorola-dubai kernel: usbcore: registered new interface driver usbhid
+Nov 24 21:43:29 motorola-dubai kernel: usbhid: USB HID core driver
+Nov 24 21:43:29 motorola-dubai kernel: hw perfevents: enabled with armv8_cortex_a55 PMU driver, 7 (0,8000003f) counters available
+Nov 24 21:43:29 motorola-dubai kernel: hw perfevents: enabled with armv8_cortex_a78 PMU driver, 7 (0,8000003f) counters available
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_INET6 protocol family
+Nov 24 21:43:29 motorola-dubai kernel: Segment Routing with IPv6
+Nov 24 21:43:29 motorola-dubai kernel: In-situ OAM (IOAM) with IPv6
+Nov 24 21:43:29 motorola-dubai kernel: NET: Registered PF_PACKET protocol family
+Nov 24 21:43:29 motorola-dubai kernel: Key type dns_resolver registered
+Nov 24 21:43:29 motorola-dubai kernel: Loading compiled-in X.509 certificates
+Nov 24 21:43:29 motorola-dubai kernel: Freeing initrd memory: 14008K
+Nov 24 21:43:29 motorola-dubai kernel: Loaded X.509 cert 'Build time autogenerated kernel key: d48c687c6f13e08206e1eaf66fa1f4d74736d51e'
+Nov 24 21:43:29 motorola-dubai kernel: Demotion targets for Node 0: null
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu0: EM: OPP:300000 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu0: EM: created perf domain
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu4: EM: OPP:2131200 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu4: EM: OPP:2054400 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu4: EM: created perf domain
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu7: EM: OPP:2380800 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu7: EM: created perf domain
+Nov 24 21:43:29 motorola-dubai kernel: energy_model: updating cpu0 cpu_cap=379 old capacity=528
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu0: EM: OPP:300000 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: energy_model: updating cpu4 cpu_cap=957 old capacity=1003
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu4: EM: OPP:2131200 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: cpu cpu4: EM: OPP:2054400 is inefficient
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/geniqup@9c0000/i2c@990000/typec-mux@42: Fixed dependency cycle(s) with /pmic-glink/connector@0
+Nov 24 21:43:29 motorola-dubai kernel: /pmic-glink/connector@0: Fixed dependency cycle(s) with /soc@0/geniqup@9c0000/i2c@990000/typec-mux@42
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/geniqup@9c0000/i2c@990000/typec-mux@42: Fixed dependency cycle(s) with /pmic-glink/connector@0
+Nov 24 21:43:29 motorola-dubai kernel: 994000.serial: ttyMSM0 at MMIO 0x994000 (irq = 149, base_baud = 0) is a MSM
+Nov 24 21:43:29 motorola-dubai kernel: printk: legacy console [ttyMSM0] enabled
+Nov 24 21:43:29 motorola-dubai kernel: 99c000.serial: ttyHS1 at MMIO 0x99c000 (irq = 150, base_baud = 0) is a MSM
+Nov 24 21:43:29 motorola-dubai kernel: serial serial0: tty port ttyHS1 registered
+Nov 24 21:43:29 motorola-dubai kernel: vreg_s1b_1p856: Setting 1840000-2040000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_s7b_0p952: Setting 536000-1120000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_s8b_1p256: Setting 1200000-1496000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l1b_0p912: Setting 832000-920000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l2b_3p072: Setting 2704000-3544000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l3b_0p6: Setting 320000-904000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l6b_1p2: Setting 1144000-1256000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l7b_2p96: Setting 2400000-3544000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l8b_0p904: Setting 872000-968000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l9b_1p2: Setting 1200000-1304000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l11b_1p776: Setting 1504000-2000000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l12b_0p8: Setting 752000-824000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l13b_0p8: Setting 536000-824000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l14b_1p2: Setting 1080000-1304000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l15b_0p88: Setting 768000-1016000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l16b_1p2: Setting 1104000-1296000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l17b_1p8: Setting 1704000-1896000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l18b_1p8: Setting 1800000-2000000uV
+Nov 24 21:43:29 motorola-dubai kernel: vreg_l19b_1p8: Setting 1800000-2000000uV
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/display-controller@ae01000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/display-controller@ae01000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/display-controller@ae01000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4a000/i2c-bus@1/sensor@56
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4a000/i2c-bus@1/sensor@56: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/isp@acb3000: Fixed dependency cycle(s) with /soc@0/cci@ac4b000/i2c-bus@1/sensor@37
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/cci@ac4b000/i2c-bus@1/sensor@37: Fixed dependency cycle(s) with /soc@0/isp@acb3000
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: freq-table-hz property not specified
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vdd-hba-supply regulator, assuming enabled
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vccq2-supply regulator, assuming enabled
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0
+Nov 24 21:43:29 motorola-dubai kernel: /soc@0/display-subsystem@ae00000/dsi@ae94000/panel@0: Fixed dependency cycle(s) with /soc@0/display-subsystem@ae00000/dsi@ae94000
+Nov 24 21:43:29 motorola-dubai kernel: qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier a600000.usb for /pmic-glink/connector@0
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: freq-table-hz property not specified
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vdd-hba-supply regulator, assuming enabled
+Nov 24 21:43:29 motorola-dubai kernel: ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vccq2-supply regulator, assuming enabled
+Nov 24 21:43:29 motorola-dubai kernel: scsi host0: ufshcd
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:49488: Well-known LUN    MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:49476: Well-known LUN    MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:49456: Well-known LUN    MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:0: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] 4096 4096-byte logical blocks: (16.8 MB/16.0 MiB)
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:1: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] 2048 4096-byte logical blocks: (8.39 MB/8.00 MiB)
+Nov 24 21:43:29 motorola-dubai kernel: input: gpio-keys as /devices/platform/gpio-keys/input/input2
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Write cache: disabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:2: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] 2048 4096-byte logical blocks: (8.39 MB/8.00 MiB)
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:3: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Write cache: disabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: clk: Disabling unused clocks
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel: PM: genpd: Disabling unused power domains
+Nov 24 21:43:29 motorola-dubai kernel: ALSA device list:
+Nov 24 21:43:29 motorola-dubai kernel:   No soundcards found.
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] 307200 4096-byte logical blocks: (1.26 GB/1.17 GiB)
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Write cache: enabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:4: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] 61855744 4096-byte logical blocks: (253 GB/236 GiB)
+Nov 24 21:43:29 motorola-dubai kernel: scsi 0:0:0:5: Direct-Access     MICRON   MT256GAXAT4U316C 0104 PQ: 0 ANSI: 6
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Write cache: enabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] 307200 4096-byte logical blocks: (1.26 GB/1.17 GiB)
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Write Protect is off
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Mode Sense: 00 32 00 10
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Write cache: enabled, read cache: enabled, supports DPO and FUA
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Preferred minimum I/O size 4096 bytes
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Optimal transfer size 524288 bytes
+Nov 24 21:43:29 motorola-dubai kernel:  sdb: sdb1 sdb2 sdb3
+Nov 24 21:43:29 motorola-dubai kernel:  sda: sda1 sda2
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:0: [sda] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:1: [sdb] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel:  sdc: sdc1 sdc2 sdc3
+Nov 24 21:43:29 motorola-dubai kernel:  sde: sde1 sde2 sde3 sde4 sde5 sde6 sde7 sde8 sde9 sde10 sde11 sde12 sde13 sde14 sde15 sde16 sde17 sde18 sde19 sde20 sde21 sde22 sde23 sde24 sde25 sde26 sde27
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:2: [sdc] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel:  sdd: sdd1 sdd2 sdd3 sdd4 sdd5 sdd6 sdd7 sdd8 sdd9 sdd10 sdd11 sdd12 sdd13 sdd14 sdd15 sdd16 sdd17 sdd18 sdd19 sdd20 sdd21
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:4: [sde] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:3: [sdd] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel:  sdf: sdf1 sdf2 sdf3 sdf4 sdf5 sdf6 sdf7 sdf8 sdf9 sdf10 sdf11 sdf12 sdf13 sdf14 sdf15 sdf16 sdf17 sdf18 sdf19 sdf20 sdf21
+Nov 24 21:43:29 motorola-dubai kernel: sd 0:0:0:5: [sdf] Attached SCSI disk
+Nov 24 21:43:29 motorola-dubai kernel: Freeing unused kernel memory: 2368K
+Nov 24 21:43:29 motorola-dubai kernel: Run /init as init process
+Nov 24 21:43:29 motorola-dubai kernel:   with arguments:
+Nov 24 21:43:29 motorola-dubai kernel:     /init
+Nov 24 21:43:29 motorola-dubai kernel:   with environment:
+Nov 24 21:43:29 motorola-dubai kernel:     HOME=/
+Nov 24 21:43:29 motorola-dubai kernel:     TERM=linux
+Nov 24 21:43:29 motorola-dubai kernel:     pmos_boot_uuid=6452-DE85
+Nov 24 21:43:29 motorola-dubai kernel:     pmos_root_uuid=1f50d877-ee0f-45f6-bb81-e79892f0e975
+Nov 24 21:43:29 motorola-dubai kernel:     pmos_rootfsopts=defaults
+Nov 24 21:43:29 motorola-dubai kernel:     wifimacaddr=<REDIGIDO>
+Nov 24 21:43:29 motorola-dubai kernel:     storage_mfrid=0x12C
+Nov 24 21:43:29 motorola-dubai unknown: syslogd started: BusyBox v1.38.0
+Nov 24 21:43:29 motorola-dubai :   ❬❬ PMOS STAGE 1 ❭❭
+Nov 24 21:43:29 motorola-dubai : initramfs version: 3.12.5-r0
+Nov 24 21:43:29 motorola-dubai :   ❬❬ PMOS STAGE 2 ❭❭
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai : qcom-battmgr-bat: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai : qcom-battmgr-usb: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai : qcom-battmgr-wls: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls/uevent': Resource temporarily unavailable
+Nov 24 21:43:29 motorola-dubai kernel: panel-novatek-nt37701 ae94000.dsi.0: supply power not found, using dummy regulator
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: bound ae94000.dsi (ops dsi_ops)
+Nov 24 21:43:29 motorola-dubai kernel: adreno 3d00000.gpu: supply vdd not found, using dummy regulator
+Nov 24 21:43:29 motorola-dubai kernel: adreno 3d00000.gpu: supply vddcx not found, using dummy regulator
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: bound 3d00000.gpu (ops a3xx_ops)
+Nov 24 21:43:29 motorola-dubai kernel: [drm:dpu_kms_hw_init:1168] dpu hardware revision:0x70020000
+Nov 24 21:43:29 motorola-dubai kernel: [drm] Initialized msm 1.13.0 for ae01000.display-controller on minor 0
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+Nov 24 21:43:29 motorola-dubai kernel: input: Goodix Berlin Capacitive TouchScreen as /devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/input/input3
+Nov 24 21:43:29 motorola-dubai kernel: Console: switching to colour frame buffer device 135x150
+Nov 24 21:43:29 motorola-dubai kernel: fb0: sys_imageblit: framebuffer is not in virtual address space.
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb frame buffer device
+Nov 24 21:43:29 motorola-dubai :   Setting up USB gadget through configfs
+Nov 24 21:43:29 motorola-dubai kernel: configfs-gadget.g1 gadget.0: HOST MAC <MAC-REDIGIDO>
+Nov 24 21:43:29 motorola-dubai kernel: configfs-gadget.g1 gadget.0: MAC <MAC-REDIGIDO>
+Nov 24 21:43:29 motorola-dubai : Trying to start server with parameters: Server IP addr: 172.16.42.1:67, client IP addr: 172.16.42.2, interface: usb0
+Nov 24 21:43:29 motorola-dubai : Setting framebuffer mode to: U:1080x2400p-0
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+Nov 24 21:43:29 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+Nov 24 21:43:29 motorola-dubai : Waiting for super partition /dev/sde26...
+Nov 24 21:43:29 motorola-dubai : Waiting for super partition /dev/sde26...
+Nov 24 21:43:29 motorola-dubai : device-mapper: create ioctl on product_a  failed: Resource busy
+Nov 24 21:43:29 motorola-dubai : device-mapper: create ioctl on system_a  failed: Resource busy
+Nov 24 21:43:29 motorola-dubai : device-mapper: create ioctl on system_ext_a  failed: Resource busy
+Nov 24 21:43:29 motorola-dubai : device-mapper: create ioctl on vendor_a  failed: Resource busy
+Nov 24 21:43:29 motorola-dubai : Trying to mount subpartitions for 10 seconds...
+Nov 24 21:43:29 motorola-dubai : Mount subpartitions of /dev/sde27
+Nov 24 21:43:29 motorola-dubai kernel: loop0: detected capacity change from 0 to 477149144
+Nov 24 21:43:29 motorola-dubai kernel:  loop0: p1 p2
+Nov 24 21:43:29 motorola-dubai : Not resizing root partition (/dev/loop0p2): no free space left
+Nov 24 21:43:29 motorola-dubai : Auto-repair and check 'ext' filesystem (/dev/loop0p2)
+Nov 24 21:43:29 motorola-dubai : pmOS_root: clean, 118988/28810352 files, 3358635/59518710 blocks
+Nov 24 21:43:29 motorola-dubai : Resize 'ext4' root filesystem (/dev/loop0p2)
+Nov 24 21:43:29 motorola-dubai : resize2fs 1.47.4 (6-Mar-2025)
+Nov 24 21:43:29 motorola-dubai : The filesystem is already 59518710 (4k) blocks long.  Nothing to do!
+Nov 24 21:43:29 motorola-dubai : Mount root partition (/dev/loop0p2) to /sysroot (read-write) with options defaults
+Nov 24 21:43:29 motorola-dubai kernel: EXT4-fs (loop0p2): mounted filesystem 1f50d877-ee0f-45f6-bb81-e79892f0e975 r/w with ordered data mode. Quota mode: none.
+Nov 24 21:43:29 motorola-dubai : Switching root
+Nov 24 21:43:29 motorola-dubai unknown: syslogd exiting
+Nov 24 21:43:29 motorola-dubai systemd[1]: System time advanced to timestamp on /var/lib/systemd/timesync/clock: Sat 2026-11-21 15:26:44 GMT
+Nov 24 21:43:29 motorola-dubai systemd[1]: systemd 262.1 running in system mode (+PAM +AUDIT -SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK +BTF +XKBCOMMON -UTMP +LIBARCHIVE)
+Nov 24 21:43:29 motorola-dubai systemd[1]: Detected architecture arm64.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Hostname set to <motorola-dubai>.
+Nov 24 21:43:29 motorola-dubai systemd[1]: bpf-restrict-fs: Failed to link 'restrict_filesystems' LSM BPF program: Not supported
+Nov 24 21:43:29 motorola-dubai systemd[1]: Queued start job for default target Graphical Interface.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Created slice Slice /system/getty.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Created slice Slice /system/modprobe.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Created slice Slice /system/serial-getty.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Created slice Slice /system/unudhcpd.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Created slice User and Session Slice.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Set up automount Arbitrary Executable File Formats File System Automount Point.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Expecting device /dev/disk/by-partlabel/persist...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Expecting device /dev/disk/by-uuid/6452-DE85...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Expecting device /dev/ttyMSM0...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Local dm-clone Devices.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Image Downloads.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Local Integrity Protected Volumes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Remote Encrypted Volumes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Remote File Systems.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Remote Integrity Protected Volumes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Remote Verity Protected Volumes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Slice Units.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Reached target Local Verity Protected Volumes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Query the User Interactively for a Password.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Process Core Dump Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Credential Encryption/Decryption.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Disk Encryption Enrollment Service Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Factory Reset Management.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Hostname Service Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Journal Socket (/dev/log).
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Journal Sockets.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on DDI File System Mounter Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Console Output Muting Service Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Namespace Resource Manager Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Userspace Out-Of-Memory (OOM) Killer Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM PCR Measurements skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: Make TPM PCR Policy skipped, unmet condition check ConditionSecurity=measured-uki
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Disk Repartitioning Service Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Report System Basic Metrics Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on CGroup Report Varlink Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Report Files Metrics Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Report Signing Socket (Local Software Key).
+Nov 24 21:43:29 motorola-dubai systemd[1]: Report Signing Socket (TPM2) skipped, unmet condition check ConditionSecurity=measured-uki
+Nov 24 21:43:29 motorola-dubai systemd[1]: Report Signing Socket (configfs-tsm) skipped, unmet condition check ConditionSecurity=cvm
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on System Report Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Resolve Monitor Varlink Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Resolve Service Varlink Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Simple Block Device Backed Storage Provider.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Simple File System Backed Storage Provider.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on System Install Tool.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Recompute TPM PCR Policy on Completed System Update skipped, unmet condition check ConditionSecurity=measured-uki
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on System Updates.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on udev Kernel Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on udev Varlink Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounting Huge Pages File System...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounting POSIX Message Queue File System...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounting Kernel Debug File System...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounting Kernel Trace File System...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Create List of Static Device Nodes...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Load Kernel Module configfs skipped, unmet condition check ConditionKernelModuleLoaded=!configfs
+Nov 24 21:43:29 motorola-dubai systemd[1]: Load Kernel Module drm skipped, unmet condition check ConditionKernelModuleLoaded=!drm
+Nov 24 21:43:29 motorola-dubai systemd[1]: Load Kernel Module efi_pstore skipped, unmet condition check ConditionKernelModuleLoaded=!efi_pstore
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Load Kernel Module fuse...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting nftables static rule set...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Enable compressed swap in memory using zram...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Setting the system time according to an offset file...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Clear SysFail Entry If The Boot Is Successful skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/LoaderEntrySysFail-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Journal Service...
+Nov 24 21:43:29 motorola-dubai kernel: fuse: init (API version 7.45)
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Load Kernel Modules...
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM PCR Machine ID Measurement skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM PCR OS Separator skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Remount Root and Kernel File Systems...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Early TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM PCR NvPCR Initialization Separator skipped, unmet condition check ConditionPathExists=/etc/initrd-release
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM NvPCR Product ID Measurement skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Load udev Rules from Credentials...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Coldplug All udev Devices...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Virtual Console Setup...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounted Huge Pages File System.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounted POSIX Message Queue File System.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounted Kernel Debug File System.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounted Kernel Trace File System.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Create List of Static Device Nodes.
+Nov 24 21:43:29 motorola-dubai systemd[1]: modprobe@fuse.service: Deactivated successfully.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Load Kernel Module fuse.
+Nov 24 21:43:29 motorola-dubai systemd-journald[678]: Collecting audit messages is disabled.
+Nov 24 21:43:29 motorola-dubai systemd[1]: swclock-offset-boot.service: Deactivated successfully.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Setting the system time according to an offset file.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Load Kernel Modules.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Load udev Rules from Credentials.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Virtual Console Setup.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounting FUSE Control File System...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Apply Kernel Variables...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Create Static Device Nodes in /dev gracefully...
+Nov 24 21:43:29 motorola-dubai kernel: EXT4-fs (loop0p2): re-mounted 1f50d877-ee0f-45f6-bb81-e79892f0e975.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Remount Root and Kernel File Systems.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Rebuild Hardware Database skipped, unmet condition check ConditionNeedsUpdate=/etc
+Nov 24 21:43:29 motorola-dubai systemd[1]: Platform Persistent Storage Archival skipped, unmet condition check ConditionDirectoryNotEmpty=/sys/fs/pstore
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Load/Save OS Random Seed...
+Nov 24 21:43:29 motorola-dubai systemd[1]: TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-os
+Nov 24 21:43:29 motorola-dubai systemd[1]: Mounted FUSE Control File System.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Create Static Device Nodes in /dev gracefully.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Create System Users skipped, no trigger condition checks were met.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Journal Metrics Report Socket...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Journal Log Access Socket...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Create Static Device Nodes in /dev...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Finished Apply Kernel Variables.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Journal Metrics Report Socket.
+Nov 24 21:43:29 motorola-dubai systemd[1]: Listening on Journal Log Access Socket.
+Nov 24 21:43:29 motorola-dubai kernel: zram0: detected capacity change from 0 to 22634496
+Nov 24 21:43:29 motorola-dubai systemd[1]: Starting Network Name Resolution...
+Nov 24 21:43:29 motorola-dubai systemd[1]: Started Journal Service.
+Nov 24 21:43:29 motorola-dubai kernel: Adding 11317244k swap on /dev/zram0.  Priority:300 extents:1 across:11317244k SS
+Nov 24 21:43:29 motorola-dubai systemd-journald[678]: Received client request to flush runtime journal.
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls: failed to send uevent
+Nov 24 21:43:29 motorola-dubai kernel: power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+Nov 24 21:43:29 motorola-dubai kernel: ipa 1e40000.ipa: limiting IPA memory size to 0x00003000
+Nov 24 21:43:29 motorola-dubai kernel: ipa 1e40000.ipa: IPA driver initialized
+Nov 24 21:43:29 motorola-dubai kernel: cfg80211: Loading compiled-in X.509 certificates for regulatory database
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc0: modem is available
+Nov 24 21:43:29 motorola-dubai kernel: ipa 1e40000.ipa: IPA driver setup completed successfully
+Nov 24 21:43:29 motorola-dubai kernel: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+Nov 24 21:43:29 motorola-dubai kernel: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc1: adsp is available
+Nov 24 21:43:29 motorola-dubai kernel: ath11k 17a10040.wifi: wcn6750 hw1.0
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_i2c_probe Enter...
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc2: wpss is available
+Nov 24 21:43:29 motorola-dubai kernel: aw88261 1-0034: chip id = 2113
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c chip rev: 01
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO0, min:48
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO0, default:36
+Nov 24 21:43:29 motorola-dubai kernel: aw88261 1-0035: chip id = 2113
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO1, min:48
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO1, default:48
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc1: powering up adsp
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc2: powering up wpss
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc1: Booting fw image qcom/sm7325/motorola/dubai/adsp.mbn, size 17903536
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO2, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO2, default:128
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc2: Booting fw image qcom/sm7325/motorola/dubai/wpss.mbn, size 7435056
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc3: cdsp is available
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO3, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO3, default:128
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc3: powering up cdsp
+Nov 24 21:43:29 motorola-dubai kernel: irq: IRQ226: trimming hierarchy from :soc@0:interrupt-controller@b220000-8
+Nov 24 21:43:29 motorola-dubai kernel: remoteproc remoteproc3: Booting fw image qcom/sm7325/motorola/dubai/cdsp.mbn, size 3604480
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c_regulator_init: LDO4, min:128
+Nov 24 21:43:29 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO4, default:128
+Nov 24 21:43:30 motorola-dubai kernel: qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier 4-0042 for /pmic-glink/connector@0
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c_regulator_init: LDO5, min:128
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO5, default:48
+Nov 24 21:43:30 motorola-dubai kernel: remoteproc remoteproc2: remote processor wpss is now up
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c_regulator_init: LDO6, min:128
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO6, default:48
+Nov 24 21:43:30 motorola-dubai kernel: wl2864c-regulator 4-0029: wl2864c_i2c_probe Exit...
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: Core ver 2.22
+Nov 24 21:43:30 motorola-dubai kernel: NET: Registered PF_BLUETOOTH protocol family
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI device and connection manager initialized
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI socket layer initialized
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: L2CAP socket layer initialized
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: SCO socket layer initialized
+Nov 24 21:43:30 motorola-dubai kernel: remoteproc remoteproc1: remote processor adsp is now up
+Nov 24 21:43:30 motorola-dubai kernel: remoteproc remoteproc3: remote processor cdsp is now up
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI UART driver ver 2.3
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI UART protocol H4 registered
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI UART protocol Broadcom registered
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: HCI UART protocol QCA registered
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: setting up wcn6750
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA Product ID   :0x00000015
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA SOC Version  :0x40140110
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA ROM Version  :0x00000101
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA Patch Version:0x000024c7
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA controller version 0x01100101
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: unexpected event for opcode 0xfc48
+Nov 24 21:43:30 motorola-dubai kernel: Bluetooth: hci0: QCA Downloading qca/msbtfw11.mbn
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:service:4:3
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:service:4:4
+Nov 24 21:43:30 motorola-dubai kernel: usbcore: registered new interface driver snd-usb-audio
+Nov 24 21:43:30 motorola-dubai kernel: ath11k 17a10040.wifi: chip_id 0x1 chip_family 0xb board_id 0xff soc_id 0xffffffff
+Nov 24 21:43:30 motorola-dubai kernel: ath11k 17a10040.wifi: fw_version 0x10137fff fw_build_timestamp 2025-02-06 07:38 fw_build_id WLAN.MSL.1.0.1-01477-QCAMSLSWPLZ-1.83649.4
+Nov 24 21:43:30 motorola-dubai kernel: ath11k 17a10040.wifi: qmi failed to load CAL data file:cal-ahb-17a10040.wifi.bin
+Nov 24 21:43:30 motorola-dubai kernel: ath11k 17a10040.wifi: failed to load board data file: -2
+Nov 24 21:43:30 motorola-dubai kernel: ath11k 17a10040.wifi: qmi failed to download BDF:-2
+Nov 24 21:43:30 motorola-dubai kernel: platform 3700000.remoteproc:glink-edge:apr:service@4:usbd: Adding to iommu group 15
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:service:4:7
+Nov 24 21:43:30 motorola-dubai kernel: platform 3700000.remoteproc:glink-edge:apr:service@7:dais: Adding to iommu group 16
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:service:4:8
+Nov 24 21:43:30 motorola-dubai kernel: qcom,fastrpc 3700000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: assigned reserved memory node adsp-rpc-remote-heap
+Nov 24 21:43:30 motorola-dubai kernel: platform 3700000.remoteproc:glink-edge:fastrpc:compute-cb@3: Adding to iommu group 17
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:apr-service:4:9
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:apr-service:4:a
+Nov 24 21:43:30 motorola-dubai kernel: qcom,apr 3700000.remoteproc:glink-edge.apr_audio_svc.-1.-1: Adding APR/GPR dev: aprsvc:apr-service:4:b
+Nov 24 21:43:30 motorola-dubai kernel: platform 3700000.remoteproc:glink-edge:fastrpc:compute-cb@4: Adding to iommu group 18
+Nov 24 21:43:30 motorola-dubai kernel: platform 3700000.remoteproc:glink-edge:fastrpc:compute-cb@5: Adding to iommu group 19
+Nov 24 21:43:30 motorola-dubai kernel: qcom,fastrpc a300000.remoteproc:glink-edge.fastrpcglink-apps-dsp.-1.-1: no reserved DMA memory for FASTRPC
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@1: Adding to iommu group 20
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@2: Adding to iommu group 21
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@3: Adding to iommu group 22
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@4: Adding to iommu group 23
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@5: Adding to iommu group 24
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@6: Adding to iommu group 25
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@7: Adding to iommu group 26
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@8: Adding to iommu group 27
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@11: Adding to iommu group 28
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@12: Adding to iommu group 29
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@13: Adding to iommu group 30
+Nov 24 21:43:30 motorola-dubai kernel: platform a300000.remoteproc:glink-edge:fastrpc:compute-cb@14: Adding to iommu group 31
+Nov 24 21:43:30 motorola-dubai kernel: at24 17-0050: 16384 byte gt24p128e EEPROM, read-only
+Nov 24 21:43:30 motorola-dubai kernel: rx_macro 3200000.codec: Driver needs fixing: Unsorted reg_defaults, sorting the copy
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3210000.soundwire: din-ports (0) mismatch with controller (1)
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3210000.soundwire: dout-ports (5) mismatch with controller (6)
+Nov 24 21:43:30 motorola-dubai kernel: qcom-soundwire 3230000.soundwire: din-ports (3) mismatch with controller (4)
+Nov 24 21:43:30 motorola-dubai kernel: wcd937x_codec audio-codec: bound sdw:2:0:0217:010a:00:4 (ops wcd_sdw_component_ops [snd_soc_wcd_common])
+Nov 24 21:43:30 motorola-dubai kernel: wcd937x_codec audio-codec: bound sdw:3:0:0217:010a:00:3 (ops wcd_sdw_component_ops [snd_soc_wcd_common])
+Nov 24 21:43:30 motorola-dubai kernel: aw88261 1-0035: loaded qcom/sm7325/motorola/dubai/aw88261_acf.bin - size: 1944
+Nov 24 21:43:30 motorola-dubai kernel: aw88261 1-0034: loaded qcom/sm7325/motorola/dubai/aw88261_acf.bin - size: 1944
+Nov 24 21:43:30 motorola-dubai kernel: FAT-fs (loop0p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+Nov 24 21:43:30 motorola-dubai systemd-journald[678]: Time jumped backwards, rotating.
+Nov 24 21:43:30 motorola-dubai kernel: aw88261 1-0034: already power off
+Nov 24 21:43:30 motorola-dubai kernel: aw88261 1-0035: already power off
+Nov 24 21:43:30 motorola-dubai kernel: input: Motorola-dubai Headset Jack as /devices/platform/sound/sound/card0/input4
+Nov 24 21:43:30 motorola-dubai kernel: input: Motorola-dubai USB Offload Jack as /devices/platform/sound/sound/card0/input5
+Nov 24 21:43:31 motorola-dubai kernel: remoteproc remoteproc0: powering up modem
+Nov 24 21:43:31 motorola-dubai kernel: wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x70, z_val=268435454 (milliohm)
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: BNEP filters: protocol multicast
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: BNEP socket layer initialized
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: hci0: QCA Downloading qca/msnv11.bin
+Nov 24 21:43:31 motorola-dubai kernel: remoteproc remoteproc0: Booting fw image qcom/sm7325/motorola/dubai/modem.mbn, size 88608932
+Nov 24 21:43:31 motorola-dubai kernel: ipa 1e40000.ipa: received modem starting event
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: hci0: QCA FW build version: BTFW.MOSELLE.1.1.3-00106-MSL_PATCHZ-1
+Nov 24 21:43:31 motorola-dubai kernel: Bluetooth: hci0: QCA setup on UART is completed
+Nov 24 21:43:31 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:31 motorola-dubai kernel: ipa 1e40000.ipa: received modem running event
+Nov 24 21:43:31 motorola-dubai kernel: remoteproc remoteproc0: remote processor modem is now up
+Nov 24 21:43:32 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:32 motorola-dubai kernel: wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x94a, z_val=268435454 (milliohm)
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: MGMT ver 1.23
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: setting up wcn6750
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA Product ID   :0x00000015
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA SOC Version  :0x40140110
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA ROM Version  :0x00000101
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA Patch Version:0x000024c7
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA controller version 0x01100101
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: unexpected event for opcode 0xfc48
+Nov 24 21:43:32 motorola-dubai kernel: Bluetooth: hci0: QCA Downloading qca/msbtfw11.mbn
+Nov 24 21:43:33 motorola-dubai kernel: Bluetooth: hci0: QCA Downloading qca/msnv11.bin
+Nov 24 21:43:33 motorola-dubai kernel: Bluetooth: hci0: QCA FW build version: BTFW.MOSELLE.1.1.3-00106-MSL_PATCHZ-1
+Nov 24 21:43:33 motorola-dubai kernel: Bluetooth: hci0: QCA setup on UART is completed
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a660_sqe.fw from new location
+Nov 24 21:43:34 motorola-dubai kernel: msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a660_gmu.bin from new location
+Nov 24 21:43:34 motorola-dubai kernel: [drm] Loaded GMU firmware v3.1.10
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:34 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: wcd_measure_adc_once: adc complete: 0, adc timeout: 1
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:35 motorola-dubai kernel: wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+Nov 24 21:43:36 motorola-dubai kernel: Bluetooth: RFCOMM TTY layer initialized
+Nov 24 21:43:36 motorola-dubai kernel: Bluetooth: RFCOMM socket layer initialized
+Nov 24 21:43:36 motorola-dubai kernel: Bluetooth: RFCOMM ver 1.11
+Nov 24 21:43:40 motorola-dubai kernel: amba 7640000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7740000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7040000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7140000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7240000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7340000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7440000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: amba 7540000.etm: deferred probe pending: (reason unknown)
+Nov 24 21:43:40 motorola-dubai kernel: gcc-sc7280 100000.clock-controller: sync_state() pending due to chosen:framebuffer
+Nov 24 21:43:40 motorola-dubai kernel: gcc-sc7280 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
+Nov 24 21:43:40 motorola-dubai kernel: gpu_cc-sc7280 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
+Nov 24 21:43:41 motorola-dubai kernel: disp_cc-sc7280 af00000.clock-controller: sync_state() pending due to chosen:framebuffer
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: authenticate with <MAC-REDIGIDO> (local address=<MAC-REDIGIDO>)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: send auth to <MAC-REDIGIDO> (try 1/3)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: authenticate with <MAC-REDIGIDO> (local address=<MAC-REDIGIDO>)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: send auth to <MAC-REDIGIDO> (try 1/3)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: authenticated
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: associate with <MAC-REDIGIDO> (try 1/3)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: RX AssocResp from <MAC-REDIGIDO> (capab=0x1511 status=0 aid=1)
+Nov 24 21:43:45 motorola-dubai kernel: wlan0: associated
+Nov 24 21:44:05 motorola-dubai systemd-journald[678]: Time jumped backwards, rotating.
+Nov 24 21:44:17 motorola-dubai kernel: rfkill: input handler disabled
+[exit=0]
+
+===== dmesg =====
+$ dmesg
+dmesg: read kernel buffer failed: Operation not permitted
+[exit=1]
+
+===== deferred probe =====
+--- /sys/kernel/debug/devices_deferred --- [ilegível ou inexistente]
+
+===== remoteprocs =====
+remoteproc0: modem -> running
+remoteproc1: adsp -> running
+remoteproc2: wpss -> running
+remoteproc3: cdsp -> running
+
+===== zonas térmicas =====
+thermal_zone0 aoss0-thermal 39100
+thermal_zone1 cpu0-thermal 39900
+thermal_zone10 cpu7-thermal 38700
+thermal_zone11 cpu8-thermal 39500
+thermal_zone12 cpu9-thermal 39100
+thermal_zone13 cpu10-thermal 39500
+thermal_zone14 cpu11-thermal 38700
+thermal_zone15 aoss1-thermal 38600
+thermal_zone16 gpuss0-thermal 38200
+thermal_zone17 gpuss1-thermal 37800
+thermal_zone18 nspss0-thermal 37400
+thermal_zone19 nspss1-thermal 37000
+thermal_zone2 cpu1-thermal 39900
+thermal_zone20 video-thermal 38200
+thermal_zone21 ddr-thermal 39000
+thermal_zone22 mdmss0-thermal 37800
+thermal_zone23 mdmss1-thermal 37000
+thermal_zone24 mdmss2-thermal 37000
+thermal_zone25 mdmss3-thermal 37400
+thermal_zone26 camera0-thermal 38600
+thermal_zone27 pm7325-thermal 37000
+thermal_zone28 pm8350c-thermal 37000
+thermal_zone29 qcom-battmgr-bat 35000
+thermal_zone3 cpu2-thermal 39500
+thermal_zone30 chg-skin-thermal 36614
+thermal_zone31 conn-thermal 34803
+thermal_zone32 xo-thermal 37115
+thermal_zone33 quiet-thermal 37005
+thermal_zone34 cam-flash-thermal 37658
+thermal_zone35 sdm-skin-thermal 37115
+thermal_zone36 chg-thermal 37490
+thermal_zone37 pa-1-thermal 33027
+thermal_zone38 pm7250b-thermal 34538
+thermal_zone4 cpu3-thermal 39500
+thermal_zone5 cpuss0-thermal 39500
+thermal_zone6 cpuss1-thermal 39500
+thermal_zone7 cpu4-thermal 39500
+thermal_zone8 cpu5-thermal 39500
+thermal_zone9 cpu6-thermal 39100

@@ -1,0 +1,71 @@
+### CPU TOPO
+processor	: 0	BogoMIPS	: 38.40	CPU part	: 0xd05
+processor	: 1	BogoMIPS	: 38.40	CPU part	: 0xd05
+processor	: 2	BogoMIPS	: 38.40	CPU part	: 0xd05
+processor	: 3	BogoMIPS	: 38.40	CPU part	: 0xd05
+processor	: 4	BogoMIPS	: 38.40	CPU part	: 0xd41
+processor	: 5	BogoMIPS	: 38.40	CPU part	: 0xd41
+processor	: 6	BogoMIPS	: 38.40	CPU part	: 0xd41
+processor	: 7	BogoMIPS	: 38.40	CPU part	: 0xd41
+### CPUFREQ
+policy0 gov=schedutil cur=1324800 min=300000 max=1804800
+policy4 gov=schedutil cur=1651200 min=691200 max=2400000
+policy7 gov=schedutil cur=1324800 min=806400 max=2515200
+### IDLE LOAD
+0.15 0.16 0.18 1/575 5638
+ 0  0      0 5909296 30424 946168    0    0     0     0  597  472  0  1 97  0  0  0
+ 0  0      0 5909296 30424 946168    0    0     0     0  357  318  0  1 98  0  0  0
+### TOP PROC
+ 3739 user     9352 gsd-color
+ 3690 user     9128 gvfs-udisks2-vo
+ 3353 user     9100 gnome-session-i
+  987 polkitd  8984 polkitd
+ 3770 user     8584 gsd-sharing
+ 3749 user     8396 gsd-housekeepin
+ 3421 user     8372 feedbackd
+ 3785 user     8188 gsd-usb-protect
+ 1019 root     8072 wpa_supplicant
+ 3254 user     7796 gnome-keyring-d
+ 3786 user     7440 gsd-wwan
+ 3723 user     7304 gvfs-afc-volume
+### GRAPHICAL SESSION
+SESSION   UID USER SEAT  LEADER CLASS   TTY  IDLE SINCE
+     c3 10000 user seat0 2856   user    tty7 no   -
+     c4 10000 user -     3238   manager -    no   -
+
+2 sessions listed.
+● greetd.service - Greeter daemon
+     Loaded: loaded (/usr/lib/systemd/system/greetd.service; enabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/greetd.service.d
+             └─override.conf
+     Active: active (running) since Tue 2026-11-24 21:43:31 GMT; 14min ago
+ Invocation: 0cb6034f824947749f48a31a76d6e5ea
+3382 /usr/libexec/phosh
+3731 /usr/bin/phosh-osk-stevia
+5209 /usr/libexec/xdg-desktop-portal-phosh
+3281 /usr/bin/phoc
+### GPU BUSY
+     From  :   To
+           : 315000000 450000000 550000000 608000000   time(ms)
+* 315000000:         0         0         0        94     31376
+  450000000:         2         0         0         0       120
+  550000000:         0         0         0         0         0
+  608000000:        93         2         0         0      4876
+Total transition : 191
+### STORAGE READ (safe, cached-off not forced)
+256+0 records out
+268435456 bytes (256.0MB) copied, 0.148064 seconds, 1.7GB/s
+256+0 records out
+268435456 bytes (256.0MB) copied, 0.060153 seconds, 4.2GB/s
+### UFS
+MICRON  
+MICRON  
+MICRON  
+MICRON  
+MICRON  
+MICRON  
+MICRON  
+MICRON  
+### ROOT FS WRITE TEST on /
+128+0 records out
+134217728 bytes (128.0MB) copied, 0.256304 seconds, 499.4MB/s

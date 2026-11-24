@@ -1,0 +1,20 @@
+### BT UNBLOCK (via bluetoothctl, sem root)
+Failed to set power on: org.bluez.Error.Failed
+0: hci0: Bluetooth
+	Soft blocked: yes
+	Hard blocked: no
+	Powered: no
+	PowerState: off-blocked
+	Discoverable: no
+	DiscoverableTimeout: 0x000000b4 (180)
+
+### BT SCAN TEST
+SetDiscoveryFilter failed: org.bluez.Error.NotReady
+Failed to start discovery: org.bluez.Error.NotReady
+
+### HCI AFTER
+hci0:	Type: Primary  Bus: UART
+	BD Address: <MAC-REDIGIDO>  ACL MTU: 1024:7  SCO MTU: 240:8
+	DOWN 
+	RX bytes:1858 acl:0 sco:0 events:117 errors:0
+	TX bytes:427702 acl:0 sco:0 commands:1781 errors:0

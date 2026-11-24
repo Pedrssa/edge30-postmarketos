@@ -1,0 +1,43 @@
+### IRQ BASELINE
+INT 13
+INT 14
+INT 15
+Insert 3
+Remove 2
+Up 5
+detect 0
+detect 1
+detect 5
+detect 7
+dsi_isr 2324
+goodix-berlin 1427
+intr 5
+msm 7970
+pmic_pwrkey 1302633
+pmic_resin 1294437
+wcd937x 1
+### FULL relevant
+ 116:          4          0          0          0          0          0          0          0  pmic_arb  1302629 Edge      pmic_pwrkey
+ 117:          0          0          0          0          0          0          0          0  pmic_arb  1294437 Edge      pmic_resin
+ 170:       1346          0          0          0          0          0          0          0  msmgpio     81 Level     goodix-berlin
+
+### AUDIO SINKS (via pulse)
+Server String: /run/user/10000/pulse/native
+Library Protocol Version: 35
+Server Protocol Version: 35
+Is Local: yes
+Client Index: 4
+Tile Size: 65472
+User Name: user
+Host Name: motorola-dubai
+--- sinks ---
+0	alsa_output.platform-sound.HiFi__Speaker__sink	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
+--- sources ---
+0	alsa_output.platform-sound.HiFi__Speaker__sink.monitor	module-alsa-card.c	s16le 2ch 44100Hz	SUSPENDED
+1	alsa_input.platform-sound.HiFi__Mic3__source	module-alsa-card.c	s16le 1ch 44100Hz	SUSPENDED
+--- cards ---
+0	alsa_card.platform-sound	module-alsa-card.c
+
+### FEEDBACKD/VIBRA
+white:flash
+white:flash_1
