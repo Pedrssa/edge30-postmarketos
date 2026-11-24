@@ -29,8 +29,27 @@ def edge_pdf(src_url, out_path):
     print(("OK  " if ok else "FAIL"), out_path, "" if ok else (r.stderr or r.stdout)[:300])
     return ok
 
-# 1) Deck
-edge_pdf(url(ROOT/"presentation"/"index.html"), ROOT/"presentation"/"edge30-postmarketos.pdf")
+# 1) Deck — montado a partir das PNGs renderizadas (1 slide por pagina).
+# Gerar o PDF direto do index.html produz paginacao errada: o scroll-snap faz o
+# Chromium cortar slides entre paginas. Renderizar cada slide e empilhar e deterministico.
+def deck_pdf():
+    import glob as _g
+    pngs = sorted(_g.glob(str(ROOT/"assets"/"slides"/"slide_*.png")))
+    if not pngs:
+        print("FAIL deck: nenhuma PNG em assets/slides/ — rode o renderizador de slides antes")
+        return False
+    try:
+        from PIL import Image
+    except ImportError:
+        print("FAIL deck: Pillow ausente (pip install pillow)")
+        return False
+    ims = [Image.open(p).convert("RGB") for p in pngs]
+    out = ROOT/"presentation"/"edge30-postmarketos.pdf"
+    ims[0].save(out, save_all=True, append_images=ims[1:], resolution=150.0)
+    print("OK   %s — %d paginas" % (out, len(ims)))
+    return True
+
+deck_pdf()
 
 # 2) Relatório: markdown -> HTML (tema claro, imprimível)
 md = (ROOT/"docs"/"relatorio-tecnico.md").read_text(encoding="utf-8")
