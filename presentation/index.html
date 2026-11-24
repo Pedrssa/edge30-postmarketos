@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Edge 30 · postmarketOS</title>
+<meta name="description" content="Port do Motorola Edge 30 (dubai) para postmarketOS — relatório visual." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090D12; --bg-2:#0C1218; --surface:#151C25; --surface-2:#1B2531;
+    --line:rgba(166,255,77,0.10); --line-soft:rgba(255,255,255,0.08);
+    --text:#E8EEF5; --text-soft:#B4C3D0;
+    --green:#A6FF4D; --cyan:#22D3EE; --amber:#F6C177; --red:#FF6B81;
+    --glow-green:0 0 0 1px rgba(166,255,77,0.22), 0 0 34px rgba(166,255,77,0.14);
+    --glow-cyan:0 0 0 1px rgba(34,211,238,0.22), 0 0 30px rgba(34,211,238,0.12);
+    --shadow:0 18px 50px rgba(0,0,0,0.45);
+    --r-sm:12px; --r-md:18px; --r-lg:24px;
+    --fs-display:clamp(44px,6.4vw,92px);
+    --fs-h1:clamp(34px,4.6vw,66px);
+    --fs-h2:clamp(26px,3.3vw,44px);
+    --fs-h3:clamp(19px,2.1vw,27px);
+    --fs-body:clamp(15px,1.25vw,19px);
+    --fs-mono:13px;
+    --pad-y:clamp(36px,6vh,64px); --pad-x:clamp(24px,5vw,72px);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--text);
+    font-family:"Inter",system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 15% 12%,rgba(166,255,77,0.08),transparent 26%),
+      radial-gradient(circle at 85% 20%,rgba(34,211,238,0.07),transparent 26%),
+      linear-gradient(180deg,#090D12 0%,#070A0E 100%);
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  h1,h2,h3,p,ul,ol,figure{margin:0}
+  .mono{font-family:"JetBrains Mono",monospace;letter-spacing:.04em}
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;letter-spacing:-0.02em;line-height:1.02;color:#fff}
+
+  /* ---- slide frame ---- */
+  .slide{position:relative;min-height:100vh;width:100%;scroll-snap-align:start;scroll-snap-stop:always;display:grid;overflow:hidden;isolation:isolate}
+  .slide::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+    background-size:48px 48px;mask-image:radial-gradient(circle at center,#000 42%,transparent 100%);opacity:.5}
+  .inner{position:relative;z-index:1;min-height:100vh;width:min(100%,calc(var(--maxw) + var(--pad-x)*2));margin:0 auto;padding:var(--pad-y) var(--pad-x);display:flex;flex-direction:column;justify-content:center;gap:clamp(16px,2.4vh,26px)}
+  .counter{position:absolute;top:22px;right:26px;z-index:3;font-family:"JetBrains Mono",monospace;font-size:var(--fs-mono);letter-spacing:.18em;color:var(--text-soft);opacity:.95}
+  .tag{position:absolute;top:22px;left:26px;z-index:3;font-family:"JetBrains Mono",monospace;font-size:var(--fs-mono);letter-spacing:.2em;color:var(--green);opacity:.8;text-transform:uppercase}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:var(--fs-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+  .eyebrow::before{content:"// "}
+  h1.title{font-size:var(--fs-display);max-width:16ch}
+  h2{font-size:var(--fs-h2);max-width:20ch}
+  p.lead{font-size:clamp(17px,1.6vw,23px);color:var(--text-soft);max-width:60ch;line-height:1.5}
+  p,li{font-size:var(--fs-body);color:var(--text-soft);line-height:1.5}
+  .g{color:var(--green)} .c{color:var(--cyan)} .w{color:#fff}
+  .hl{color:var(--green);text-shadow:0 0 22px rgba(166,255,77,0.25)}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;padding:6px 12px;border-radius:999px;border:1px solid var(--line-soft);color:var(--text-soft)}
+  .pill.g{border-color:rgba(166,255,77,.35);color:var(--green)}
+  .pill.c{border-color:rgba(34,211,238,.35);color:var(--cyan)}
+  .pill-row{display:flex;flex-wrap:wrap;gap:10px}
+
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--line-soft);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:clamp(18px,2.4vw,26px)}
+  .card .k{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+  .card h3{font-size:var(--fs-h3);margin-bottom:8px}
+  .card.accent{border-color:rgba(166,255,77,.30);box-shadow:var(--glow-green)}
+  .grid{display:grid;gap:clamp(12px,1.6vw,18px)}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  /* terminal */
+  .term{background:#05080B;border:1px solid var(--line-soft);border-radius:var(--r-md);overflow:hidden;font-family:"JetBrains Mono",monospace;box-shadow:var(--shadow)}
+  .term .bar{display:flex;gap:7px;align-items:center;padding:10px 14px;background:#0B1116;border-bottom:1px solid var(--line-soft)}
+  .term .dot{width:11px;height:11px;border-radius:50%}
+  .term .bar .lbl{margin-left:10px;font-size:11px;letter-spacing:.1em;color:var(--text-soft);text-transform:uppercase}
+  .term pre{margin:0;padding:16px 18px;font-size:clamp(12px,1.05vw,14px);line-height:1.65;color:#D6E3C9;white-space:pre-wrap;word-break:break-word}
+  .term .p{color:var(--green)} .term .cm{color:#8B9AA6} .term .o{color:var(--cyan)}
+
+  /* legend chips */
+  .legend{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;padding:4px 10px;border-radius:6px;border:1px solid var(--line-soft)}
+  .chip.ok{color:var(--green);border-color:rgba(166,255,77,.35);background:rgba(166,255,77,.06)}
+  .chip.rep{color:var(--cyan);border-color:rgba(34,211,238,.3)}
+  .chip.rec{color:var(--amber);border-color:rgba(246,193,119,.3)}
+  .chip.abs{color:var(--text-soft)}
+
+  /* matrix */
+  .mx{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(max-width:860px){.mx{grid-template-columns:1fr}}
+  .mrow{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r-sm);border:1px solid var(--line-soft);background:rgba(255,255,255,.02);font-size:15px}
+  .mrow .ic{width:20px;height:20px;flex:0 0 20px}
+  .mrow.yes{border-color:rgba(166,255,77,.28);background:rgba(166,255,77,.05);color:#fff}
+  .mrow.no{color:var(--text-soft);opacity:.85}
+  .mrow .st{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+  .mrow.yes .st{color:var(--green)} .mrow.no .st{color:var(--text-soft)}
+
+  /* steps */
+  .steps{display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;gap:16px;align-items:flex-start;padding:13px 16px;border-radius:var(--r-md);border:1px solid var(--line-soft);background:rgba(255,255,255,.02)}
+  .step .n{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--green);font-size:15px;flex:0 0 auto;width:26px}
+  .step .t{font-weight:600;color:#fff;font-size:15px}
+  .step .d{font-size:13.5px;color:var(--text-soft);margin-top:2px}
+  .step .b{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .b.ok{color:var(--green);border:1px solid rgba(166,255,77,.3)}
+  .b.rec{color:var(--amber);border:1px solid rgba(246,193,119,.3)}
+
+  /* timeline */
+  .tl{position:relative;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--green),var(--cyan))}
+  .tl .ev{position:relative;padding:0 0 18px 8px}
+  .tl .ev::before{content:"";position:absolute;left:-23px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--green);box-shadow:0 0 12px rgba(166,255,77,.5)}
+  .tl .dt{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--cyan);letter-spacing:.06em}
+  .tl .tx{font-size:14.5px;color:var(--text-soft);margin-top:2px;max-width:70ch}
+
+  .stat{display:flex;flex-direction:column;gap:4px}
+  .stat .num{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(34px,4.4vw,58px);color:#fff;line-height:1}
+  .stat .num.g{color:var(--green)} .stat .num.c{color:var(--cyan)}
+  .stat .lb{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-soft)}
+
+  .alert{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:var(--r-md);border:1px solid rgba(246,193,119,.3);background:rgba(246,193,119,.06);color:#F3D9A8;font-size:14px}
+  .alert .ic{color:var(--amber);flex:0 0 auto}
+
+  /* animation */
+  .animate{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .animate.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}.d7{transition-delay:.56s}.d8{transition-delay:.64s}
+  @media(prefers-reduced-motion:reduce){.animate{transition:none;opacity:1;transform:none}}
+
+  .caret{display:inline-block;width:11px;height:1.05em;background:var(--green);margin-left:4px;vertical-align:-2px;animation:blink 1.05s steps(1) infinite;box-shadow:0 0 10px rgba(166,255,77,.6)}
+  @keyframes blink{50%{opacity:0}}
+
+  .flow line,.flow path{stroke-dasharray:var(--dl,200);stroke-dashoffset:var(--dl,200);transition:stroke-dashoffset 1.1s ease}
+  .slide.in-view .flow line,.slide.in-view .flow path{stroke-dashoffset:0}
+  .flow .pulse{animation:none}
+  .slide.in-view .flow .pulse{animation:dashmove 2.2s linear infinite;animation-delay:1.1s}
+  @keyframes dashmove{to{stroke-dashoffset:-60}}
+
+  /* dot nav */
+  .dotnav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:11px}
+  .dotnav button{width:9px;height:9px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;padding:0;cursor:pointer;transition:all .25s}
+  .dotnav button.active{background:var(--green);border-color:var(--green);box-shadow:0 0 12px rgba(166,255,77,.6);transform:scale(1.25)}
+  .progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--green),var(--cyan));z-index:60;width:0;transition:width .2s}
+  .hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--text-soft);opacity:.8}
+  @media(max-width:680px){.dotnav,.hint{display:none}}
+
+  /* print → PDF: cada slide vira uma página 16:9 (1280×720), animações visíveis */
+  @page{size:1280px 720px;margin:0}
+  @media print{
+    html{scroll-snap-type:none}
+    .dotnav,.progress,.hint,.caret,.tag{display:none!important}
+    .slide{min-height:720px;height:720px;width:1280px;page-break-after:always;break-after:page}
+    .slide::before{opacity:.5}
+    .inner{min-height:720px;padding:46px 64px}
+    .animate{opacity:1!important;transform:none!important}
+    .flow line,.flow path{stroke-dashoffset:0!important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="dotnav" id="dotnav" aria-label="Navegação de slides"></nav>
+<div class="hint mono">↑ ↓  navegar</div>
+<main class="presentation">
+
+<!-- 1 — ABERTURA -->
+<section class="slide" id="s1">
+  <span class="tag">projeto dubai</span><span class="counter">01 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">engenharia linux embarcada · ARM64</div>
+    <h1 class="title animate d1">De Android travado a <span class="hl">Linux de bolso</span><span class="caret"></span></h1>
+    <p class="lead animate d2">Trocamos o sistema de um <span class="w">Motorola Edge 30</span> na raiz e colocamos <span class="g">postmarketOS</span> rodando — com interface gráfica, Wi‑Fi e SSH de pé.</p>
+    <div class="pill-row animate d3" style="margin-top:6px">
+      <span class="pill c">XT2203-1 · dubai</span>
+      <span class="pill g">postmarketOS / Nura</span>
+      <span class="pill">Phosh · Wayland</span>
+      <span class="pill">aarch64</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 — DESAFIO -->
+<section class="slide" id="s2">
+  <span class="tag">motivação</span><span class="counter">02 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">o desafio</div>
+    <h2 class="animate d1">Um celular é um <span class="c">computador ARM64</span> que a gente aluga do fabricante.</h2>
+    <div class="grid g3" style="margin-top:8px">
+      <div class="card animate d2"><div class="k">Objetivo</div><h3>Virar dono do sistema</h3><p>Usar o hardware como estação portátil de engenharia e redes — não como aparelho fechado.</p></div>
+      <div class="card animate d3"><div class="k">O preço</div><h3>Operação destrutiva</h3><p>Destravar o bootloader e trocar o sistema apaga o aparelho e tira a garantia.</p></div>
+      <div class="card accent animate d4"><div class="k">A disciplina</div><h3>Rede de segurança</h3><p>Integridade conferida por hash e um caminho de volta ao Android guardado.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 — postmarketOS -->
+<section class="slide" id="s3">
+  <span class="tag">contexto</span><span class="counter">03 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">o que é postmarketOS</div>
+    <h2 class="animate d1">Um <span class="g">Linux de verdade</span> para celulares, sobre Alpine.</h2>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card animate d2"><div class="k">Filosofia</div><h3>Kernel perto do mainline</h3><p>Dá vida longa ao aparelho rodando um kernel próximo do oficial, em vez do kernel travado de fábrica.</p></div>
+      <div class="card animate d3"><div class="k">Nota de contexto</div><h3>Agora chamado <span class="c">Nura</span></h3><p>Em setembro de 2026 o projeto foi rebatizado (mesmo projeto, novo nome e domínio <span class="mono">nura.eco</span>). No aparelho aparece como “Nura Linux edge”.</p></div>
+    </div>
+    <p class="animate d4" style="font-size:13px;opacity:.9">Fonte: Linuxiac / Notebookcheck (set/2026) · acesso 2026-11-24.</p>
+  </div>
+</section>
+
+<!-- 4 — DISPOSITIVO -->
+<section class="slide" id="s4">
+  <span class="tag">alvo</span><span class="counter">04 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">nosso dispositivo</div>
+    <h2 class="animate d1">Edge 30 · codinome <span class="g">dubai</span></h2>
+    <div class="grid g4 animate d2">
+      <div class="card"><div class="k">Modelo</div><h3>Edge 30</h3><p class="mono" style="font-size:13px">XT2203-1</p></div>
+      <div class="card"><div class="k">SoC</div><h3>SD 778G+</h3><p class="mono" style="font-size:13px">SM7325 · sc7280</p></div>
+      <div class="card"><div class="k">Arquitetura</div><h3>ARM64</h3><p class="mono" style="font-size:13px">aarch64</p></div>
+      <div class="card"><div class="k">UI</div><h3>Phosh</h3><p class="mono" style="font-size:13px">Wayland · 0.58</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:4px">
+      <div class="alert animate d3"><span class="ic">▲</span><div><b>Sem imagem pronta.</b> No postmarketOS o <span class="mono">dubai</span> é categoria <span class="mono">testing</span> — precisávamos <b>construir</b> o sistema.</div></div>
+      <div class="alert animate d4"><span class="ic">▲</span><div><b>Risco de kernel.</b> A wiki alerta para possível baixa responsividade no kernel <span class="mono">sc7280-mainline</span>. Impacto <b>não medido</b> por nós.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 — OBJETIVO -->
+<section class="slide" id="s5">
+  <span class="tag">critério</span><span class="counter">05 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">objetivo e sucesso</div>
+    <h2 class="animate d1">Quatro provas de que o port funciona.</h2>
+    <div class="grid g4" style="margin-top:8px">
+      <div class="card accent animate d2"><div class="k">01</div><h3 class="g">Boot</h3><p>O aparelho inicializa em Linux.</p></div>
+      <div class="card accent animate d3"><div class="k">02</div><h3 class="g">GUI</h3><p>A interface Phosh sobe.</p></div>
+      <div class="card accent animate d4"><div class="k">03</div><h3 class="g">Wi‑Fi</h3><p>Conecta na rede sem fio.</p></div>
+      <div class="card accent animate d5"><div class="k">04</div><h3 class="g">SSH</h3><p>Aceita acesso remoto.</p></div>
+    </div>
+    <p class="lead animate d6" style="margin-top:8px">Tudo além disso — áudio, câmera, chamadas — ficou como <span class="c">bônus a validar depois</span>.</p>
+  </div>
+</section>
+
+<!-- 6 — AMBIENTE -->
+<section class="slide" id="s6">
+  <span class="tag">ferramentas</span><span class="counter">06 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">ambiente de trabalho</div>
+    <h2 class="animate d1">Dois mundos: a VM que <span class="g">fabrica</span>, o PC que <span class="c">grava</span>.</h2>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card animate d2"><div class="k">Build (Linux)</div><h3>VM Ubuntu + pmbootstrap</h3><p>VirtualBox, 4 GB RAM. O <span class="mono">pmbootstrap</span> é a toolchain oficial do postmarketOS: compila rootfs e kernel para o aparelho-alvo.</p></div>
+      <div class="card animate d3"><div class="k">Gravação (Windows)</div><h3>Android platform-tools</h3><p><span class="mono">fastboot</span> grava as partições do celular em modo bootloader. <span class="mono">adb</span> para reiniciar e inspecionar.</p></div>
+    </div>
+    <div class="term animate d4">
+      <div class="bar"><span class="dot" style="background:#FF6B81"></span><span class="dot" style="background:#F6C177"></span><span class="dot" style="background:#A6FF4D"></span><span class="lbl">vm · build</span></div>
+      <pre><span class="p">$</span> pmbootstrap init        <span class="cm"># device: motorola-dubai · UI: phosh</span>
+<span class="p">$</span> pmbootstrap install     <span class="cm"># gera rootfs + kernel</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 7 — ARQUITETURA / FLUXO DE BOOT -->
+<section class="slide" id="s7">
+  <span class="tag">arquitetura</span><span class="counter">07 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">fluxo técnico</div>
+    <h2 class="animate d1">Da VM às partições, do kernel ao <span class="g">SSH</span>.</h2>
+    <figure class="animate d2" style="margin-top:4px">
+      <svg viewBox="0 0 1000 420" width="100%" role="img" aria-label="Diagrama: pmbootstrap gera boot, dtbo e rootfs; fastboot grava nas partições; o kernel sobe o rootfs, a Phosh, o Wi-Fi e o SSH.">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#22D3EE"/></marker>
+          <linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A6FF4D"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+        </defs>
+        <!-- VM -->
+        <rect x="24" y="150" width="170" height="120" rx="16" fill="#151C25" stroke="#A6FF4D" stroke-opacity=".45"/>
+        <text x="109" y="200" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="20" font-weight="600">VM Linux</text>
+        <text x="109" y="226" text-anchor="middle" fill="#9FB0C0" font-family="JetBrains Mono" font-size="12">pmbootstrap</text>
+        <!-- artefatos -->
+        <g font-family="JetBrains Mono" font-size="12">
+          <rect x="300" y="60" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
+          <text x="400" y="84" text-anchor="middle" fill="#A6FF4D" font-size="13">boot.img</text>
+          <text x="400" y="102" text-anchor="middle" fill="#9FB0C0">kernel + initramfs</text>
+          <rect x="300" y="182" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
+          <text x="400" y="206" text-anchor="middle" fill="#A6FF4D" font-size="13">dtbo.img</text>
+          <text x="400" y="224" text-anchor="middle" fill="#9FB0C0">device-tree overlay</text>
+          <rect x="300" y="304" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
+          <text x="400" y="328" text-anchor="middle" fill="#A6FF4D" font-size="13">rootfs · 2 GB</text>
+          <text x="400" y="346" text-anchor="middle" fill="#9FB0C0">motorola-dubai.img</text>
+        </g>
+        <!-- device -->
+        <rect x="610" y="120" width="180" height="180" rx="18" fill="#151C25" stroke="#22D3EE" stroke-opacity=".45"/>
+        <text x="700" y="150" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="18" font-weight="600">Edge 30</text>
+        <g font-family="JetBrains Mono" font-size="11" fill="#9FB0C0">
+          <text x="700" y="186" text-anchor="middle">part. boot</text>
+          <text x="700" y="212" text-anchor="middle">part. dtbo</text>
+          <text x="700" y="238" text-anchor="middle">userdata</text>
+          <text x="700" y="278" text-anchor="middle" fill="#22D3EE">fastboot ↓</text>
+        </g>
+        <!-- outcome -->
+        <rect x="846" y="150" width="140" height="120" rx="16" fill="#151C25" stroke="#A6FF4D" stroke-opacity=".5"/>
+        <text x="916" y="196" text-anchor="middle" fill="#A6FF4D" font-family="Space Grotesk" font-size="18" font-weight="700">Phosh</text>
+        <text x="916" y="220" text-anchor="middle" fill="#9FB0C0" font-family="JetBrains Mono" font-size="11">Wi‑Fi · SSH</text>
+        <!-- flows -->
+        <g class="flow" fill="none" stroke-width="2.5" marker-end="url(#ar)">
+          <path d="M194,195 C250,150 250,110 300,88" stroke="url(#gg)" style="--dl:160"/>
+          <path d="M194,210 L300,210" stroke="url(#gg)" style="--dl:120"/>
+          <path d="M194,225 C250,270 250,310 300,332" stroke="url(#gg)" style="--dl:160"/>
+          <path d="M500,88 C560,110 560,170 610,185" stroke="#22D3EE" style="--dl:160"/>
+          <path d="M500,210 L610,210" stroke="#22D3EE" style="--dl:120"/>
+          <path d="M500,332 C560,310 560,250 610,235" stroke="#22D3EE" style="--dl:160"/>
+          <line x1="790" y1="210" x2="846" y2="210" stroke="#A6FF4D" class="pulse" style="--dl:60"/>
+        </g>
+      </svg>
+      <figcaption class="mono animate d4" style="font-size:12px;color:var(--text-soft);margin-top:6px">Diagrama técnico (exato). O passo <span style="color:var(--amber)">fastboot ↓</span> é reconstruído do fluxo oficial — não há log de flash capturado.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8 — ETAPAS -->
+<section class="slide" id="s8">
+  <span class="tag">execução</span><span class="counter">08 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">etapas realizadas</div>
+    <h2 class="animate d1">Seis passos — e uma ressalva honesta.</h2>
+    <div class="steps" style="margin-top:4px">
+      <div class="step animate d2"><span class="n">01</span><div><div class="t">Viabilidade</div><div class="d">Device suportado e bootloader destravável.</div></div><span class="b ok">confirmado</span></div>
+      <div class="step animate d3"><span class="n">02</span><div><div class="t">Build na VM</div><div class="d">pmbootstrap gera rootfs + kernel.</div></div><span class="b ok">resultado ✓</span></div>
+      <div class="step animate d4"><span class="n">03</span><div><div class="t">Destravar bootloader</div><div class="d">OEM unlock + código Motorola (destrutivo).</div></div><span class="b rec">reconstruído</span></div>
+      <div class="step animate d5"><span class="n">04</span><div><div class="t">Gravar partições</div><div class="d">fastboot: boot · dtbo · userdata.</div></div><span class="b rec">reconstruído</span></div>
+      <div class="step animate d6"><span class="n">05</span><div><div class="t">Primeiro boot</div><div class="d">Phosh sobe na tela do aparelho.</div></div><span class="b ok">confirmado</span></div>
+      <div class="step animate d7"><span class="n">06</span><div><div class="t">Wi‑Fi + SSH</div><div class="d">Acesso remoto ao aparelho.</div></div><span class="b ok">confirmado</span></div>
+    </div>
+    <div class="alert animate d8"><span class="ic">▲</span><div>Temos a prova de que <b>funcionou</b> (SSH + captura da tela). O <b>registro do flash</b> não ficou salvo — passos 03–04 estão marcados como <span class="mono">reconstruído</span>.</div></div>
+  </div>
+</section>
+
+<!-- 9 — DIFICULDADES -->
+<section class="slide" id="s9">
+  <span class="tag">diagnóstico</span><span class="counter">09 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">dificuldades reais</div>
+    <h2 class="animate d1">Problemas de quem opera — e como contornamos.</h2>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card animate d2"><div class="k">obstáculo → solução</div><h3>Sem imagem pronta</h3><p>Device <span class="mono">testing</span> no pmOS. <span class="g">→</span> Build próprio na VM.</p></div>
+      <div class="card animate d3"><div class="k">obstáculo → solução</div><h3>Bloco não enviado</h3><p>O shell do Windows não processou um comando grande. <span class="g">→</span> Envio da árvore por script/SFTP.</p></div>
+      <div class="card animate d4"><div class="k">obstáculo → solução</div><h3>Erro de codificação</h3><p><span class="mono">UnicodeEncodeError (cp1252)</span> em sinais especiais. <span class="g">→</span> Forçar UTF‑8.</p></div>
+      <div class="card animate d5"><div class="k">obstáculo → solução</div><h3>Reconexão falhou</h3><p>O IP do aparelho mudou de rede. <span class="g">→</span> Pegar o IP novo no próprio celular.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 — EVIDÊNCIAS -->
+<section class="slide" id="s10">
+  <span class="tag">rigor</span><span class="counter">10 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">como classifico tudo</div>
+    <h2 class="animate d1">Não peço fé. Mostro a <span class="g">régua</span>.</h2>
+    <div class="legend animate d2" style="margin:4px 0 8px">
+      <span class="chip ok">CONFIRMADO</span><span class="chip rep">RELATADO</span><span class="chip rec">RECONSTRUÍDO</span><span class="chip abs">AUSENTE</span>
+    </div>
+    <div class="grid g2">
+      <div class="card animate d3"><div class="k">exemplos confirmados</div>
+        <p>• Imagens + hashes SHA‑256 <span class="chip ok">CONFIRMADO</span></p>
+        <p style="margin-top:6px">• Boot, GUI, Wi‑Fi, SSH <span class="chip ok">CONFIRMADO</span></p>
+      </div>
+      <div class="card animate d4"><div class="k">exemplos com ressalva</div>
+        <p>• Versão do kernel 7.2.9 <span class="chip rep">RELATADO</span></p>
+        <p style="margin-top:6px">• Gravação por fastboot <span class="chip rec">RECONSTRUÍDO</span></p>
+        <p style="margin-top:6px">• Áudio, câmera, modem <span class="chip abs">AUSENTE</span></p>
+      </div>
+    </div>
+    <p class="animate d5" style="font-size:13px;opacity:.92">Tabela completa de rastreabilidade em <span class="mono">docs/evidencias.md</span> (24 itens).</p>
+  </div>
+</section>
+
+<!-- 11 — RESULTADOS -->
+<section class="slide" id="s11">
+  <span class="tag">resultado</span><span class="counter">11 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">o que ficou de pé</div>
+    <h2 class="animate d1">Não é só que <span class="g">ligou</span>. É base para trabalhar.</h2>
+    <div class="grid g4" style="margin-top:10px">
+      <div class="card accent animate d2"><div class="stat"><span class="num g">4/4</span><span class="lb">critérios de sucesso</span></div></div>
+      <div class="card animate d3"><div class="stat"><span class="num c">3</span><span class="lb">imagens íntegras (sha256)</span></div></div>
+      <div class="card animate d4"><div class="stat"><span class="num">7</span><span class="lb">pacotes de rede + rollback</span></div></div>
+      <div class="card animate d5"><div class="stat"><span class="num">0</span><span class="lb">diferença após reverter</span></div></div>
+    </div>
+    <p class="lead animate d6" style="margin-top:10px">Boot + Phosh + Wi‑Fi + SSH confirmados; <span class="mono">apk</span> operante; ferramentas instaladas e <span class="g">revertidas sem resíduo</span>.</p>
+  </div>
+</section>
+
+<!-- 12 — LINHA DO TEMPO -->
+<section class="slide" id="s12">
+  <span class="tag">cronologia</span><span class="counter">12 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">linha do tempo</div>
+    <h2 class="animate d1">Da pesquisa à documentação.</h2>
+    <div class="tl" style="margin-top:8px">
+      <div class="ev animate d2"><div class="dt">2026-10-26</div><div class="tx">Pesquisa de viabilidade: Linux em celular; recomendação de aparelho suportado.</div></div>
+      <div class="ev animate d3"><div class="dt">2026-11-04 · dia</div><div class="tx">Build do postmarketOS na VM; geração de boot/dtbo/rootfs + SHA256SUMS (data dos arquivos).</div></div>
+      <div class="ev animate d4"><div class="dt">2026-11-04 · noite</div><div class="tx">Aparelho já em Linux, respondendo por SSH; scaffolding de rede, 18 testes no device, rollback verificado.</div></div>
+      <div class="ev animate d5"><div class="dt">2026-11-18</div><div class="tx">Operação e reconexão (IP mudou de rede); ferramentas de rede executadas no aparelho.</div></div>
+      <div class="ev animate d6"><div class="dt">2026-11-24</div><div class="tx">Esta entrega: investigação, relatório (DOCX/PDF), apresentação (HTML/PPTX/PDF) e repositório.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 — MATRIZ -->
+<section class="slide" id="s13">
+  <span class="tag">honestidade</span><span class="counter">13 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">matriz de funcionalidades</div>
+    <h2 class="animate d1">O que <span class="g">medimos</span> — e o que ainda não.</h2>
+    <div class="mx" style="margin-top:6px">
+      <div class="mrow yes animate d2"><span>Boot em Linux</span><span class="st">verificado</span></div>
+      <div class="mrow no animate d2"><span>Áudio</span><span class="st">não testado</span></div>
+      <div class="mrow yes animate d3"><span>Interface Phosh (GUI)</span><span class="st">verificado</span></div>
+      <div class="mrow no animate d3"><span>Modem · chamadas · SMS</span><span class="st">não testado</span></div>
+      <div class="mrow yes animate d4"><span>Wi‑Fi (wlan0)</span><span class="st">verificado</span></div>
+      <div class="mrow no animate d4"><span>Dados móveis</span><span class="st">não testado</span></div>
+      <div class="mrow yes animate d5"><span>SSH remoto</span><span class="st">verificado</span></div>
+      <div class="mrow no animate d5"><span>GPU · câmera</span><span class="st">não testado</span></div>
+      <div class="mrow yes animate d6"><span>apk · pacotes + rollback</span><span class="st">verificado</span></div>
+      <div class="mrow no animate d6"><span>Bluetooth · NFC · sensores · bateria</span><span class="st">não testado</span></div>
+    </div>
+    <p class="animate d7" style="font-size:13.5px;margin-top:8px">Não pinto de verde o que não medi. O cinza é o <span class="c">próximo passo</span>, não uma fraqueza.</p>
+  </div>
+</section>
+
+<!-- 14 — ENCERRAMENTO -->
+<section class="slide" id="s14">
+  <span class="tag">fim</span><span class="counter">14 / 14</span>
+  <div class="inner">
+    <div class="eyebrow animate">aprendizados e próximos passos</div>
+    <h1 class="title animate d1" style="font-size:var(--fs-h1)">Linux no bolso dá — <br>o preço é <span class="hl">rigor</span>.</h1>
+    <div class="grid g3" style="margin-top:6px">
+      <div class="card animate d2"><div class="k">próximo</div><h3 class="c">Matriz no device</h3><p>Medir áudio, modem, BT, sensores direto no aparelho.</p></div>
+      <div class="card animate d3"><div class="k">próximo</div><h3 class="c">Confirmar kernel</h3><p><span class="mono">uname -a</span> para fechar a versão relatada.</p></div>
+      <div class="card animate d4"><div class="k">próximo</div><h3 class="c">Log de flash</h3><p>Capturar uma regravação limpa → vira “confirmado”.</p></div>
+    </div>
+    <p class="lead animate d5" style="margin-top:10px">O repositório traz o relatório completo, a tabela de evidências e esta apresentação. <span class="g">Obrigado.</span></p>
+    <div class="pill-row animate d6"><span class="pill g">README.md</span><span class="pill c">docs/relatorio-tecnico.md</span><span class="pill">docs/evidencias.md</span></div>
+  </div>
+</section>
+
+</main>
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const nav=document.getElementById('dotnav');
+  const prog=document.getElementById('progress');
+  slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));b.onclick=()=>s.scrollIntoView({behavior:'smooth'});nav.appendChild(b);});
+  const dots=[...nav.children];
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const i=slides.indexOf(e.target);dots.forEach((d,j)=>d.classList.toggle('active',j===i));e.target.classList.add('in-view');prog.style.width=((i+1)/slides.length*100)+'%';}});},{threshold:.55});
+  const ao=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ao.unobserve(e.target);}});},{threshold:.15});
+  slides.forEach(s=>io.observe(s));
+  document.querySelectorAll('.animate').forEach(el=>ao.observe(el));
+  dots[0].classList.add('active');
+  function cur(){let c=0,m=1e9;slides.forEach((s,i)=>{const d=Math.abs(s.getBoundingClientRect().top);if(d<m){m=d;c=i;}});return c;}
+  addEventListener('keydown',e=>{
+    if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();slides[Math.min(cur()+1,slides.length-1)].scrollIntoView({behavior:'smooth'});}
+    if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();slides[Math.max(cur()-1,0)].scrollIntoView({behavior:'smooth'});}
+    if(e.key==='Home'){e.preventDefault();slides[0].scrollIntoView({behavior:'smooth'});}
+    if(e.key==='End'){e.preventDefault();slides[slides.length-1].scrollIntoView({behavior:'smooth'});}
+  });
+</script>
+</body>
+</html>

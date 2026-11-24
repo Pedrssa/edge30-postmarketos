@@ -1,0 +1,8 @@
+node_modules/
+*.img
+*.vdi
+*.vbox*
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
