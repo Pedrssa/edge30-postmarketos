@@ -20,7 +20,14 @@ qualquer interação — o que o mantém na fronteira entre "sistema operacional
 Linux portátil".
 
 > **Nível de maturidade atribuído: NÍVEL 2 — Sistema operacional funcional**, com infraestrutura
-> técnica já em padrão de Nível 3 bloqueada por um defeito isolado e provavelmente corrigível.
+> técnica já em padrão de Nível 3 bloqueada por um defeito isolado.
+
+> **Atualização (coleta privilegiada):** após o operador fornecer a senha de `sudo`, seis pontos
+> foram revistos — incluindo **três correções de conclusões anteriores**. O Bluetooth passou a
+> funcionar, confirmou-se a existência de um firewall robusto (a auditoria havia inferido o
+> contrário) e o aparente firmware faltante da GPU revelou-se ruído de boot. O touchscreen
+> **permanece inoperante e o defeito é reprodutível**, sobrevivendo à recarga do driver. Detalhes em
+> [`root-findings.md`](root-findings.md).
 
 ---
 
@@ -44,9 +51,9 @@ evidência `AUSENTE` (E23).
 
 | Classificação | Qtd. | Subsistemas |
 |---|---|---|
-| **FUNCIONAL** | 12 | CPU, GPU Adreno 642L, Display, Wi-Fi, Áudio (saída), Microfone, Bateria, Botões físicos, UFS, Memória/ZRAM, Térmico, Remote processors |
+| **FUNCIONAL** | 13 | CPU, GPU Adreno 642L, Display, Wi-Fi, **Bluetooth**, Áudio (saída), Microfone, Bateria, Botões físicos, UFS, Memória/ZRAM, Térmico, Remote processors |
 | **PARCIALMENTE FUNCIONAL** | 4 | Estabilidade do Wi-Fi, Configuração de volume, Codec de headset (WCD9375), USB-C |
-| **DETECTADO, NÃO VALIDADO** | 6 | Bluetooth, Câmera traseira, Flash, Acelerômetro, Luz ambiente, Proximidade |
+| **DETECTADO, NÃO VALIDADO** | 5 | Câmera traseira, Flash, Acelerômetro, Luz ambiente, Proximidade |
 | **DETECTADO E BLOQUEADO** | 1 | Modem (bloqueado por ausência de SIM, não por defeito) |
 | **NÃO TESTADO** | 5 | Telefonia, Dados móveis, GPS, Carregamento, Suspensão |
 | **NÃO SUPORTADO** | 5 | Câmera frontal, Câmera principal OV50A, NFC, Vibração, Biometria |
@@ -63,9 +70,9 @@ Critério explícito, conforme exigido: **nenhum teste não realizado é contabi
   · `NÃO SUPORTADO = 0` · `NÃO FUNCIONAL = 0`.
 - **Denominador:** 34 subsistemas − 5 `NÃO TESTADO` = **29 subsistemas avaliáveis**. Os itens não
   testados são excluídos do cálculo em vez de reprovados, para não penalizar o que não foi medido.
-- **Numerador:** (12 × 1,0) + (4 × 0,5) + (1 × 0,5) = **14,5**.
+- **Numerador:** (13 × 1,0) + (4 × 0,5) + (1 × 0,5) = **15,5**.
 
-**Compatibilidade de hardware = 14,5 / 29 ≈ 50%.**
+**Compatibilidade de hardware = 15,5 / 29 ≈ 53%.**
 
 Esse número é deliberadamente conservador: os 6 subsistemas "detectados, não validados" pontuam
 zero, embora haja forte indício de que ao menos Bluetooth e sensores funcionem (a wiki oficial os
@@ -76,10 +83,10 @@ Com acesso root, a pontuação realista subiria de forma significativa.
 
 | Dimensão | Nota | Justificativa baseada em evidência |
 |---|---|---|
-| Compatibilidade de hardware | **50%** | Cálculo acima. Penalizada pelo touchscreen e pelos itens sem validação. |
+| Compatibilidade de hardware | **53%** | Cálculo acima. Penalizada pelo touchscreen e pelos itens sem validação. |
 | Estabilidade | **70%** | Zero unidades falhas, uptime contínuo sem reboot, nenhum panic/oops. Descontado por uma queda de sessão SSH e 33% de perda de pacotes na segunda medição. |
 | Desempenho | **85%** | 97–98% de CPU ociosa em repouso, 499 MB/s de escrita, GPU escalando até 608 MHz, 637 MB de 7,3 GB em uso. Unixbench oficial do device: 9626,6. |
-| Segurança | **55%** | ASLR completo, `dmesg_restrict`, BPF não privilegiado desabilitado, repositórios assinados. Descontado por bootloader destravado, ausência de criptografia de disco, `kptr_restrict=0` e ausência de firewall ativo. |
+| Segurança | **70%** | ASLR completo, `dmesg_restrict`, BPF não privilegiado desabilitado, repositórios assinados e — confirmado com root — **firewall `nft` com `policy drop`**, conta root bloqueada e contas de sistema sem senha. Descontado por bootloader destravado, ausência de criptografia de disco, `kptr_restrict=0` e autenticação SSH por senha habilitada. |
 | Eficiência energética | **40%** | ~0,89 W em repouso (−225 mA a 3,958 V). Suspensão **nunca exercida** (`success=0`), e a wiki atribui mais da metade do consumo ocioso aos motores de foco da câmera sempre ligados. |
 | Manutenibilidade | **80%** | `apk` operante, 1326 pacotes, repositórios assinados, pacotes de device versionados (`device-motorola-dubai-2-r0`). |
 | Reprodutibilidade | **60%** | Guia de reprodução existe, mas o procedimento documentado no repositório diverge do oficial (ver §5) e não há log de flash capturado (pendência P-03). |
@@ -109,7 +116,7 @@ configuração conflitante que o próprio log registra (`pipewire-pulse.socket: 
 | **A-02** | Áudio | **ALTO** | PulseAudio e PipeWire ativos ao mesmo tempo disputando o ALSA; contraria o provider oficial. |
 | **A-03** | Segurança | **ALTO** | Armazenamento sem criptografia com bootloader destravado: acesso físico expõe todos os dados. |
 | **A-04** | Energia | **MÉDIO** | Suspensão nunca exercida; consumo ocioso de ~0,89 W sem deep idle. |
-| **A-05** | Bluetooth | **MÉDIO** | Bloqueio `rfkill` persistente impede o uso de um controlador que o restante indica estar funcional. |
+| ~~A-05~~ | Bluetooth | ✅ **RESOLVIDO** | Bloqueio `rfkill` removido com root; controlador subiu para `UP RUNNING`. Ver [`root-findings.md` §2](root-findings.md). |
 | **A-06** | Rede | **MÉDIO** | `power_save` do Wi-Fi gera jitter de até 125 ms e perda de pacotes, afetando a estabilidade do SSH. |
 | **A-07** | Segurança | **BAIXO** | `kptr_restrict=0` expõe ponteiros de kernel; sem LSM de controle de acesso (apenas `lockdown,capability,yama,bpf`). |
 
