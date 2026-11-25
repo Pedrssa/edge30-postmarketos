@@ -220,7 +220,7 @@
 
 <!-- 1 — ABERTURA (com celular ilustrado animado) -->
 <section class="slide" id="s1">
-  <span class="tag">projeto dubai</span><span class="counter">01 / 17</span>
+  <span class="tag">o tema</span><span class="counter">01 / 18</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">engenharia linux embarcada · ARM64</div>
@@ -255,9 +255,8 @@
   </div>
 </section>
 
-<!-- 2 — DESAFIO (ilustração cadeado→aberto) -->
 <section class="slide" id="s2">
-  <span class="tag">motivação</span><span class="counter">02 / 17</span>
+  <span class="tag">motivação</span><span class="counter">02 / 18</span>
   <div class="inner">
     <div class="eyebrow animate">o desafio</div>
     <h2 class="animate d1">Um celular é um <span class="c">computador ARM64</span> que a gente aluga do fabricante.</h2>
@@ -269,9 +268,54 @@
   </div>
 </section>
 
-<!-- 3 — postmarketOS (ilustração Alpine + chip) -->
 <section class="slide" id="s3">
-  <span class="tag">contexto</span><span class="counter">03 / 17</span>
+  <span class="tag">o tema</span><span class="counter">03 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">android é Linux — mas não é um Linux</div>
+    <h2 class="animate d1">O kernel é o mesmo. O <span class="g">resto</span>, não.</h2>
+    <div class="grid g2" style="margin-top:10px">
+      <div class="card animate d2">
+        <div class="k">android</div>
+        <h3 style="color:var(--amber)">Linux com outro userspace</h3>
+        <p><b class="w">Bionic</b> no lugar da glibc · <b class="w">ART</b> para rodar apps ·
+        <b class="w">HAL</b> entre o sistema e o driver · <b class="w">SurfaceFlinger</b> em vez de
+        Wayland · <b class="w">Binder</b> como IPC.</p>
+        <p style="margin-top:8px">Kernel <span class="mono">downstream</span>: milhares de patches do
+        fabricante. Quando ele para de atualizar, <span style="color:var(--red)">acabou</span>.</p>
+      </div>
+      <div class="card accent animate d3">
+        <div class="k">linux convencional</div>
+        <h3 class="g">A mesma pilha do desktop</h3>
+        <p><b class="w">glibc ou musl</b> · processos POSIX · <b class="w">Wayland</b> ·
+        <b class="w">systemd</b> · gerenciador de pacotes de verdade
+        (<span class="mono">apt</span>, <span class="mono">apk</span>).</p>
+        <p style="margin-top:8px">Kernel <span class="mono">mainline</span> quando possível: recebe
+        correção enquanto o código estiver na árvore oficial.</p>
+      </div>
+    </div>
+    <p class="lead animate d5" style="margin-top:10px">A pergunta do trabalho: <span class="c">dá para
+    rodar o segundo em um celular?</span> Três projetos responderam de formas diferentes.</p>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <span class="tag">fundamentação</span><span class="counter">04 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">a pilha de um Linux móvel</div>
+    <h2 class="animate d1">Quatro camadas entre o <span class="c">silício</span> e o <span class="g">dedo</span>.</h2>
+    <div class="stk">
+      <div class="lyr animate d2"><div class="nm">shell móvel</div><div class="ds"><b class="w">Phosh 0.58</b> + <b class="w">Phoc</b> — a interface adaptada a tela pequena e toque. Alternativa: Plasma Mobile.</div></div>
+      <div class="lyr animate d3"><div class="nm">exibição</div><div class="ds"><b class="w">Wayland</b> — protocolo que substituiu o X11. O compositor Phoc fala direto com o DRM/KMS e submete à GPU via <b class="w">Mesa / Freedreno</b>.</div></div>
+      <div class="lyr animate d4"><div class="nm">telefonia</div><div class="ds"><b class="w">ModemManager</b> sobre <b class="w">QMI/QRTR</b> conversa com o modem; <b class="w">NetworkManager</b> cuida dos dados. Alternativa: oFono (Ubuntu Touch).</div></div>
+      <div class="lyr animate d5"><div class="nm">userspace</div><div class="ds"><b class="w">Alpine Linux</b> + <span class="mono">apk</span> + <b class="w">systemd</b> — 1326 pacotes, repositórios assinados.</div></div>
+      <div class="lyr hw animate d6"><div class="nm">kernel</div><div class="ds"><b class="w">Linux 7.2.9 mainline</b> (família <span class="mono">sc7280</span>) — sem blobs Android. Device Tree descreve o <span class="mono">dubai</span>; 4 co-processadores Qualcomm sobem: modem, ADSP, WPSS, CDSP.</div></div>
+    </div>
+    <p class="animate d7" style="font-size:13px;margin-top:6px">O desafio real: <span class="c">drivers</span>. O SoC é suportado upstream, mas câmera, NFC e háptica dependem de código que ainda não foi mesclado.</p>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <span class="tag">distro 01 / 03</span><span class="counter">05 / 18</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">o que é postmarketOS</div>
@@ -301,9 +345,150 @@
   </div>
 </section>
 
-<!-- 4 — DISPOSITIVO (celular com chamadas de specs) -->
-<section class="slide" id="s4">
-  <span class="tag">alvo</span><span class="counter">04 / 17</span>
+<section class="slide" id="s6">
+  <span class="tag">distro 02 / 03</span><span class="counter">06 / 18</span>
+  <div class="inner split">
+    <div>
+      <div class="eyebrow animate">mobian</div>
+      <h2 class="animate d1">Debian no celular, sem <span class="g">reinventar</span> nada.</h2>
+      <p class="lead animate d2" style="margin-top:6px">Não é uma distribuição nova: é o
+      <b class="w">Debian</b> com um conjunto de pacotes para hardware móvel. Mesma
+      <span class="mono">apt</span>, mesmos repositórios, mesma cultura de estabilidade.</p>
+      <div class="grid g2 animate d3" style="margin-top:12px">
+        <div class="card"><div class="k">forte</div><h3 class="c">Estabilidade</h3><p>Herda o ciclo de testes do Debian. O que funciona tende a continuar funcionando.</p></div>
+        <div class="card"><div class="k">fraco</div><h3 style="color:var(--amber)">Poucos aparelhos</h3><p>Foca em hardware feito para Linux — PinePhone, PineTab. Não há port do Edge 30.</p></div>
+      </div>
+      <div class="pill-row animate d5" style="margin-top:12px">
+        <span class="pill">Debian · glibc</span><span class="pill">Phosh</span>
+        <span class="pill">Wayland</span><span class="pill c">ModemManager</span>
+        <span class="pill g">kernel mainline</span>
+      </div>
+    </div>
+    <div class="hide-sm animate d2">
+      <div class="phone">
+        <div class="screen"><div class="notch"></div>
+          <div class="term" style="padding-top:30px">
+            <div class="ln"><span class="cl">$</span> cat /etc/os-release</div>
+            <div class="ln ok">ID=debian</div>
+            <div class="ln ok">VARIANT=mobian</div>
+            <div class="ln" style="margin-top:8px"><span class="cl">$</span> apt list --installed</div>
+            <div class="ln ok">phosh/stable</div>
+            <div class="ln ok">modemmanager/stable</div>
+          </div>
+          <div class="scan"></div><div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <span class="tag">distro 03 / 03</span><span class="counter">07 / 18</span>
+  <div class="inner split">
+    <div>
+      <div class="eyebrow animate">ubuntu touch · ubports</div>
+      <h2 class="animate d1">A melhor experiência — com um <span style="color:var(--amber)">porém</span>.</h2>
+      <p class="lead animate d2" style="margin-top:6px">Interface própria (<b class="w">Lomiri</b>),
+      telefonia madura e a sensação mais próxima de um celular comum. Mantido pela comunidade
+      <b class="w">UBports</b> desde que a Canonical abandonou o projeto.</p>
+      <div class="grid g2 animate d3" style="margin-top:12px">
+        <div class="card"><div class="k">forte</div><h3 class="c">UX e telefonia</h3><p>Chamadas e dados funcionam bem em dezenas de aparelhos. ~111 no catálogo.</p></div>
+        <div class="card"><div class="k">o porém</div><h3 style="color:var(--red)">Halium</h3><p>Reaproveita o <b>kernel e os drivers Android</b> do fabricante. Funciona rápido — e herda o kernel congelado.</p></div>
+      </div>
+      <p class="animate d5" style="margin-top:12px;font-size:13.5px">É o trade-off central do tema:
+      <span class="c">usabilidade hoje</span> contra <span class="g">vida longa</span>.</p>
+    </div>
+    <div class="hide-sm animate d2">
+      <div class="phone">
+        <div class="screen"><div class="notch"></div>
+          <div class="term" style="padding-top:30px">
+            <div class="ln"><span class="cl">$</span> uname -r</div>
+            <div class="ln" style="color:#F6C177">4.9.x-android</div>
+            <div class="ln cl" style="margin-top:6px"># kernel do fabricante</div>
+            <div class="ln" style="margin-top:8px"><span class="cl">$</span> ls /vendor/lib</div>
+            <div class="ln" style="color:#F6C177">blobs proprietários</div>
+          </div>
+          <div class="scan"></div><div class="bars"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s8">
+  <span class="tag">comparativo</span><span class="counter">08 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">três caminhos para Linux móvel</div>
+    <h2 class="animate d1">postmarketOS × Mobian × Ubuntu Touch</h2>
+    <table class="cmp animate d2">
+      <thead><tr><th></th><th class="own">postmarketOS</th><th>Mobian</th><th>Ubuntu Touch</th></tr></thead>
+      <tbody>
+        <tr><td>Base</td><td class="own">Alpine (musl)</td><td>Debian (glibc)</td><td>Ubuntu + Halium</td></tr>
+        <tr><td>Interface</td><td class="own">Phosh / Plasma Mobile</td><td>Phosh</td><td>Lomiri (Unity 8)</td></tr>
+        <tr><td>Exibição</td><td class="own">Wayland</td><td>Wayland</td><td>Mir → Wayland</td></tr>
+        <tr><td>Telefonia</td><td class="own">ModemManager</td><td>ModemManager</td><td>oFono</td></tr>
+        <tr><td>Dispositivos</td><td class="own">300+ (maioria testing)</td><td>Poucos, bem suportados</td><td>~111 no catálogo</td></tr>
+        <tr><td>Kernel</td><td class="own">Mainline quando possível</td><td>Mainline</td><td>Downstream + Halium</td></tr>
+        <tr><td>Forte em</td><td class="own">Alcance e mainline</td><td>Estabilidade Debian</td><td>UX e telefonia madura</td></tr>
+        <tr><td>Fraco em</td><td class="own">Maturidade por device</td><td>Poucos aparelhos</td><td>Preso a blobs Android</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g3 animate d4" style="margin-top:10px">
+      <div class="card accent"><div class="k">por que escolhemos</div><p><b class="g">postmarketOS</b> era a única das três com port do Edge 30 e kernel <span class="c">mainline</span> — sem camada de compatibilidade Android.</p></div>
+      <div class="card"><div class="k">trade-off</div><p>Ganhamos independência de blobs; pagamos em <span style="color:var(--amber)">maturidade</span>: o <span class="mono">dubai</span> é <span class="mono">testing</span>.</p></div>
+      <div class="card"><div class="k">leitura</div><p>Ubuntu Touch entregaria telefonia mais pronta; Mobian, mais estabilidade — <span class="c">nenhum roda neste aparelho</span>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s9">
+  <span class="tag">análise</span><span class="counter">09 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">a divisão que realmente importa</div>
+    <h2 class="animate d1">Não é a interface. É o <span class="g">kernel</span>.</h2>
+    <div class="grid g2" style="margin-top:10px">
+      <div class="card accent animate d2">
+        <div class="k">caminho mainline</div>
+        <h3 class="g">postmarketOS · Mobian</h3>
+        <p>Escrevem o <b class="w">Device Tree</b> e usam drivers da árvore oficial. Dá muito mais
+        trabalho por aparelho e a maturidade varia — mas o aparelho <span class="g">continua
+        recebendo kernel novo</span> enquanto o código estiver no Linux.</p>
+      </div>
+      <div class="card animate d3">
+        <div class="k">caminho halium</div>
+        <h3 style="color:var(--amber)">Ubuntu Touch</h3>
+        <p>Reaproveita kernel e drivers Android. Habilita um aparelho <b class="w">muito mais
+        rápido</b> — e o congela na versão de kernel que o fabricante deixou.
+        <span style="color:var(--red)">Perpetua o problema que motivou o projeto.</span></p>
+      </div>
+    </div>
+    <div class="grid g3 animate d4" style="margin-top:12px">
+      <div class="card"><div class="k">quero usar hoje</div><p><b class="c">Ubuntu Touch</b> — se o seu aparelho estiver no catálogo.</p></div>
+      <div class="card"><div class="k">quero estabilidade</div><p><b class="c">Mobian</b> — em hardware feito para Linux.</p></div>
+      <div class="card accent"><div class="k">quero vida longa</div><p><b class="g">postmarketOS</b> — e foi a única com port do nosso aparelho.</p></div>
+    </div>
+    <p class="animate d6" style="margin-top:10px;font-size:13.5px">Ressalva honesta: <span class="c">nenhuma
+    das outras duas roda no Edge 30</span>. Comparamos projetos — não três sistemas no mesmo hardware.</p>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <span class="tag">estudo de caso</span><span class="counter">10 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">da teoria para o hardware</div>
+    <h1 class="title animate d1" style="font-size:var(--fs-h1)">Comparar é fácil.<br><span class="hl">Instalar</span> é que mostra.</h1>
+    <p class="lead animate d2" style="margin-top:10px">Pegamos um <b class="w">Motorola Edge 30</b> de
+    mercado — não um aparelho feito para Linux — e fomos até o fim: build, gravação, boot e uma
+    <span class="g">auditoria de 34 subsistemas</span> no aparelho real.</p>
+    <div class="pill-row animate d4" style="margin-top:14px">
+      <span class="pill g">XT2203-1 · dubai</span><span class="pill c">Snapdragon 778G+</span>
+      <span class="pill">kernel 7.2.9 mainline</span><span class="pill">Phosh / Wayland</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s11">
+  <span class="tag">o aparelho</span><span class="counter">11 / 18</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">nosso dispositivo</div>
@@ -334,25 +519,8 @@
   </div>
 </section>
 
-<!-- 5 — OBJETIVO -->
-<section class="slide" id="s5">
-  <span class="tag">critério</span><span class="counter">05 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">objetivo e sucesso</div>
-    <h2 class="animate d1">Quatro provas de que o port funciona.</h2>
-    <div class="grid g4" style="margin-top:10px">
-      <div class="card accent animate d2"><div class="k">01</div><h3 class="g">Boot</h3><p>O aparelho inicializa em Linux.</p></div>
-      <div class="card accent animate d3"><div class="k">02</div><h3 class="g">GUI</h3><p>A interface Phosh sobe.</p></div>
-      <div class="card accent animate d4"><div class="k">03</div><h3 class="g">Wi‑Fi</h3><p>Conecta na rede sem fio.</p></div>
-      <div class="card accent animate d5"><div class="k">04</div><h3 class="g">SSH</h3><p>Aceita acesso remoto.</p></div>
-    </div>
-    <p class="lead animate d6" style="margin-top:10px">Era o critério mínimo de novembro. Em <span class="g">24/11</span> auditamos o aparelho e medimos <span class="c">34 subsistemas</span> — o resultado vem no slide 13.</p>
-  </div>
-</section>
-
-<!-- 6 — AMBIENTE (terminal que "digita" + fluxo) -->
-<section class="slide" id="s6">
-  <span class="tag">ferramentas</span><span class="counter">06 / 17</span>
+<section class="slide" id="s12">
+  <span class="tag">ferramentas</span><span class="counter">12 / 18</span>
   <div class="inner">
     <div class="eyebrow animate">ambiente de trabalho</div>
     <h2 class="animate d1">Dois mundos: a VM que <span class="g">fabrica</span>, o PC que <span class="c">grava</span>.</h2>
@@ -369,9 +537,8 @@
   </div>
 </section>
 
-<!-- 7 — ARQUITETURA / FLUXO DE BOOT -->
-<section class="slide" id="s7">
-  <span class="tag">arquitetura</span><span class="counter">07 / 17</span>
+<section class="slide" id="s13">
+  <span class="tag">execução</span><span class="counter">13 / 18</span>
   <div class="inner">
     <div class="eyebrow animate">fluxo técnico</div>
     <h2 class="animate d1">Da VM às partições, do kernel ao <span class="g">SSH</span>.</h2>
@@ -421,9 +588,8 @@
   </div>
 </section>
 
-<!-- 8 — ETAPAS -->
-<section class="slide" id="s8">
-  <span class="tag">execução</span><span class="counter">08 / 17</span>
+<section class="slide" id="s14">
+  <span class="tag">instalação</span><span class="counter">14 / 18</span>
   <div class="inner">
     <div class="eyebrow animate">etapas realizadas</div>
     <h2 class="animate d1">Seis passos — e uma ressalva honesta.</h2>
@@ -439,81 +605,8 @@
   </div>
 </section>
 
-<!-- 9 — DIFICULDADES -->
-<section class="slide" id="s9">
-  <span class="tag">diagnóstico</span><span class="counter">09 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">dificuldades reais</div>
-    <h2 class="animate d1">Problemas de quem opera — e como contornamos.</h2>
-    <div class="grid g2" style="margin-top:6px">
-      <div class="card animate d2"><div class="k">obstáculo → solução</div><h3>Sem imagem pronta</h3><p>Device <span class="mono">testing</span> no pmOS. <span class="g">→</span> Build próprio na VM.</p></div>
-      <div class="card animate d3"><div class="k">obstáculo → solução</div><h3>Bloco não enviado</h3><p>O shell do Windows não processou um comando grande. <span class="g">→</span> Envio da árvore por script/SFTP.</p></div>
-      <div class="card animate d4"><div class="k">obstáculo → solução</div><h3>Erro de codificação</h3><p><span class="mono">UnicodeEncodeError (cp1252)</span> em sinais especiais. <span class="g">→</span> Forçar UTF‑8.</p></div>
-      <div class="card animate d5"><div class="k">obstáculo → solução</div><h3>Reconexão falhou</h3><p>O IP do aparelho mudou de rede. <span class="g">→</span> Pegar o IP novo no próprio celular.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 10 — EVIDÊNCIAS -->
-<section class="slide" id="s10">
-  <span class="tag">rigor</span><span class="counter">10 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">como classifico tudo</div>
-    <h2 class="animate d1">Não peço fé. Mostro a <span class="g">régua</span>.</h2>
-    <div class="legend animate d2" style="margin:4px 0 8px">
-      <span class="chip ok">CONFIRMADO</span><span class="chip rep">RELATADO</span><span class="chip rec">RECONSTRUÍDO</span><span class="chip abs">AUSENTE</span>
-    </div>
-    <div class="grid g2">
-      <div class="card animate d3"><div class="k">exemplos confirmados</div>
-        <p>• Imagens + hashes SHA‑256 <span class="chip ok">CONFIRMADO</span></p>
-        <p style="margin-top:6px">• Boot, GUI, Wi‑Fi, SSH <span class="chip ok">CONFIRMADO</span></p>
-      </div>
-      <div class="card animate d4"><div class="k">exemplos com ressalva</div>
-        <p>• Versão do kernel 7.2.9 <span class="chip rep">RELATADO</span></p>
-        <p style="margin-top:6px">• Gravação por fastboot <span class="chip rec">RECONSTRUÍDO</span></p>
-        <p style="margin-top:6px">• Áudio, câmera, modem <span class="chip abs">AUSENTE</span></p>
-      </div>
-    </div>
-    <p class="animate d5" style="font-size:13px;opacity:.92">Tabela completa de rastreabilidade em <span class="mono">docs/evidencias.md</span> (24 itens).</p>
-  </div>
-</section>
-
-<!-- 11 — RESULTADOS (contadores animados) -->
-<section class="slide" id="s11">
-  <span class="tag">resultado</span><span class="counter">11 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">o que ficou de pé</div>
-    <h2 class="animate d1">Não é só que <span class="g">ligou</span>. É base para trabalhar.</h2>
-    <div class="grid g4" style="margin-top:10px">
-      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="14">0</span></span><span class="lb">subsistemas funcionais</span></div></div>
-      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="34">0</span><span class="lb">subsistemas auditados</span></div></div>
-      <div class="card animate d4"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">serviços em falha</span></div></div>
-      <div class="card animate d5"><div class="stat"><span class="num g"><span class="count" data-to="3">0</span>/5</span><span class="lb">nível de maturidade</span></div></div>
-    </div>
-    <p class="lead animate d6" style="margin-top:10px">Boot, Phosh, <span class="g">GPU acelerada</span>, toque, Wi‑Fi 6, Bluetooth, áudio e bateria confirmados <span class="c">no aparelho</span> — com evidência de comando para cada um.</p>
-  </div>
-</section>
-
-<!-- 12 — LINHA DO TEMPO -->
-<section class="slide" id="s12">
-  <span class="tag">cronologia</span><span class="counter">12 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">linha do tempo</div>
-    <h2 class="animate d1">Da pesquisa à documentação.</h2>
-    <div class="tl" style="margin-top:8px">
-      <div class="ev animate d2"><div class="dt">2026-10-26</div><div class="tx">Pesquisa de viabilidade: Linux em celular; recomendação de aparelho suportado.</div></div>
-      <div class="ev animate d3"><div class="dt">2026-11-04 · dia</div><div class="tx">Build do postmarketOS na VM; geração de boot/dtbo/rootfs + SHA256SUMS (data dos arquivos).</div></div>
-      <div class="ev animate d4"><div class="dt">2026-11-04 · noite</div><div class="tx">Aparelho já em Linux, respondendo por SSH; scaffolding de rede, 18 testes no device, rollback verificado.</div></div>
-      <div class="ev animate d5"><div class="dt">2026-11-18</div><div class="tx">Operação e reconexão (IP mudou de rede); ferramentas de rede executadas no aparelho.</div></div>
-      <div class="ev animate d6"><div class="dt">2026-11-24 · dia</div><div class="tx">Investigação, relatório (DOCX/PDF), apresentação (HTML/PPTX/PDF) e repositório.</div></div>
-      <div class="ev animate d7"><div class="dt">2026-11-24 · noite</div><div class="tx"><span class="g">Auditoria técnica no aparelho</span>: 34 subsistemas, 33 testes, acesso SSH e root. Correções aplicadas e validadas.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 13 — MATRIZ (check desenhando) -->
-<section class="slide" id="s13">
-  <span class="tag">auditoria</span><span class="counter">13 / 17</span>
+<section class="slide" id="s15">
+  <span class="tag">auditoria</span><span class="counter">15 / 18</span>
   <div class="inner">
     <div class="eyebrow animate">matriz real · 24 nov 2026</div>
     <h2 class="animate d1">34 subsistemas <span class="g">medidos</span> no aparelho.</h2>
@@ -537,69 +630,53 @@
   </div>
 </section>
 
-<!-- 14 — AUDITORIA: O QUE MUDOU -->
-<section class="slide" id="s14">
-  <span class="tag">método</span><span class="counter">14 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">auditoria · o que a medição corrigiu</div>
-    <h2 class="animate d1">Medir mudou o que <span class="g">achávamos saber</span>.</h2>
-    <div class="grid g2" style="margin-top:8px">
-      <div class="card animate d2"><div class="k">premissa derrubada</div><h3 class="c">Não é postmarketOS puro</h3><p>É <span class="mono">Nura edge</span> — e o init é <span class="g">systemd</span>, não OpenRC. Nenhum comando <span class="mono">rc-status</span> se aplica.</p></div>
-      <div class="card animate d3"><div class="k">premissa derrubada</div><h3 class="c">O modem não está quebrado</h3><p>Estado <span class="mono">failed</span> por <span class="mono">sim-missing</span>. Firmware MPSS carregado, QMI operante, suporte a 5G anunciado.</p></div>
-      <div class="card accent animate d4"><div class="k">erro nosso</div><h3 class="g">O toque sempre funcionou</h3><p>Classificamos como falha crítica. Era <span class="c">dessincronia</span>: a janela de medição não coincidia com o toque. 6942 eventos provaram o contrário.</p></div>
-      <div class="card animate d5"><div class="k">achado novo</div><h3 class="c">A suspensão trava o aparelho</h3><p><span class="mono">deep</span> aborta; <span class="mono">s2idle</span> força reboot. <span class="g">Não consta da wiki oficial</span> — candidato a contribuição upstream.</p></div>
-    </div>
-    <p class="lead animate d6" style="margin-top:8px">Auditoria honesta inclui <span class="g">corrigir a si mesma</span> — e registrar o erro, não apagá-lo.</p>
-  </div>
-</section>
-
-<!-- 15 — A STACK -->
-<section class="slide" id="s15">
-  <span class="tag">arquitetura</span><span class="counter">15 / 17</span>
-  <div class="inner">
-    <div class="eyebrow animate">a pilha de um Linux móvel</div>
-    <h2 class="animate d1">Quatro camadas entre o <span class="c">silício</span> e o <span class="g">dedo</span>.</h2>
-    <div class="stk">
-      <div class="lyr animate d2"><div class="nm">shell móvel</div><div class="ds"><b class="w">Phosh 0.58</b> + <b class="w">Phoc</b> — a interface adaptada a tela pequena e toque. Alternativa: Plasma Mobile.</div></div>
-      <div class="lyr animate d3"><div class="nm">exibição</div><div class="ds"><b class="w">Wayland</b> — protocolo que substituiu o X11. O compositor Phoc fala direto com o DRM/KMS e submete à GPU via <b class="w">Mesa / Freedreno</b>.</div></div>
-      <div class="lyr animate d4"><div class="nm">telefonia</div><div class="ds"><b class="w">ModemManager</b> sobre <b class="w">QMI/QRTR</b> conversa com o modem; <b class="w">NetworkManager</b> cuida dos dados. Alternativa: oFono (Ubuntu Touch).</div></div>
-      <div class="lyr animate d5"><div class="nm">userspace</div><div class="ds"><b class="w">Alpine Linux</b> + <span class="mono">apk</span> + <b class="w">systemd</b> — 1326 pacotes, repositórios assinados.</div></div>
-      <div class="lyr hw animate d6"><div class="nm">kernel</div><div class="ds"><b class="w">Linux 7.2.9 mainline</b> (família <span class="mono">sc7280</span>) — sem blobs Android. Device Tree descreve o <span class="mono">dubai</span>; 4 co-processadores Qualcomm sobem: modem, ADSP, WPSS, CDSP.</div></div>
-    </div>
-    <p class="animate d7" style="font-size:13px;margin-top:6px">O desafio real: <span class="c">drivers</span>. O SoC é suportado upstream, mas câmera, NFC e háptica dependem de código que ainda não foi mesclado.</p>
-  </div>
-</section>
-
-<!-- 16 — COMPARATIVO DE DISTROS -->
 <section class="slide" id="s16">
-  <span class="tag">comparativo</span><span class="counter">16 / 17</span>
+  <span class="tag">diagnóstico</span><span class="counter">16 / 18</span>
   <div class="inner">
-    <div class="eyebrow animate">três caminhos para Linux móvel</div>
-    <h2 class="animate d1">postmarketOS × Mobian × Ubuntu Touch</h2>
-    <table class="cmp animate d2">
-      <thead><tr><th></th><th class="own">postmarketOS</th><th>Mobian</th><th>Ubuntu Touch</th></tr></thead>
-      <tbody>
-        <tr><td>Base</td><td class="own">Alpine (musl)</td><td>Debian (glibc)</td><td>Ubuntu + Halium</td></tr>
-        <tr><td>Interface</td><td class="own">Phosh / Plasma Mobile</td><td>Phosh</td><td>Lomiri (Unity 8)</td></tr>
-        <tr><td>Exibição</td><td class="own">Wayland</td><td>Wayland</td><td>Mir → Wayland</td></tr>
-        <tr><td>Telefonia</td><td class="own">ModemManager</td><td>ModemManager</td><td>oFono</td></tr>
-        <tr><td>Dispositivos</td><td class="own">300+ (maioria testing)</td><td>Poucos, bem suportados</td><td>~111 no catálogo</td></tr>
-        <tr><td>Kernel</td><td class="own">Mainline quando possível</td><td>Mainline</td><td>Downstream + Halium</td></tr>
-        <tr><td>Forte em</td><td class="own">Alcance e mainline</td><td>Estabilidade Debian</td><td>UX e telefonia madura</td></tr>
-        <tr><td>Fraco em</td><td class="own">Maturidade por device</td><td>Poucos aparelhos</td><td>Preso a blobs Android</td></tr>
-      </tbody>
-    </table>
-    <div class="grid g3 animate d4" style="margin-top:10px">
-      <div class="card accent"><div class="k">por que escolhemos</div><p><b class="g">postmarketOS</b> era a única das três com port do Edge 30 e kernel <span class="c">mainline</span> — sem camada de compatibilidade Android.</p></div>
-      <div class="card"><div class="k">trade-off</div><p>Ganhamos independência de blobs; pagamos em <span style="color:var(--amber)">maturidade</span>: o <span class="mono">dubai</span> é <span class="mono">testing</span>.</p></div>
-      <div class="card"><div class="k">leitura</div><p>Ubuntu Touch entregaria telefonia mais pronta; Mobian, mais estabilidade — <span class="c">nenhum roda neste aparelho</span>.</p></div>
+    <div class="eyebrow animate">dificuldades reais</div>
+    <h2 class="animate d1">Problemas de quem opera — e o que <span class="g">generaliza</span>.</h2>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card accent animate d2">
+        <div class="k">o relato que investigamos</div><h3 class="g">"Baixa responsividade"</h3>
+        <p>A wiki registra relatos de lentidão no kernel <span class="mono">sc7280-mainline</span>.
+        Fomos medir: o toque <span class="g">responde</span> — 6942 eventos capturados. A CPU fica
+        97% ociosa e a GPU acelera até 608 MHz.</p>
+        <p style="margin-top:8px">O que <span style="color:var(--red)">realmente</span> atrapalha o uso
+        diário é outro: a <b class="w">suspensão trava o aparelho</b>.</p>
+      </div>
+      <div class="card accent animate d3">
+        <div class="k">a lição que generaliza</div><h3 class="g">Cada caso é um caso</h3>
+        <p>postmarketOS lista <b class="w">300+ aparelhos</b> — a maioria em
+        <span class="mono">testing</span>. "Suporta o seu modelo" não quer dizer que tudo funciona:
+        depende de <span class="c">quem escreveu o driver daquele periférico</span>.</p>
+        <p style="margin-top:8px">Nossa matriz vale para <b class="w">este</b> Edge 30. Em outro
+        aparelho da mesma distro, o resultado pode ser bem diferente.</p>
+      </div>
+      <div class="card animate d4"><div class="k">obstáculo → solução</div><h3>Sem imagem pronta</h3><p>Device <span class="mono">testing</span>, sem build oficial. <span class="g">→</span> Build próprio na VM.</p></div>
+      <div class="card animate d5"><div class="k">obstáculo → solução</div><h3>Reconexão falhou</h3><p>O IP mudou por DHCP. <span class="g">→</span> Identificação pela chave de host SSH.</p></div>
     </div>
+    <p class="animate d6" style="margin-top:8px;font-size:13.5px">Por isso o comparativo entre distros
+    só vai até certo ponto: <span class="c">a unidade real de maturidade é o aparelho</span>, não a distribuição.</p>
   </div>
 </section>
 
-<!-- 14 — ENCERRAMENTO -->
 <section class="slide" id="s17">
-  <span class="tag">fim</span><span class="counter">17 / 17</span>
+  <span class="tag">resultado</span><span class="counter">17 / 18</span>
+  <div class="inner">
+    <div class="eyebrow animate">o que ficou de pé</div>
+    <h2 class="animate d1">Não é só que <span class="g">ligou</span>. É base para trabalhar.</h2>
+    <div class="grid g4" style="margin-top:10px">
+      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="14">0</span></span><span class="lb">subsistemas funcionais</span></div></div>
+      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="34">0</span><span class="lb">subsistemas auditados</span></div></div>
+      <div class="card animate d4"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">serviços em falha</span></div></div>
+      <div class="card animate d5"><div class="stat"><span class="num g"><span class="count" data-to="3">0</span>/5</span><span class="lb">nível de maturidade</span></div></div>
+    </div>
+    <p class="lead animate d6" style="margin-top:10px">Boot, Phosh, <span class="g">GPU acelerada</span>, toque, Wi‑Fi 6, Bluetooth, áudio e bateria confirmados <span class="c">no aparelho</span> — com evidência de comando para cada um.</p>
+  </div>
+</section>
+
+<section class="slide" id="s18">
+  <span class="tag">fim</span><span class="counter">18 / 18</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">aprendizados e próximos passos</div>

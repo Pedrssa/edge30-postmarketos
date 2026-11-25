@@ -229,3 +229,63 @@ periféricos, que dependem de drivers escritos por voluntários e ainda não mes
 Fica o aprendizado que mais nos marcou: a gente errou duas vezes na auditoria, e as duas vezes foi
 raciocínio sobre evidência — não execução de comando. A segunda só foi descoberta porque um
 integrante do grupo discordou do resultado, baseado em usar o aparelho todo dia."
+
+---
+
+# ⚠️ REESTRUTURAÇÃO — deck reorganizado para o Tema 10
+
+O deck foi reordenado: **a comparação entre distribuições virou o corpo principal** (é o tema), e o
+port do Edge 30 passou a ser o **estudo de caso**, no segundo bloco.
+
+## Nova ordem — 18 slides
+
+**BLOCO 1 · O TEMA (slides 1–9, ~10 min)**
+
+| # | Slide |
+|---|---|
+| 1 | Capa |
+| 2 | O celular é um computador que a gente aluga |
+| 3 | **Android é Linux — mas não é um Linux** (Bionic/ART/HAL × glibc/Wayland/systemd) |
+| 4 | A stack em camadas (kernel · userspace · Wayland · shell · telefonia) |
+| 5 | **postmarketOS** |
+| 6 | **Mobian** |
+| 7 | **Ubuntu Touch** |
+| 8 | **Comparativo lado a lado** (tabela de 8 critérios) |
+| 9 | **A divisão que importa: mainline × Halium** + quando usar cada um |
+
+**TRANSIÇÃO (slide 10)** — "Comparar é fácil. Instalar é que mostra."
+
+**BLOCO 2 · ESTUDO DE CASO (slides 11–18, ~10 min)**
+
+| # | Slide |
+|---|---|
+| 11 | O aparelho: Edge 30 `dubai` |
+| 12 | Ambiente: a VM que fabrica, o PC que grava |
+| 13 | Fluxo: da VM às partições |
+| 14 | Os seis passos da instalação |
+| 15 | **Auditoria: 34 subsistemas medidos** |
+| 16 | **Problemas de quem opera — e o que generaliza** |
+| 17 | O que ficou de pé |
+| 18 | Encerramento |
+
+## Slides removidos
+
+- ~~"Medir mudou o que achávamos saber"~~ — removido a pedido
+- ~~"Não peço fé. Mostro a régua"~~ (escala CONFIRMADO/RELATADO/RECONSTRUÍDO/AUSENTE) — removido a pedido
+- ~~"Quatro provas de que o port funciona"~~ — redundante com o slide 15
+- ~~"Da pesquisa à documentação"~~ (cronologia) — cortado por tempo
+
+## Slide 16 — reescrito
+
+Passou a tratar dois pontos que faltavam:
+
+**"Baixa responsividade".** A wiki registra relatos de lentidão no kernel `sc7280-mainline`. Fomos
+medir: o toque responde (6942 eventos), a CPU fica 97% ociosa, a GPU acelera até 608 MHz. O que
+realmente atrapalha o uso diário é outra coisa — a suspensão trava o aparelho.
+
+**"Cada caso é um caso".** postmarketOS lista 300+ aparelhos, a maioria em `testing`. Dizer que
+"suporta o seu modelo" não significa que tudo funciona: depende de quem escreveu o driver daquele
+periférico. Nossa matriz vale para **este** Edge 30 — em outro aparelho da mesma distro o resultado
+pode ser bem diferente.
+
+É o fecho que liga os dois blocos: **a unidade real de maturidade é o aparelho, não a distribuição.**
