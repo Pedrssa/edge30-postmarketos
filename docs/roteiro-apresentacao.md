@@ -114,12 +114,13 @@ Tempo estimado por slide entre colchetes. Total ≈ **10 min**.
 
 ---
 
-## Slide 12 — Linha do tempo [00:40]
+## Slide 12 — O que a primeira tentativa ensinou [00:35]
 
-> "Em linha do tempo: no fim de outubro, a pesquisa de viabilidade. No dia 4 de novembro, o build do
-> sistema e a geração das imagens — a data dos arquivos confirma isso. Ainda no dia 4, à noite, o
-> aparelho já estava em Linux e respondendo. Nas semanas seguintes, operação e ajustes. E hoje, a
-> documentação completa que vocês estão vendo."
+> "Na primeira tentativa de instalar o sistema, a gente executou os comandos direto no terminal
+> do computador, fora da máquina virtual. O nosso erro foi seguir com o teste usando um celular
+> com a bateria estufada. A VM foi usada em outra etapa, para gerar as imagens do sistema para
+> o Edge 30. A lição foi simples: antes de testar o software, a gente precisa conferir se o
+> aparelho está em boas condições para o teste."
 
 ---
 
