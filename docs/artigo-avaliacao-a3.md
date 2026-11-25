@@ -34,9 +34,9 @@ postmarketOS.
 
 ---
 
-## i. Introdução
+## 1. Introdução
 
-### i.1 O problema
+### 1.1 O problema
 
 Um smartphone moderno é um computador completo: SoC multinúcleo, GPU, 8 GB de RAM, armazenamento
 UFS. Ainda assim, o software que roda nele é fechado em um ciclo de vida curto — fabricantes
@@ -49,7 +49,7 @@ incompatível com o de um Linux de desktop. A pergunta que motiva este trabalho 
 > **É possível rodar um Linux *convencional* — glibc/musl, Wayland, systemd, repositório de
 > pacotes — em um smartphone? E o que se perde nesse caminho?**
 
-### i.2 Por que isso interessa a Organização de Computadores e SO
+### 1.2 Por que isso interessa a Organização de Computadores e SO
 
 O tema exercita, em hardware real, conceitos centrais da disciplina:
 
@@ -66,7 +66,7 @@ O tema exercita, em hardware real, conceitos centrais da disciplina:
 | Segurança de SO | ASLR, `kptr_restrict`, LSM, firewall `nftables`, autenticação por chave |
 | Gerência de energia | Estados de suspensão, `devfreq`, governadores, medição de consumo |
 
-### i.3 Objetivos
+### 1.3 Objetivos
 
 1. Comparar **postmarketOS, Mobian e Ubuntu Touch** quanto a maturidade, hardware suportado,
    interface e telefonia.
@@ -77,9 +77,9 @@ O tema exercita, em hardware real, conceitos centrais da disciplina:
 
 ---
 
-## ii. Projeto
+## 2. Projeto
 
-### ii.1 Arquitetura em camadas de um Linux móvel
+### 2.1 Arquitetura em camadas de um Linux móvel
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -121,7 +121,7 @@ O tema exercita, em hardware real, conceitos centrais da disciplina:
 - **Telefonia como serviço de userspace.** O modem é um computador separado, com firmware próprio,
   que conversa por **QMI sobre QRTR**. O `ModemManager` traduz isso para D-Bus.
 
-### ii.2 O aparelho
+### 2.2 O aparelho
 
 | Item | Especificação |
 |---|---|
@@ -134,7 +134,7 @@ O tema exercita, em hardware real, conceitos centrais da disciplina:
 | Toque | Goodix GT9916 (SPI) |
 | Wi-Fi/BT | Qualcomm WCN6750 (Wi-Fi 6) |
 
-### ii.3 Processo de instalação
+### 2.3 Processo de instalação
 
 ```
   [PC Windows]              [VM Ubuntu]                [Edge 30]
@@ -167,7 +167,7 @@ honestidade: o procedimento **oficial** da wiki usa **U-Boot + USB mass storage*
 flash` direto — divergência documentada em
 [`audit/upstream-comparison.md`](../audit/upstream-comparison.md) §4.
 
-### ii.4 Metodologia da auditoria
+### 2.4 Metodologia da auditoria
 
 A auditoria ocorreu em 24/11/2026, das 21:43 às 23:25, em duas etapas:
 
@@ -186,9 +186,9 @@ Princípios adotados:
 
 ---
 
-## iii. Resultados
+## 3. Resultados
 
-### iii.1 Comparativo das três distribuições
+### 3.1 Comparativo das três distribuições
 
 | Critério | **postmarketOS** | **Mobian** | **Ubuntu Touch** |
 |---|---|---|---|
@@ -214,7 +214,7 @@ existente** — critério que decidiu nossa escolha.
 **Nenhuma das outras duas roda no Edge 30**, o que torna a comparação necessariamente parcial: é
 comparação de projetos, não de três sistemas no mesmo hardware.
 
-### iii.2 Matriz de compatibilidade — 34 subsistemas
+### 3.2 Matriz de compatibilidade — 34 subsistemas
 
 | Classificação | Qtd. | Subsistemas |
 |---|---|---|
@@ -226,7 +226,7 @@ comparação de projetos, não de três sistemas no mesmo hardware.
 | **NÃO SUPORTADO** | 5 | Câmera frontal, Câmera principal OV50A, NFC, Vibração, Biometria |
 | **NÃO FUNCIONAL** | 1 | **Suspensão** |
 
-### iii.3 Metodologia da pontuação
+### 3.3 Metodologia da pontuação
 
 - Pesos: `FUNCIONAL = 1,0` · `PARCIAL = 0,5` · `DETECTADO E BLOQUEADO = 0,5` · demais `= 0`.
 - Denominador: 34 − 4 `NÃO TESTADO` = **30 subsistemas avaliáveis**.
@@ -251,7 +251,7 @@ O aparelho é usável localmente como computador Linux de bolso. O que impede o 
 móvel funcional) é, em parte, ausência de validação (sem SIM, sem libcamera, sensores bloqueados por
 polkit) e, em parte, um defeito real: **a suspensão não funciona**, requisito para uso móvel diário.
 
-### iii.4 Evidências selecionadas
+### 3.4 Evidências selecionadas
 
 **Aceleração gráfica (prova indireta, depois confirmada).** Sem acesso à sessão Wayland, provamos a
 aceleração por duas vias independentes: o compositor `phoc` mantinha **5 descritores abertos em
@@ -273,7 +273,7 @@ candidato a contribuição upstream.
 rádio opera com parâmetros genéricos. Mesmo após desligar o `power_save` — o que derrubou a latência
 média de 70 ms para 15 ms — a perda de pacotes permaneceu em 17%, indicando causa adicional.
 
-### iii.5 Correções aplicadas
+### 3.5 Correções aplicadas
 
 | ID | Problema | Resultado |
 |---|---|---|
@@ -284,7 +284,7 @@ média de 70 ms para 15 ms — a perda de pacotes permaneceu em 17%, indicando c
 | A-03 | Sem criptografia de disco | ⏸️ Exige reinstalação destrutiva — não executado |
 | A-04 | Suspensão | ❌ Não corrigível: é defeito de kernel |
 
-### iii.6 Dois erros nossos — e por que os registramos
+### 3.6 Dois erros nossos — e por que os registramos
 
 Entendemos que uma auditoria honesta precisa auditar também a si mesma.
 
@@ -316,7 +316,7 @@ ocorreu **dentro** da janela de medição.
 
 ---
 
-## iv. Conclusão
+## 4. Conclusão
 
 **Linux convencional em smartphone funciona — com ressalvas que precisam ser ditas com precisão.**
 
@@ -341,7 +341,7 @@ que se queria combater. **Mobian** oferece a estabilidade do Debian, mas para po
 **postmarketOS** aposta em mainline e alcance: mais trabalho por aparelho, maturidade desigual, e a
 única das três capaz de rodar neste Edge 30.
 
-### iv.1 Trabalhos futuros
+### 4.1 Trabalhos futuros
 
 1. **Reportar o travamento da suspensão upstream** — defeito reprodutível, ausente da matriz
    oficial, com diagnóstico pronto.
@@ -353,21 +353,21 @@ que se queria combater. **Mobian** oferece a estabilidade do Debian, mas para po
 
 ---
 
-## v. Anexos
+## 5. Anexos
 
-### Anexo A — Slides da apresentação
+### 5.1 Anexo A — Slides da apresentação
 
 - `presentation/edge30-postmarketos.pptx` — 17 slides, 16:9, com transições
 - `presentation/edge30-postmarketos.pdf` — versão imprimível
 - `presentation/index.html` — versão animada, offline (fonte canônica)
 - `docs/roteiro-apresentacao.md` — falas slide a slide
 
-### Anexo B — Roteiro de instalação e configuração
+### 5.2 Anexo B — Roteiro de instalação e configuração
 
 - `docs/guia-de-reproducao.md` — pré-requisitos e passos
 - `audit/scripts/collect-diagnostics.sh` — coletor de diagnóstico reutilizável, testado no aparelho
 
-### Anexo C — Prompt e LLM utilizada
+### 5.3 Anexo C — Prompt e LLM utilizada
 
 **Ferramenta:** Claude Code (CLI da Anthropic)
 **Modelo:** **Claude Opus 5** (`claude-opus-5`)
@@ -403,7 +403,7 @@ O prompt integral está versionado no repositório.
 - Obrigatório declarar limitações e separar o que foi medido do que foi inferido.
 
 **Avaliação crítica do uso de LLM.** O ganho foi de velocidade e cobertura: 33 testes em ~100
-minutos, com documentação simultânea. Mas a LLM **errou duas vezes de forma relevante** (§iii.6), e
+minutos, com documentação simultânea. Mas a LLM **errou duas vezes de forma relevante** (§3.6), e
 em ambos os casos o erro foi de *raciocínio sobre evidência*, não de execução: inferiu ausência de
 firewall a partir de ausência de dados, e concluiu falha de hardware a partir de uma janela de
 medição mal sincronizada. O segundo erro só foi descoberto porque **um integrante do grupo
@@ -411,7 +411,7 @@ contestou o resultado** com base no uso cotidiano do aparelho. É o argumento pr
 deste trabalho a favor da verificação humana: a ferramenta acelera, mas não dispensa quem conhece o
 objeto.
 
-### Anexo D — Arquivos de configuração e evidências
+### 5.4 Anexo D — Arquivos de configuração e evidências
 
 | Caminho | Conteúdo |
 |---|---|
@@ -432,7 +432,7 @@ objeto.
 /etc/NetworkManager/conf.d/wifi-powersave-off.conf    # wifi.powersave = 2
 ```
 
-### Anexo E — Referências
+### 5.5 Anexo E — Referências
 
 1. postmarketOS. *Motorola Edge 30 (motorola-dubai)*. Wiki oficial do dispositivo. Acesso: 24 nov. 2026.
 2. postmarketOS. *pmaports* e documentação do `pmbootstrap`. Acesso: 24 nov. 2026.
