@@ -1,5 +1,27 @@
 # Relatório Técnico — Motorola Edge 30 com postmarketOS (`dubai`)
 
+### Organização de Computadores e Sistemas Operacionais — Avaliação 3
+
+**Tema 10 — Linux em smartphones: distribuições móveis não-Android**
+Turma matutina · 25 de novembro de 2026
+
+| Integrante | Matrícula |
+|---|---|
+| Luis Eduardo Barbosa de Menezes Junior | 12723122413 |
+| Murilo Ribeiro de Lima | 12723130019 |
+| Pedro Henrique Martins Mattos Paranhos Barreiros | 1272319265 |
+| Ricardo Henrique da Rocha Silva | 12723114666 |
+| Brunno Otavyo de Jesus Aguiar | 12725192794 |
+
+**Repositório:** <https://github.com/Pedrssa/edge30-postmarketos>
+
+> **Nota.** Este é o relatório **técnico** do porte e da auditoria. O documento principal da
+> avaliação, na estrutura pedida pelo enunciado (Introdução · Projeto · Resultados · Conclusão ·
+> Anexos) e com o comparativo entre postmarketOS, Mobian e Ubuntu Touch, é
+> [`artigo-avaliacao-a3.md`](artigo-avaliacao-a3.md).
+
+---
+
 > **Classificação das afirmações.** Ao longo deste relatório cada informação é marcada:
 > **[CONFIRMADO]** evidência local ou de transcrição que eu mesmo verifiquei ·
 > **[RELATADO]** afirmado em anotações/prompts do projeto, ainda não verificado de forma independente ·
