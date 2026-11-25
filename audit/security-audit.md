@@ -13,9 +13,9 @@ teste foi dirigido a outros dispositivos da rede.
 
 | Área | Avaliação |
 |---|---|
-| Proteções de kernel | **Boa**, com uma lacuna |
-| Autenticação e acesso | **Boa** |
-| Superfície de rede | **Aceitável**, reduzível |
+| Proteções de kernel | **Boa**, com uma lacuna (`kptr_restrict=0`) |
+| Autenticação e acesso | **Boa** — root bloqueada; ressalva: senha habilitada no SSH |
+| Superfície de rede | **Boa** — firewall `nft` com `policy drop` |
 | Cadeia de pacotes | **Boa** |
 | Proteção de dados em repouso | **Deficiente** — principal risco |
 | Integridade de boot | **Comprometida por decisão de projeto** (bootloader destravado) |
@@ -56,6 +56,9 @@ arquitetura:
 | Logins `pmos` / `alpine` | ❌ Negados (contas inexistentes) |
 | `sudo` sem senha | ❌ **Não permitido** — exige autenticação interativa |
 | `/etc/shadow` | ✅ Inacessível a usuário comum |
+| Conta `root` | ✅ **BLOQUEADA** — hash `!`, sem senha definida (verificado com root) |
+| Contas de sistema | ✅ Todas bloqueadas (`!` ou `!*`) |
+| Conta `user` | Senha definida, hash **SHA-512** (`$6$`) |
 | Autenticação usada nesta auditoria | Chave ed25519, `BatchMode=yes`, sem senha em disco |
 | Verificação de host SSH | ✅ **Mantida ativa** — `StrictHostKeyChecking=yes` em todas as conexões |
 
@@ -67,7 +70,7 @@ Nenhuma verificação foi desativada em momento algum.
 
 ### Configuração do SSH
 
-Legível apenas em parte (sem root para `sshd -T`). Do arquivo:
+Do arquivo de configuração:
 
 ```
 AllowTcpForwarding no      ✅ reduz uso do aparelho como pivô de rede
@@ -77,10 +80,21 @@ AuthorizedKeysFile .ssh/authorized_keys
 Subsystem sftp internal-sftp
 ```
 
-⚠️ **Não verificável sem root:** `PermitRootLogin`, `PasswordAuthentication` e
-`KbdInteractiveAuthentication` efetivos. O banner de erro de login (`publickey,password,
-keyboard-interactive`) sugere que **autenticação por senha está habilitada** — o que, combinado à
-exposição na LAN, é um ponto a confirmar e provavelmente a restringir.
+✅ **Verificado com root** (`sshd -T`):
+
+```
+Port 22                            PubkeyAuthentication yes
+PermitRootLogin prohibit-password  ← root apenas por chave, nunca por senha ✅
+PasswordAuthentication yes         ← ⚠️ confirmado
+KbdInteractiveAuthentication yes   ← ⚠️
+PermitEmptyPasswords no            X11Forwarding no
+AllowTcpForwarding no              MaxAuthTries 6
+```
+
+A suspeita **confirma-se**: autenticação por senha está habilitada. Com `MaxAuthTries 6` e sem
+`fail2ban`, a porta 22 fica sujeita a tentativas de adivinhação — mitigado na prática por o
+firewall e a rede doméstica limitarem o alcance. `PermitRootLogin prohibit-password` é a
+configuração correta.
 
 ---
 
@@ -96,10 +110,35 @@ Portas em escuta (saída sanitizada de `ss -tulnp`):
 | 67 | UDP | `0.0.0.0` | `unudhcpd@usb0` | Restrito à rede USB; aceitável |
 | 53 | TCP+UDP | `127.0.0.53`, `127.0.0.54` | systemd-resolved | ✅ Apenas loopback |
 
-**Firewall:** `nft` está instalado, mas o conjunto de regras **não pôde ser lido sem root**.
-Não é possível afirmar se há filtragem ativa. Pela ausência de qualquer indício de configuração,
-a hipótese mais provável é a de **nenhum firewall efetivo**, com o aparelho dependendo da fronteira
-da rede local.
+**Firewall:** ✅ **Existe e é robusto** — verificado com root.
+
+> ⚠️ **Correção.** A versão inicial desta auditoria inferiu, a partir da ausência de indícios, que
+> provavelmente não haveria firewall efetivo. **Essa inferência estava errada.**
+
+A tabela `inet filter` aplica **`policy drop`** nas cadeias de entrada e encaminhamento:
+
+```
+chain input { type filter hook input priority filter; policy drop;
+    iifname "lo" accept
+    ct state { established, related } accept
+    ct state invalid drop
+    tcp dport 113 reject with tcp reset
+    iifname "wwan*"    drop     ← bloqueia tráfego entrante do modem
+    iifname "qmapmux*" drop     ← idem, multiplexadores QMAP
+    tcp dport 22 accept
+    ... (DHCP, DNS, ICMP, SLAAC, localsend)
+}
+chain forward { policy drop; ... }
+chain output  { policy accept; }
+```
+
+As regras `wwan*`/`qmapmux*` merecem destaque: impedem conexões entrantes pela interface de dados
+móveis, que é a superfície mais exposta de um aparelho celular. `iptables` legado está vazio, como
+esperado.
+
+Isso altera materialmente a avaliação: as portas listadas acima **não estão de fato acessíveis a
+partir da rede**, exceto as explicitamente liberadas (22, DHCP e DNS em `wlan*`, e o conjunto
+`usb*`). A nota de segurança sobe de 55% para **70%**.
 
 ---
 
@@ -184,9 +223,9 @@ residual concentra-se em falhas recém-divulgadas ainda sem correção no canal 
 | Prioridade | Ação | Referência |
 |---|---|---|
 | **ALTA** | Habilitar FDE em reinstalação planejada | A-03 |
-| **ALTA** | Confirmar e, se habilitada, desativar autenticação SSH por senha | §3 |
+| **ALTA** | Desativar autenticação SSH por senha (**confirmada como habilitada**) | §3 |
 | MÉDIA | Definir `kernel.kptr_restrict=2` | A-07 |
 | MÉDIA | Desabilitar LLMNR (porta 5355) | A-07 |
-| MÉDIA | Verificar e documentar o conjunto de regras `nft` | A-07 |
+| ~~MÉDIA~~ | ~~Verificar o conjunto de regras `nft`~~ — ✅ **feito**: firewall presente e sólido | §4 |
 | BAIXA | Restringir Avahi/mDNS se a descoberta por nome não for necessária | A-07 |
 | BAIXA | Executar cruzamento de CVE sobre o inventário de pacotes | §8 |

@@ -1,0 +1,229 @@
+=============== 1. DMESG / GOODIX (A-01) ===============
+[    1.519967] input: Goodix Berlin Capacitive TouchScreen as /devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/input/input3
+
+=============== 2. DMESG — firmware e probe ===============
+[    0.000000] [Firmware Bug]: Kernel image misaligned at boot, please fix your bootloader!
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.143868] qcom_scm firmware:scm: qseecom: found qseecom with version 0x1402000
+[    0.143888] qcom_scm firmware:scm: qseecom: untested machine, skipping
+[    0.548349] qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier a600000.usb for /pmic-glink/connector@0
+[    1.085287] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat: failed to send uevent
+[    1.085295] power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+[    1.093731] [pmOS-rd]: qcom-battmgr-bat: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat/uevent': Resource temporarily unavailable
+[    1.093746] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb: failed to send uevent
+[    1.093749] power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+[    1.102145] [pmOS-rd]: qcom-battmgr-usb: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb/uevent': Resource temporarily unavailable
+[    1.102216] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls: failed to send uevent
+[    1.102220] power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+[    1.110613] [pmOS-rd]: qcom-battmgr-wls: Failed to write 'add' to '/sys/devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls/uevent': Resource temporarily unavailable
+[    1.354902] msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+[    1.354906] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    1.724375] msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+[    1.724382] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    7.356465] systemd[1]: bpf-restrict-fs: Failed to link 'restrict_filesystems' LSM BPF program: Not supported
+[    8.348535] systemd[1]: Clear SysFail Entry If The Boot Is Successful skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/LoaderEntrySysFail-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f
+[    8.714640] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-bat: failed to send uevent
+[    8.714648] power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+[    8.723131] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-usb: failed to send uevent
+[    8.723135] power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+[    8.723299] synth uevent: /devices/platform/pmic-glink/pmic_glink.power-supply.0/power_supply/qcom-battmgr-wls: failed to send uevent
+[    8.723301] power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+[    9.383301] qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier 4-0042 for /pmic-glink/connector@0
+[    9.688792] ath11k 17a10040.wifi: qmi failed to load CAL data file:cal-ahb-17a10040.wifi.bin
+[    9.688813] ath11k 17a10040.wifi: failed to load board data file: -2
+[    9.688815] ath11k 17a10040.wifi: qmi failed to download BDF:-2
+[   13.460040] [drm] Loaded GMU firmware v3.1.10
+[   20.220405] amba 7640000.etm: deferred probe pending: (reason unknown)
+[   20.220430] amba 7740000.etm: deferred probe pending: (reason unknown)
+[   20.220438] amba 7040000.etm: deferred probe pending: (reason unknown)
+[   20.220446] amba 7140000.etm: deferred probe pending: (reason unknown)
+[   20.220454] amba 7240000.etm: deferred probe pending: (reason unknown)
+[   20.220462] amba 7340000.etm: deferred probe pending: (reason unknown)
+[   20.220469] amba 7440000.etm: deferred probe pending: (reason unknown)
+[   20.220477] amba 7540000.etm: deferred probe pending: (reason unknown)
+
+=============== 3. DEFERRED PROBE ===============
+7640000.etm	
+7740000.etm	
+7040000.etm	
+7140000.etm	
+7240000.etm	
+7340000.etm	
+7440000.etm	
+7540000.etm	
+
+=============== 4. DMESG — erros gerais ===============
+[    0.548349] qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier a600000.usb for /pmic-glink/connector@0
+[    1.085295] power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+[    1.093749] power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+[    1.102220] power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+[    1.354906] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    1.724382] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    7.356465] systemd[1]: bpf-restrict-fs: Failed to link 'restrict_filesystems' LSM BPF program: Not supported
+[    8.714648] power_supply qcom-battmgr-bat: uevent: failed to send synthetic uevent: -11
+[    8.723135] power_supply qcom-battmgr-usb: uevent: failed to send synthetic uevent: -11
+[    8.723301] power_supply qcom-battmgr-wls: uevent: failed to send synthetic uevent: -11
+[    9.262866] wl2864c_regulator_init: LDO0, min:48
+[    9.263259] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO0, default:36
+[    9.290393] wl2864c_regulator_init: LDO1, min:48
+[    9.290764] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO1, default:48
+[    9.316409] wl2864c_regulator_init: LDO2, min:128
+[    9.316794] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO2, default:128
+[    9.334879] wl2864c_regulator_init: LDO3, min:128
+[    9.335365] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO3, default:128
+[    9.371194] wl2864c_regulator_init: LDO4, min:128
+[    9.371583] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO4, default:128
+[    9.383301] qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier 4-0042 for /pmic-glink/connector@0
+[    9.397097] wl2864c_regulator_init: LDO5, min:128
+[    9.397481] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO5, default:48
+[    9.421125] wl2864c_regulator_init: LDO6, min:128
+[    9.421502] wl2864c-regulator 4-0029: wl2864c_regulator_init: LDO6, default:48
+[    9.621840] Bluetooth: hci0: unexpected event for opcode 0xfc48
+[    9.863559] qcom-soundwire 3210000.soundwire: din-ports (0) mismatch with controller (1)
+[    9.871939] qcom-soundwire 3210000.soundwire: dout-ports (5) mismatch with controller (6)
+[    9.882656] qcom-soundwire 3230000.soundwire: din-ports (3) mismatch with controller (4)
+[   10.481748] wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x70, z_val=268435454 (milliohm)
+[   10.935015] wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+[   11.345217] wcd937x_codec audio-codec: Impedance detect ramp error, c1=0, x1=0x0
+[   11.371085] wcd937x_codec audio-codec: wcd937x_mbhc_get_result_params: d1=5, c1=3, x1=0x94a, z_val=268435454 (milliohm)
+[   11.542196] Bluetooth: hci0: unexpected event for opcode 0xfc48
+[   13.292203] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+[   13.305211] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+[   13.318670] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+[   13.331752] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+[   13.344759] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+[   13.357884] wcd937x_codec audio-codec: ASoC error (-16): at soc_component_read_no_lock() on audio-codec for register: [0x00003125]
+
+=============== 5. GPIO do touchscreen (irq 81) ===============
+ gpio81  : in  high func0 2mA pull down
+
+=============== 6. WAKEUP SOURCES ativos ===============
+name		active_count	event_count	wakeup_count	expire_count	active_since	total_time	max_time	last_change	prevent_suspend_time
+ucsi-source-psy-pmic_glink.ucsi.01	1		1		0		0		0		0		0		10696		0
+qcom-battmgr-wls	1		1		0		0		0		0		0		420		0
+qcom-battmgr-usb	1		1		0		0		0		0		0		420		0
+qcom-battmgr-bat	5		6		0		0		0		24		8		3414805		0
+c440000.spmi:pmic@0:rtc@6100	6		6		0		0		0		0		0		2203415		0
+
+=============== 7. FIREWALL (nft) ===============
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+		iifname "lo" accept comment "Accept any localhost traffic"
+		ct state { established, related } accept comment "Accept traffic originated from us"
+		ct state invalid drop comment "Drop invalid connections"
+		tcp dport 113 reject with tcp reset comment "Reject IDENT connections immediately"
+		ip protocol icmp icmp type { echo-reply, destination-unreachable, echo-request, time-exceeded, parameter-problem } accept comment "Accept ICMP"
+		icmpv6 type { destination-unreachable, packet-too-big, time-exceeded, parameter-problem, echo-request, echo-reply } accept comment "Accept basic IPv6 functionality"
+		icmpv6 type { nd-router-solicit, nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert } ip6 hoplimit 255 accept comment "Allow IPv6 SLAAC"
+		icmpv6 type { mld-listener-query, mld-listener-report, mld-listener-done, mld2-listener-report } ip6 saddr fe80::/10 ip6 hoplimit 1 accept comment "Allow IPv6 multicast listener discovery on link-local"
+		ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
+		iifname "wwan*" drop comment "drop all connections on wwan"
+		iifname "qmapmux*" drop comment "drop all connections on qmapmux"
+		iifname "usb*" udp dport 67 accept comment "accept incoming DHCP on usb*"
+		iifname "wlan*" udp dport 67 accept comment "accept incoming DHCP on wlan*"
+		iifname "p2p-wlan*" udp dport 67 accept comment "accept incoming DHCP on p2p-wlan*"
+		tcp dport 24727 accept comment "accept connections for BundID AusweisApp2"
+		udp dport 53317 accept comment "localsend device discovery"
+		tcp dport 53317 accept comment "localsend file transfer"
+		tcp dport 22 accept comment "accept SSH"
+		iifname "wlan*" tcp dport 53 accept comment "Accept DNS over TCP on wlan*"
+		iifname "wlan*" udp dport 53 accept comment "Accept DNS over UDP on wlan*"
+		iifname "usb*" accept comment "Allow incoming network traffic from USB"
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		iifname "wlan*" accept comment "Accept forwarding from wlan*"
+		iifname "usb*" accept comment "Allow outgoing network traffic from USB"
+		ct state { established, related } counter packets 0 bytes 0 accept comment "accept established connections"
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+--- iptables legacy ---
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+=============== 8. SSHD EFETIVO ===============
+Port 22
+MaxAuthTries 6
+PermitRootLogin prohibit-password
+PubkeyAuthentication yes
+PasswordAuthentication yes
+KbdInteractiveAuthentication yes
+X11Forwarding no
+PermitEmptyPasswords no
+AllowTcpForwarding no
+
+=============== 9. CONTAS — estado de bloqueio ===============
+root: BLOQUEADA
+klogd: BLOQUEADA
+user: SENHA DEFINIDA
+polkitd: BLOQUEADA
+messagebus: BLOQUEADA
+rtkit: BLOQUEADA
+systemd-coredump: SENHA DEFINIDA
+systemd-imds: SENHA DEFINIDA
+systemd-oom: SENHA DEFINIDA
+systemd-journal-remote: SENHA DEFINIDA
+systemd-resolve: SENHA DEFINIDA
+systemd-timesync: SENHA DEFINIDA
+
+=============== 10. BLUETOOTH — remover bloqueio rfkill (A-05) ===============
+--- antes ---
+0: hci0: Bluetooth
+	Soft blocked: yes
+	Hard blocked: no
+--- depois do unblock ---
+0: hci0: Bluetooth
+	Soft blocked: no
+	Hard blocked: no
+--- subindo hci0 ---
+hci0:	Type: Primary  Bus: UART
+	BD Address: <MAC-REDIGIDO>  ACL MTU: 1024:7  SCO MTU: 240:8
+	UP RUNNING PSCAN 
+	RX bytes:2970 acl:0 sco:0 events:202 errors:0
+
+=============== 11. BLUETOOTH — dmesg ===============
+[   11.541913] Bluetooth: hci0: QCA controller version 0x01100101
+[   11.542196] Bluetooth: hci0: unexpected event for opcode 0xfc48
+[   11.548754] Bluetooth: hci0: QCA Downloading qca/msbtfw11.mbn
+[   12.589452] Bluetooth: hci0: QCA Downloading qca/msnv11.bin
+[   12.744705] Bluetooth: hci0: QCA FW build version: BTFW.MOSELLE.1.1.3-00106-MSL_PATCHZ-1
+[   12.744730] Bluetooth: hci0: QCA setup on UART is completed
+[   15.964562] Bluetooth: RFCOMM TTY layer initialized
+[   15.964575] Bluetooth: RFCOMM socket layer initialized
+[   15.964585] Bluetooth: RFCOMM ver 1.11
+[ 3624.178902] Bluetooth: hci0: setting up wcn6750
+[ 3624.250495] Bluetooth: hci0: QCA Product ID   :0x00000015
+[ 3624.250521] Bluetooth: hci0: QCA SOC Version  :0x40140110
+[ 3624.250527] Bluetooth: hci0: QCA ROM Version  :0x00000101
+[ 3624.250532] Bluetooth: hci0: QCA Patch Version:0x000024c7
+[ 3624.261649] Bluetooth: hci0: QCA controller version 0x01100101
+[ 3624.261865] Bluetooth: hci0: unexpected event for opcode 0xfc48
+[ 3624.268391] Bluetooth: hci0: QCA Downloading qca/msbtfw11.mbn
+[ 3625.318052] Bluetooth: hci0: QCA Downloading qca/msnv11.bin
+[ 3625.447388] Bluetooth: hci0: QCA FW build version: BTFW.MOSELLE.1.1.3-00106-MSL_PATCHZ-1
+[ 3625.447437] Bluetooth: hci0: QCA setup on UART is completed
+
+=============== 12. SUSPEND — estado atual ===============
+success=0 fail=0
+last_failed_dev=
+
+=============== 13. CPU — microarquitetura confirmada ===============
+CPU implementer	: 0x41
+CPU part	: 0xd05
+CPU part	: 0xd41
+CPU variant	: 0x1
+CPU variant	: 0x2
+
+=== FIM DA COLETA PRIVILEGIADA ===

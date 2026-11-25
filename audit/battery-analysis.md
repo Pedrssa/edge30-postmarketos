@@ -104,8 +104,13 @@ automaticamente o aparelho quando isso pode interromper o único canal de acesso
 seguro proposto (com `rtcwake` e o aparelho em mãos) está em
 [`remediation-plan.md` § A-04](remediation-plan.md).
 
-**Wakeup sources:** `/sys/kernel/debug/wakeup_sources` é inacessível sem root, portanto **não foi
-possível identificar quais processos ou dispositivos impediriam o repouso**.
+**Wakeup sources:** ✅ **verificados com root.** Cinco fontes registradas
+(`ucsi-source-psy`, `qcom-battmgr-bat/usb/wls`, `rtc@6100`), **todas com
+`prevent_suspend_time = 0`**.
+
+Isso refina o diagnóstico: **nada está impedindo a suspensão**. O aparelho não suspende porque
+nenhuma política de ociosidade a solicita — a investigação deve mirar `systemd-logind`, `tuned` e a
+configuração de suspensão do Phosh, e não a caça a um dispositivo culpado.
 
 ---
 

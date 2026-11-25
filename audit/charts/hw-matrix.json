@@ -1,13 +1,5 @@
 {
- "counts": {
-  "FUNCIONAL": 12,
-  "NAO FUNCIONAL": 1,
-  "PARCIALMENTE FUNCIONAL": 4,
-  "DETECTADO NAO VALIDADO": 6,
-  "NAO SUPORTADO": 5,
-  "DETECTADO E BLOQUEADO": 1,
-  "NAO TESTADO": 5
- },
+ "counts": {},
  "rows": [
   {
    "subsistema": "CPU",
@@ -36,10 +28,10 @@
   {
    "subsistema": "Touchscreen",
    "componente": "Goodix GT9916 em SPI13.0",
-   "classificacao": "NAO FUNCIONAL",
-   "evidencia": "IRQ 170 congelada em 1346 durante 30 s de toque fisico continuo com a tela acesa; spurious 0 e unhandled 0; probe concluido e input3 registrado sem erro",
-   "metodo": "contagem em /proc/interrupts com teste fisico confirmado pelo usuario",
-   "comparacao_wiki": "DIVERGE: a wiki declara Works"
+   "classificacao": "FUNCIONAL",
+   "evidencia": "teste definitivo com leitura direta de /dev/input/event3: 6942 eventos capturados e IRQ 170 com delta de +2224 durante o toque; bytes decodificam como ABS_MT_TRACKING_ID, ABS_MT_POSITION_X=414 e ABS_MT_POSITION_Y=1476",
+   "metodo": "dd do event node com janela de 45 s + contagem de IRQ (com root)",
+   "comparacao_wiki": "concorda (Works)"
   },
   {
    "subsistema": "Wi-Fi",
@@ -53,17 +45,17 @@
    "subsistema": "Wi-Fi (estabilidade)",
    "componente": "Enlace e power save",
    "classificacao": "PARCIALMENTE FUNCIONAL",
-   "evidencia": "primeira medicao 0% de perda com media 70 ms e pico 125 ms; segunda medicao 33% de perda com media 121 ms; uma queda de sessao SSH sem reboot (uptime continuo); power_save on",
+   "evidencia": "apos desligar power_save: latencia media caiu de 70 para 15 ms e pico de 125 para 70 ms, mas a perda permanece em 17% (era 33%); custo energetico de +26% (225 para 284 mA). BDF e calibracao da placa nao carregados (board_id 0xff) sao hipotese para a perda residual",
    "metodo": "ping e reconexao SSH",
    "comparacao_wiki": "nao avaliado na wiki"
   },
   {
    "subsistema": "Bluetooth",
    "componente": "WCN6750 via btqca (hci0 em UART)",
-   "classificacao": "DETECTADO NAO VALIDADO",
-   "evidencia": "controlador presente com firmware carregado e 1781 comandos HCI sem erros; porem rfkill Soft blocked yes e PowerState off-blocked; power on falhou com org.bluez.Error.Failed; BD Address placeholder 02:00:xx",
-   "metodo": "bluetoothctl hciconfig e rfkill",
-   "comparacao_wiki": "wiki declara Works; bloqueio por rfkill nao removivel sem root"
+   "classificacao": "FUNCIONAL",
+   "evidencia": "apos rfkill unblock com root o controlador subiu para UP RUNNING PSCAN; dmesg confirma firmware QCA completo (msbtfw11.mbn + msnv11.bin, BTFW.MOSELLE.1.1.3) e \"QCA setup on UART is completed\"; scan executou sem erro. Nenhum pareamento testado e BD Address segue placeholder",
+   "metodo": "rfkill unblock + hciconfig up + hcitool scan + dmesg (com root)",
+   "comparacao_wiki": "concorda (Works) apos remover o bloqueio rfkill"
   },
   {
    "subsistema": "Audio saida",
@@ -77,12 +69,9 @@
    "subsistema": "Audio (configuracao)",
    "componente": "Volume inicial do sink",
    "classificacao": "PARCIALMENTE FUNCIONAL",
-   "evidencia": "o sink iniciava mutado e com volume em 0%",
-   "metodo": " causa provavel da percepcao de audio inoperante",
-   "comparacao_wiki": "pactl get-sink-volume e get-sink-mute",
-   "null": [
-    "nao avaliado na wiki"
-   ]
+   "evidencia": "o sink iniciava mutado e com volume em 0% - causa provavel da percepcao de audio inoperante",
+   "metodo": "pactl get-sink-volume e get-sink-mute",
+   "comparacao_wiki": "nao avaliado na wiki"
   },
   {
    "subsistema": "Microfone",
@@ -247,10 +236,10 @@
   {
    "subsistema": "Suspensao",
    "componente": "s2idle e deep",
-   "classificacao": "NAO TESTADO",
-   "evidencia": "/sys/power/state oferece freeze e mem com mem_sleep s2idle [deep]; suspend_stats success 0 e fail 0 indicam que o aparelho nunca suspendeu; teste nao executado por risco de perder o unico canal de acesso",
-   "metodo": "sysfs power",
-   "comparacao_wiki": "nao avaliado na wiki"
+   "classificacao": "NAO FUNCIONAL",
+   "evidencia": "testada com root: modo deep aborta com \"Wakeup pending. Abort CPU freeze\" (fail=1); modo s2idle TRAVOU o aparelho e forcou reinicializacao. dmesg mostra \"dwc3-qcom port-1 HS-PHY not in L2\" e \"Non-boot CPUs are not disabled\"",
+   "metodo": "rtcwake -m mem com despertar automatico, duas tentativas (deep e s2idle)",
+   "comparacao_wiki": "nao avaliado na wiki - defeito novo, candidato a relato upstream"
   },
   {
    "subsistema": "Armazenamento UFS",

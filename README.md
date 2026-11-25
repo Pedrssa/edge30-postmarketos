@@ -27,10 +27,10 @@ afirmação é marcada por grau de confirmação — nada é pintado de verde se
 | **Sistema** | **Nura edge** (derivada do postmarketOS) · base Alpine · **systemd** · **Phosh** / Wayland |
 | **Kernel** | `7.2.9 #3-postmarketos-qcom-sc7280` · clang 23.1.3 · build 17/10/2026 ✅ *confirmado no aparelho* |
 | **Build** | `pmbootstrap` em VM Ubuntu (VirtualBox) · gravação por `fastboot` |
-| **Comprovado** | ✅ boot · ✅ Phosh · ✅ **GPU acelerada** · ✅ Wi‑Fi 6 · ✅ SSH · ✅ **áudio + microfone** · ✅ **bateria** · ✅ botões · ✅ UFS · ✅ `apk` |
+| **Comprovado** | ✅ boot · ✅ Phosh · ✅ **GPU acelerada** · ✅ Wi‑Fi 6 · ✅ **Bluetooth** · ✅ SSH · ✅ **áudio + microfone** · ✅ **bateria** · ✅ botões · ✅ UFS · ✅ `apk` · ✅ **firewall `nft`** |
 | **Falha crítica** | 🔴 **touchscreen não entrega eventos** — aparelho só é operável por SSH |
-| **Bloqueado** | ⚠️ modem (sem SIM) · Bluetooth (`rfkill`) · sensores (polkit) · câmera (sem libcamera) |
-| **Maturidade** | **Nível 2 — Sistema operacional funcional** · compatibilidade de hardware **50%** |
+| **Bloqueado** | ⚠️ modem (sem SIM) · sensores (polkit) · câmera (sem libcamera) |
+| **Maturidade** | **Nível 2 — Sistema operacional funcional** · compatibilidade de hardware **53%** |
 
 > Legenda completa e tabela de rastreabilidade: [`docs/evidencias.md`](docs/evidencias.md).
 > **Auditoria executada no aparelho em 24/11/2026:** [`audit/`](audit/) — 34 subsistemas
@@ -71,6 +71,7 @@ edge30-postmarketos/
 │   ├── battery-analysis.md         ← 20 amostras de consumo real
 │   ├── upstream-comparison.md      ← matriz oficial × auditoria
 │   ├── remediation-plan.md         ← 7 problemas com rollback e aceite
+│   ├── root-findings.md            ← coleta privilegiada e correções
 │   ├── dashboard.html              ← painel offline com gráficos
 │   ├── evidence/sanitized/         ← saídas brutas redigidas
 │   └── scripts/                    ← collect-diagnostics.sh (testado no device)

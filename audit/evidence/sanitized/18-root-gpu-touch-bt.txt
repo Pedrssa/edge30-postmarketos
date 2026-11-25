@@ -1,0 +1,127 @@
+=============== A. FIRMWARE DA GPU — a660_sqe ===============
+-rw-r--r--    1 root     root         55252 Apr 27  2026 /lib/firmware/qcom/a660_gmu.bin
+-rw-r--r--    1 root     root         43292 Apr 27  2026 /lib/firmware/qcom/a660_sqe.fw
+--- busca ampla por sqe ---
+/lib/firmware/qcom/a660_sqe.fw
+--- conteudo de /lib/firmware/qcom (nivel 1) ---
+a660_gmu.bin
+a660_sqe.fw
+sm7325
+--- GPU realmente ativa? ---
+msm dev=ae01000.display-controller unique=ae01000.display-controller
+msm dev=ae01000.display-controller unique=ae01000.display-controller
+msm dev=ae01000.display-controller unique=ae01000.display-controller
+--- gpu_busy / status ---
+     From  :   To
+           : 315000000 450000000 550000000 608000000   time(ms)
+* 315000000:         0         0         0       198     34668
+  450000000:         2         0         0         0       120
+  550000000:         0         0         0         0         0
+  608000000:       197         2         0         0     10212
+Total transition : 399
+
+=============== B. DMESG — sequencia completa da GPU ===============
+[    0.000000] Kernel command line: wifimacaddr=<REDIGIDO> androidboot.btmacaddr=<REDIGIDO> androidboot.bootloader=MBM-3.0-dubai_g-68ad1f84891-250428-U1RDS34.80-40-5-6-ba4fd androidboot.carrier= androidboot.hardware.sku=XT2203-1 androidboot.mode=normal androidboot.baseband=msm msm_drm.dsi_display0=qcom,mdss_dsi_mot_csot_nt37701_655_1080x2400_dsc_cmd_v1:timing1: androidboot.slot_suffix=_b rootwait ro init=/init androidboot.force_normal_boot=1 storage_mfrid=0x12C androidboot.secure_hardware=1 androidboot.cid=0x0032 androidboot.write_protect=0 androidboot.bl_state=2 androidboot.ssm_data=0000000000010001
+[    0.221451] platform 3d6a000.gmu: Adding to iommu group 1
+[    1.316405] msm_dpu ae01000.display-controller: bound ae94000.dsi (ops dsi_ops)
+[    1.316904] adreno 3d00000.gpu: supply vdd not found, using dummy regulator
+[    1.316955] adreno 3d00000.gpu: supply vddcx not found, using dummy regulator
+[    1.346506] msm_dpu ae01000.display-controller: bound 3d00000.gpu (ops a3xx_ops)
+[    1.349286] [drm:dpu_kms_hw_init:1168] dpu hardware revision:0x70020000
+[    1.354708] [drm] Initialized msm 1.13.0 for ae01000.display-controller on minor 0
+[    1.354902] msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+[    1.354906] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    1.593559] msm_dpu ae01000.display-controller: [drm] fb0: msmdrmfb frame buffer device
+[    1.724375] msm_dpu ae01000.display-controller: Direct firmware load for qcom/a660_sqe.fw failed with error -2
+[    1.724382] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+[    8.332342] systemd[1]: Load Kernel Module drm skipped, unmet condition check ConditionKernelModuleLoaded=!drm
+[   13.457808] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a660_sqe.fw from new location
+[   13.458636] msm_dpu ae01000.display-controller: [drm:adreno_request_fw] loaded qcom/a660_gmu.bin from new location
+[   13.460040] [drm] Loaded GMU firmware v3.1.10
+[   20.220522] gcc-sc7280 100000.clock-controller: sync_state() pending due to 3d6a000.gmu
+[   20.220531] gpu_cc-sc7280 3d90000.clock-controller: sync_state() pending due to 3d6a000.gmu
+
+=============== C. ATH11K — board data ===============
+[    9.230809] ath11k 17a10040.wifi: wcn6750 hw1.0
+[    9.683483] ath11k 17a10040.wifi: chip_id 0x1 chip_family 0xb board_id 0xff soc_id 0xffffffff
+[    9.683491] ath11k 17a10040.wifi: fw_version 0x10137fff fw_build_timestamp 2025-02-06 07:38 fw_build_id WLAN.MSL.1.0.1-01477-QCAMSLSWPLZ-1.83649.4
+[    9.688792] ath11k 17a10040.wifi: qmi failed to load CAL data file:cal-ahb-17a10040.wifi.bin
+[    9.688813] ath11k 17a10040.wifi: failed to load board data file: -2
+[    9.688815] ath11k 17a10040.wifi: qmi failed to download BDF:-2
+--- arquivos de board ---
+Notice.txt.zst
+board-2.bin
+board-2.bin.zst
+qcm6490
+sc7280
+wpss.mdt.zst
+
+=============== D. TOUCHSCREEN — estado do GPIO e do SPI ===============
+--- gpio81 (irq do touch) ---
+ gpio81  : in  high func0 2mA pull down
+--- todos os gpios do goodix ---
+--- irq 170 ---
+-1
+affinity_hint
+effective_affinity
+effective_affinity_list
+goodix-berlin
+node
+smp_affinity
+smp_affinity_list
+spurious
+--- reset gpio / regulador do touch ---
+/sys/devices/platform/soc@0/18200000.rsc/18200000.rsc:regulators-1/consumer:spi:spi13.0
+/sys/devices/platform/soc@0/18200000.rsc/18200000.rsc:regulators-1/regulator/regulator.7/consumer:spi:spi13.0
+/sys/devices/platform/soc@0/18200000.rsc/18200000.rsc:regulators-1/regulator/regulator.7/spi13.0-avdd
+/sys/devices/platform/soc@0/18200000.rsc/18200000.rsc:regulators-1/regulator/regulator.6/consumer:spi:spi13.0
+/sys/devices/platform/soc@0/18200000.rsc/18200000.rsc:regulators-1/regulator/regulator.6/spi13.0-vddio
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/uevent
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/statistics
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/of_node
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/power
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/supplier:platform:18200000.rsc:regulators-1
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/supplier:regulator:regulator.6
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/driver
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/registers
+/sys/devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/driver_override
+--- consumidores de regulador ---
+          spi13.0-avdd            1                                 0mA     0mV     0mV
+          spi13.0-vddio           1                                 0mA     0mV     0mV
+
+=============== E. TOUCHSCREEN — recarregar o driver ===============
+--- IRQ antes ---
+ 170:       1535          0          0          0          0          0          0          0  msmgpio     81 Level     goodix-berlin
+modulo removido
+modulo recarregado
+--- IRQ depois ---
+ 170:       1540          0          0          0          0          0          0          0  msmgpio     81 Level     goodix-berlin
+--- dmesg apos recarga ---
+[ 3624.250495] Bluetooth: hci0: QCA Product ID   :0x00000015
+[ 3624.250521] Bluetooth: hci0: QCA SOC Version  :0x40140110
+[ 3624.250527] Bluetooth: hci0: QCA ROM Version  :0x00000101
+[ 3624.250532] Bluetooth: hci0: QCA Patch Version:0x000024c7
+[ 3624.261649] Bluetooth: hci0: QCA controller version 0x01100101
+[ 3624.261865] Bluetooth: hci0: unexpected event for opcode 0xfc48
+[ 3624.268391] Bluetooth: hci0: QCA Downloading qca/msbtfw11.mbn
+[ 3625.318052] Bluetooth: hci0: QCA Downloading qca/msnv11.bin
+[ 3625.447388] Bluetooth: hci0: QCA FW build version: BTFW.MOSELLE.1.1.3-00106-MSL_PATCHZ-1
+[ 3625.447437] Bluetooth: hci0: QCA setup on UART is completed
+[ 3702.429819] sc7280-pinctrl f100000.pinctrl: not freeing pin 105 (GPIO_105) as part of deactivating group gpio105 - it is already used for some other setting
+[ 3703.689102] input: Goodix Berlin Capacitive TouchScreen as /devices/platform/soc@0/ac0000.geniqup/a94000.spi/spi_master/spi13/spi13.0/input/input6
+
+=============== F. BLUETOOTH — varredura real ===============
+hci0:	Type: Primary  Bus: UART
+	BD Address: <MAC-REDIGIDO>  ACL MTU: 1024:7  SCO MTU: 240:8
+	UP RUNNING PSCAN 
+Scanning ...
+--- le scan ---
+Set scan parameters failed: I/O error
+
+=============== G. CONTAS — hash real (so o prefixo) ===============
+root: [!...] len=1
+user: [$6$<HASH-REDIGIDO>
+systemd-resolve: [!*...] len=2
+
+=== FIM ===

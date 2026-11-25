@@ -144,3 +144,148 @@ Tempo estimado por slide entre colchetes. Total ≈ **10 min**.
 
 ### Checagem de tempo
 Soma dos blocos ≈ **10 min 03 s**. Para uma versão de 5 minutos, concentre em 1, 4, 7, 11 e 13.
+
+---
+
+## Slides 13–16 — acrescentados após a auditoria de 24/11/2026
+
+> O deck passou de 14 para **17 slides**. Os quatro abaixo substituem a antiga matriz "não testado"
+> e cobrem as exigências do Tema 10 (comparativo entre distros + explicação da stack).
+
+### Slide 13 — Matriz real (≈ 2 min)
+
+"Em 24 de novembro voltamos ao aparelho e medimos. Trinta e quatro subsistemas, um por um, cada um
+com evidência de comando. Quatorze funcionam: CPU, GPU com aceleração comprovada, tela, **toque**,
+Wi-Fi 6, Bluetooth, áudio, microfone, bateria. Quatro são parciais. Seis estão detectados mas não
+validados — e essa distinção importa: existir em `/sys` não é funcionar. Seis não têm driver ou
+falharam.
+
+Compatibilidade: 55%. E o número vem com a conta aberta — pesos, numerador e denominador, no
+relatório. Teste que não fizemos nunca entra como aprovado."
+
+### Slide 14 — O que a medição corrigiu (≈ 2 min)
+
+"Medir derrubou coisas que a gente achava que sabia.
+
+Primeiro: não é postmarketOS puro — é Nura, um derivado. E o init é systemd, não OpenRC. Todo
+comando `rc-status` que planejamos usar simplesmente não se aplica.
+
+Segundo: o modem não está quebrado. Ele reporta `failed`, mas o motivo é `sim-missing` — não tem
+chip. O firmware carregou, a pilha QMI funciona, ele anuncia suporte a 5G.
+
+Terceiro, e esse é sobre nós: classificamos o touchscreen como falha crítica. Estava errado. A gente
+media a contagem de interrupções por 30 segundos pedindo que tocassem a tela — mas quem ia tocar
+estava lendo a instrução no computador. Interpretamos ausência de estímulo como defeito de hardware.
+O teste certo capturou 6942 eventos de toque. Esse erro sozinho mudava nossa nota final de nível 2
+para nível 3.
+
+Quarto: achamos um defeito que não está na wiki oficial — a suspensão trava o aparelho."
+
+### Slide 15 — A stack (≈ 2,5 min)
+
+"Para entender o que é um Linux móvel, vale olhar as camadas.
+
+Embaixo, o kernel — e aqui está a diferença que importa. O Android usa um kernel congelado pelo
+fabricante. A gente usa mainline: 7.2.9, da família sc7280. É o que dá vida longa ao aparelho. Em
+ARM não existe ACPI, então o hardware é descrito num Device Tree — portar um celular é, em boa
+parte, escrever esse arquivo.
+
+Acima, Alpine Linux com `apk` e systemd. Depois Wayland, que substituiu o X11 — o compositor Phoc
+fala direto com o DRM e submete à GPU pelo Mesa. No topo, o Phosh, que adapta o GNOME para uma tela
+de 6,5 polegadas.
+
+E do lado, a telefonia: o modem é um computador separado, com firmware próprio, que conversa por QMI
+sobre QRTR. O ModemManager traduz isso para o sistema."
+
+### Slide 16 — Comparativo das três distribuições (≈ 3 min)
+
+"O tema pedia comparar três caminhos.
+
+**Ubuntu Touch** tem a melhor experiência de uso e telefonia mais madura. Mas usa Halium — uma camada
+que reaproveita o kernel e os drivers Android do fabricante. Funciona rápido em muitos aparelhos, e
+herda exatamente o problema que a gente queria resolver: o kernel congelado.
+
+**Mobian** é a mais estável, baseada em Debian. Mas foca em hardware feito para Linux, tipo
+PinePhone. Poucos aparelhos.
+
+**postmarketOS** aposta em kernel mainline e alcance: mais de 300 dispositivos, a maioria em estágio
+`testing`. Mais trabalho por aparelho, maturidade desigual.
+
+Para nós a escolha foi imposta pela realidade: **era a única das três com port do Edge 30**. E é
+honesto dizer que a comparação é parcial — nenhuma das outras duas roda neste aparelho, então
+comparamos projetos, não três sistemas no mesmo hardware."
+
+### Slide 17 — Encerramento (≈ 1,5 min)
+
+"Linux no bolso dá. O preço é rigor.
+
+O aparelho é uma estação Linux portátil: nível 3 de 5. Funciona como computador. Não funciona ainda
+como substituto de celular — a suspensão trava, e câmera frontal, NFC, vibração e biometria não têm
+driver.
+
+E o gargalo não é o processador. O Snapdragon é bem suportado upstream. O gargalo são os
+periféricos, que dependem de drivers escritos por voluntários e ainda não mesclados.
+
+Fica o aprendizado que mais nos marcou: a gente errou duas vezes na auditoria, e as duas vezes foi
+raciocínio sobre evidência — não execução de comando. A segunda só foi descoberta porque um
+integrante do grupo discordou do resultado, baseado em usar o aparelho todo dia."
+
+---
+
+# ⚠️ REESTRUTURAÇÃO — deck reorganizado para o Tema 10
+
+O deck foi reordenado: **a comparação entre distribuições virou o corpo principal** (é o tema), e o
+port do Edge 30 passou a ser o **estudo de caso**, no segundo bloco.
+
+## Nova ordem — 18 slides
+
+**BLOCO 1 · O TEMA (slides 1–9, ~10 min)**
+
+| # | Slide |
+|---|---|
+| 1 | Capa |
+| 2 | O celular é um computador que a gente aluga |
+| 3 | **Android é Linux — mas não é um Linux** (Bionic/ART/HAL × glibc/Wayland/systemd) |
+| 4 | A stack em camadas (kernel · userspace · Wayland · shell · telefonia) |
+| 5 | **postmarketOS** |
+| 6 | **Mobian** |
+| 7 | **Ubuntu Touch** |
+| 8 | **Comparativo lado a lado** (tabela de 8 critérios) |
+| 9 | **A divisão que importa: mainline × Halium** + quando usar cada um |
+
+**TRANSIÇÃO (slide 10)** — "Comparar é fácil. Instalar é que mostra."
+
+**BLOCO 2 · ESTUDO DE CASO (slides 11–18, ~10 min)**
+
+| # | Slide |
+|---|---|
+| 11 | O aparelho: Edge 30 `dubai` |
+| 12 | Ambiente: a VM que fabrica, o PC que grava |
+| 13 | Fluxo: da VM às partições |
+| 14 | Os seis passos da instalação |
+| 15 | **Auditoria: 34 subsistemas medidos** |
+| 16 | **Problemas de quem opera — e o que generaliza** |
+| 17 | O que ficou de pé |
+| 18 | Encerramento |
+
+## Slides removidos
+
+- ~~"Medir mudou o que achávamos saber"~~ — removido a pedido
+- ~~"Não peço fé. Mostro a régua"~~ (escala CONFIRMADO/RELATADO/RECONSTRUÍDO/AUSENTE) — removido a pedido
+- ~~"Quatro provas de que o port funciona"~~ — redundante com o slide 15
+- ~~"Da pesquisa à documentação"~~ (cronologia) — cortado por tempo
+
+## Slide 16 — reescrito
+
+Passou a tratar dois pontos que faltavam:
+
+**"Baixa responsividade".** A wiki registra relatos de lentidão no kernel `sc7280-mainline`. Fomos
+medir: o toque responde (6942 eventos), a CPU fica 97% ociosa, a GPU acelera até 608 MHz. O que
+realmente atrapalha o uso diário é outra coisa — a suspensão trava o aparelho.
+
+**"Cada caso é um caso".** postmarketOS lista 300+ aparelhos, a maioria em `testing`. Dizer que
+"suporta o seu modelo" não significa que tudo funciona: depende de quem escreveu o driver daquele
+periférico. Nossa matriz vale para **este** Edge 30 — em outro aparelho da mesma distro o resultado
+pode ser bem diferente.
+
+É o fecho que liga os dois blocos: **a unidade real de maturidade é o aparelho, não a distribuição.**

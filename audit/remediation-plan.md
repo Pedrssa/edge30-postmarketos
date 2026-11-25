@@ -9,21 +9,35 @@ experiência) · **BAIXO** (endurecimento desejável).
 
 ---
 
-## A-01 · Touchscreen Goodix GT9916 não emite eventos — CRÍTICO
+## A-01 · ~~Touchscreen não emite eventos~~ — ✅ FALSO POSITIVO (corrigido em 24/11/2026)
 
-| Campo | Conteúdo |
-|---|---|
-| **Subsistema** | Entrada / `goodix-berlin-spi` em `spi13.0` |
-| **Evidência** | IRQ 170 (`msmgpio 81 Level`) congelada em **1346** durante 30 s de toque físico contínuo com `dpms=On` e backlight em 1079. `spurious=0`, `unhandled=0`. Probe concluiu sem erro e registrou `input3` com capacidades multitouch corretas (`ABS=261800000000003`, `PROP=2`). Teste físico confirmado pelo usuário. |
-| **Diagnóstico** | O driver vincula e registra o dispositivo de entrada, mas o controlador não gera interrupções em operação. As 1346 contagens correspondem à inicialização, não a toques. |
-| **Causa provável** | Três hipóteses, em ordem de probabilidade: (1) o firmware/configuração do painel não é carregado, deixando o chip em modo *bootloader* — não envia coordenadas mas responde ao probe; (2) divergência de variante de painel — o device tree instalado é o **CSOT** (`device-motorola-dubai-kernel-csot`) e o aparelho reporta `mdss_dsi_mot_csot_nt37701`, o que é coerente, mas a configuração do touch pode diferir; (3) regulador ou GPIO de reset não acionado no caminho de retomada. |
-| **Impacto real** | Interação local inviável. O aparelho só é operável por SSH ou periférico USB/Bluetooth. É o item que isoladamente impede a classificação como Nível 3. |
-| **Correção recomendada** | Em ordem, do menos ao mais invasivo: **(a)** obter `dmesg` completo com root e procurar por `goodix` / `request_firmware` / `-517`; **(b)** `rmmod goodix_berlin_spi && modprobe goodix_berlin_spi` e observar o contador da IRQ 170; **(c)** verificar a presença do firmware do painel em `/lib/firmware/`; **(d)** confirmar que `device-motorola-dubai-kernel-csot` corresponde ao painel real via `fastboot getvar primary-display`; **(e)** atualizar o sistema (`apk upgrade`), já que a wiki declara o touchscreen como `Works`. |
-| **Dependências** | Acesso root. Para (d), reinicialização em fastboot. |
-| **Risco da correção** | (a)–(c) baixo e reversível. (e) médio: `apk upgrade` em canal *edge* pode alterar kernel e regredir outros subsistemas. |
-| **Rollback** | Para (b), recarregar o módulo ou reiniciar. Para (e), `apk` mantém histórico de versões; registrar `apk info -v > baseline.txt` antes. Rollback completo exige reflash do rootfs. |
-| **Critério de aceite** | O contador da IRQ 170 incrementa de forma proporcional ao toque **e** `evtest` em `/dev/input/event3` emite eventos `ABS_MT_POSITION_X/Y`. |
-| **Validação** | Tocar a tela por 10 s e confirmar incremento > 50 na IRQ; em seguida, operar o Phosh pelo toque. |
+> **Este problema não existe.** O touchscreen **funciona**.
+>
+> **Teste definitivo:** leitura direta de `/dev/input/event3` com janela de 45 segundos, executada
+> com root. Resultado: **6942 eventos capturados** e **delta de +2224 interrupções** na IRQ 170. Os
+> bytes decodificam como eventos multitouch legítimos:
+>
+> ```
+> 03 00 39 00 53 00 00 00   → EV_ABS  ABS_MT_TRACKING_ID = 0x53
+> 03 00 35 00 9e 01 00 00   → EV_ABS  ABS_MT_POSITION_X  = 414
+> 03 00 36 00 c4 05 00 00   → EV_ABS  ABS_MT_POSITION_Y  = 1476
+> ```
+>
+> **Causa do erro:** sincronização entre a janela de medição e a ação física. Os testes anteriores
+> observavam a contagem de IRQ por 15–30 segundos enquanto pediam o toque, mas o operador estava
+> lendo a instrução no computador em vez de tocar a tela naquele intervalo exato. **Ausência de
+> estímulo foi interpretada como falha de hardware.**
+>
+> **Sinal ignorado:** a contagem da IRQ cresceu de forma contínua entre as medições
+> (1346 → 1540 → 3686 → 6395 → 8619). Esse crescimento foi registrado como "anomalia sem
+> explicação" quando deveria ter refutado a hipótese de falha.
+>
+> **Lição de método:** medir uma janela estreita e concluir a partir da ausência de evento exige
+> confirmar que o estímulo ocorreu *dentro* da janela. A leitura direta do event node, com janela
+> ampla, é o teste correto — a contagem de interrupção é apenas um indicador indireto.
+>
+> O aviso de pinctrl (`not freeing pin 105 (GPIO_105)`) observado na recarga do driver é **benigno**
+> e não tem relação com funcionalidade.
 
 ---
 
@@ -70,7 +84,7 @@ experiência) · **BAIXO** (endurecimento desejável).
 | **Subsistema** | Gerenciamento de energia |
 | **Evidência** | `/sys/power/suspend_stats/success = 0` e `fail = 0`. `/sys/power/state` oferece `freeze mem`; `mem_sleep = s2idle [deep]`. Consumo medido em repouso: **−225 mA a 3,958 V ≈ 0,89 W**, estável ao longo de 20 amostras em 8 minutos, temperatura constante em 33,0 °C. |
 | **Diagnóstico** | O aparelho nunca entrou em suspensão desde o boot. O consumo observado é compatível com um sistema sempre acordado. |
-| **Causa provável** | A wiki oficial é explícita: *"mais da metade do consumo ocioso é causada pelos motores de foco da câmera permanentemente ligados"*, e informa que **a correção já foi integrada no kernel near-to-mainline**, com disponibilidade no próximo release. Isso é coerente com os módulos `ak7375` e `wl2864c` carregados. |
+| **Causa provável** | ⚠️ **Refinado com root.** A leitura de `/sys/kernel/debug/wakeup_sources` mostra **`prevent_suspend_time = 0` em todas as fontes** — nada está impedindo a suspensão. O aparelho não suspende porque **nada solicita a suspensão**, e não porque algo a bloqueie. A investigação deve mirar a política de ociosidade (`systemd-logind`, `tuned`, configuração do Phosh). Quanto ao consumo em si, a wiki atribui mais da metade aos motores de foco da câmera sempre ligados, com **correção já integrada no kernel near-to-mainline** — coerente com `ak7375` e `wl2864c` carregados. |
 | **Impacto real** | Autonomia reduzida. **Não é possível quantificar o impacto a partir desta medição** — 8 minutos em repouso não sustentam estimativa de autonomia. |
 | **Correção recomendada** | Aguardar o release do kernel com a correção upstream e atualizar. Enquanto isso, testar a suspensão manualmente **com o aparelho em mãos**, usando `rtcwake` para garantir o despertar automático. |
 | **Dependências** | Root. Aparelho fisicamente acessível. |
@@ -81,7 +95,18 @@ experiência) · **BAIXO** (endurecimento desejável).
 
 ---
 
-## A-05 · Bluetooth bloqueado por rfkill — MÉDIO
+## A-05 · Bluetooth bloqueado por rfkill — ✅ RESOLVIDO (24/11/2026)
+
+> **Executado e validado.** Com acesso root, `rfkill unblock bluetooth` seguido de
+> `hciconfig hci0 up` levou o controlador a `UP RUNNING PSCAN`. O `dmesg` confirma a carga completa
+> do firmware QCA (`msbtfw11.mbn`, `msnv11.bin`, `BTFW.MOSELLE.1.1.3`) e `QCA setup on UART is
+> completed`. Reclassificado para **FUNCIONAL**.
+>
+> **Pendências menores:** tornar o desbloqueio persistente entre reinicializações; investigar o
+> `BD Address` placeholder (`02:00:xx`); testar um pareamento real. Ver
+> [`root-findings.md` §2](root-findings.md).
+
+### Registro original do diagnóstico
 
 | Campo | Conteúdo |
 |---|---|
@@ -106,7 +131,7 @@ experiência) · **BAIXO** (endurecimento desejável).
 | **Subsistema** | Rede / WCN6750 |
 | **Evidência** | `iw dev wlan0 get power_save` → `Power save: on`. Primeira medição: 20 pacotes, 0% de perda, média 70 ms, **pico 125 ms** contra mínimo de 4 ms. Segunda medição: **33% de perda**, média 121 ms. Uma sessão SSH caiu por timeout; o `uptime` posterior (31 min) confirma que **não houve reboot** — foi perda de enlace. |
 | **Diagnóstico** | O modo de economia do rádio introduz latência e descarte de pacotes. A variação de 4 ms a 125 ms é assinatura típica desse comportamento, não de congestionamento. |
-| **Causa provável** | `power_save` habilitado por padrão para preservar bateria. |
+| **Causa provável** | `power_save` habilitado por padrão. ⚠️ **Hipótese adicional descoberta com root:** o `ath11k` registra `qmi failed to download BDF:-2`, `failed to load board data file: -2` e `board_id 0xff` — o rádio opera **sem os dados de calibração específicos da placa**, com parâmetros genéricos. Isso pode contribuir tanto quanto o `power_save` para a instabilidade observada, e não consta da matriz oficial da wiki. |
 | **Impacto real** | Sessões SSH instáveis e jitter alto. Relevante porque o SSH é, hoje, o **único** meio de operar o aparelho (ver A-01). |
 | **Correção recomendada** | `sudo iw dev wlan0 set power_save off` para diagnóstico. Para persistir, configurar `wifi.powersave=2` no NetworkManager. **Contrapartida explícita:** aumenta o consumo em repouso, agravando A-04. Recomenda-se desligar apenas enquanto o touchscreen estiver inoperante. |
 | **Dependências** | Root. |

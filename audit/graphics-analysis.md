@@ -97,14 +97,43 @@ Sessão de login confirmada: `loginctl` lista a sessão `c3` em `seat0`, `tty7`,
 
 ---
 
-## 6. Ressalvas honestas
+## 6. Confirmação direta com acesso root
+
+A comprovação indireta acima foi **validada pelo `dmesg` completo**, obtido depois com privilégio:
+
+```
+[ 1.316405] msm_dpu ae01000.display-controller: bound ae94000.dsi (ops dsi_ops)
+[ 1.346506] msm_dpu ae01000.display-controller: bound 3d00000.gpu (ops a3xx_ops)
+[ 1.349286] [drm:dpu_kms_hw_init] dpu hardware revision: 0x70020000
+[ 1.354708] [drm] Initialized msm 1.13.0 for ae01000.display-controller on minor 0
+[13.457808] [drm:adreno_request_fw] loaded qcom/a660_sqe.fw from new location
+[13.458636] [drm:adreno_request_fw] loaded qcom/a660_gmu.bin from new location
+[13.460040] [drm] Loaded GMU firmware v3.1.10
+```
+
+⚠️ **Um alerta que parecia defeito e não é.** Antes dessas linhas, o log registra duas vezes:
+
+```
+Direct firmware load for qcom/a660_sqe.fw failed with error -2
+[drm:adreno_request_fw] *ERROR* failed to load a660_sqe.fw
+```
+
+Lido isoladamente, isso sugeriria microcódigo da GPU ausente. Mas os arquivos existem
+(`a660_sqe.fw`, 43 292 bytes; `a660_gmu.bin`, 55 252 bytes) e as falhas ocorrem em 1,35 s e 1,72 s,
+**antes de o rootfs estar montado**; em 13,45 s o carregamento é bem-sucedido. É **ruído de boot**.
+
+Na segunda leitura do `devfreq`, a GPU acumulava **399 transições e 10 212 ms a 608 MHz** (contra
+191 e 4 876 ms na primeira), confirmando uso contínuo.
+
+---
+
+## 7. Ressalvas honestas
 
 - **Não foi possível determinar a versão de OpenGL ES nem o perfil Vulkan efetivamente exposto.**
   Isso exigiria `eglinfo`/`vulkaninfo` dentro da sessão Wayland.
 - **O desempenho gráfico não foi medido.** Nenhum benchmark de GPU foi executado; a comprovação é
   de *uso* da GPU, não de *quão bem* ela rende.
-- **A fluidez da interface não pôde ser avaliada**, porque o touchscreen não responde (ver
-  [`remediation-plan.md` § A-01](remediation-plan.md)) e a observação remota não permite julgar
-  suavidade de animação.
+- **A fluidez da interface não foi medida.** O touchscreen funciona e a interface é operável, mas
+  a observação remota não permite julgar suavidade de animação nem taxa de quadros sustentada.
 - A presença do carregador Vulkan mapeado em `phoc` indica disponibilidade da biblioteca, **não**
   que o compositor esteja renderizando via Vulkan — o Phoc usa GLES por padrão.

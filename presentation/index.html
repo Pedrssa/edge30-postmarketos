@@ -70,6 +70,34 @@
   .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
   @media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
 
+  /* ---------- EQUIPE (capa) ---------- */
+  .team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 18px;margin-top:4px}
+  @media(max-width:900px){.team{grid-template-columns:1fr}}
+  .team .m{display:flex;justify-content:space-between;gap:10px;font-size:clamp(11px,1vw,13px);
+    color:var(--text-soft);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .team .m b{font-weight:500;color:#DCE7F0}
+  .team .m span{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--cyan);opacity:.85;white-space:nowrap}
+  .course{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--text-soft);opacity:.75;margin-top:14px}
+
+  /* ---------- TABELA COMPARATIVA ---------- */
+  .cmp{width:100%;border-collapse:collapse;font-size:clamp(11px,1.05vw,14px);margin-top:4px}
+  .cmp th,.cmp td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .cmp thead th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cyan);border-bottom:1px solid rgba(34,211,238,.3)}
+  .cmp td:first-child{color:var(--text-soft);font-weight:500}
+  .cmp .own{color:var(--green);background:rgba(166,255,77,.055)}
+  .cmp thead th.own{color:var(--green);border-bottom-color:rgba(166,255,77,.4)}
+  .cmp tbody tr:hover{background:rgba(255,255,255,.02)}
+  /* ---------- STACK ---------- */
+  .stk{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+  .lyr{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:9px 14px;
+    border-radius:var(--r-sm);border:1px solid var(--line-soft);
+    background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.012))}
+  .lyr .nm{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--green)}
+  .lyr .ds{font-size:clamp(12px,1.05vw,14.5px);color:var(--text-soft);line-height:1.4}
+  .lyr.hw{border-color:rgba(34,211,238,.28)} .lyr.hw .nm{color:var(--cyan)}
+
   /* ---------- PHONE ILLUSTRATION ---------- */
   .phone{position:relative;width:clamp(180px,20vw,250px);aspect-ratio:9/19.5;margin:0 auto;border-radius:30px;
     background:linear-gradient(160deg,#20304a,#0b1016);padding:9px;box-shadow:0 30px 70px rgba(0,0,0,.55),var(--glow-green);}
@@ -202,17 +230,27 @@
 
 <!-- 1 — ABERTURA (com celular ilustrado animado) -->
 <section class="slide" id="s1">
-  <span class="tag">projeto dubai</span><span class="counter">01 / 14</span>
+  <span class="tag">tema 10</span><span class="counter">01 / 12</span>
   <div class="inner split">
     <div>
-      <div class="eyebrow animate">engenharia linux embarcada · ARM64</div>
-      <h1 class="title animate d1">De Android travado a <span class="hl">Linux de bolso</span><span class="caret"></span></h1>
-      <p class="lead animate d2" style="margin-top:14px">Trocamos o sistema de um <span class="w">Motorola Edge 30</span> na raiz e colocamos <span class="g">postmarketOS</span> rodando — GUI, Wi‑Fi e SSH de pé.</p>
-      <div class="pill-row animate d3" style="margin-top:16px">
-        <span class="pill c">XT2203-1 · dubai</span>
-        <span class="pill g">postmarketOS / Nura</span>
-        <span class="pill">Phosh · Wayland</span>
+      <div class="eyebrow animate">organização de computadores e sistemas operacionais · avaliação 3</div>
+      <h1 class="title animate d1" style="font-size:var(--fs-h1)">Linux em smartphones:<br><span class="hl">distribuições móveis não-Android</span><span class="caret"></span></h1>
+      <p class="lead animate d2" style="margin-top:12px"><span class="w">postmarketOS</span>,
+      <span class="w">Mobian</span> e <span class="w">Ubuntu Touch</span> comparados — e um estudo de
+      caso em hardware real: <span class="g">Motorola Edge 30</span> auditado subsistema a subsistema.</p>
+      <div class="pill-row animate d3" style="margin-top:14px">
+        <span class="pill c">3 distribuições comparadas</span>
+        <span class="pill g">34 subsistemas auditados</span>
+        <span class="pill">kernel 7.2.9 mainline</span>
       </div>
+      <div class="team animate d4" style="margin-top:18px">
+        <div class="m"><b>Luis Eduardo Barbosa de Menezes Junior</b><span>12723122413</span></div>
+        <div class="m"><b>Murilo Ribeiro de Lima</b><span>12723130019</span></div>
+        <div class="m"><b>Pedro Henrique M. M. P. Barreiros</b><span>1272319265</span></div>
+        <div class="m"><b>Ricardo Henrique da Rocha Silva</b><span>12723114666</span></div>
+        <div class="m"><b>Brunno Otavyo de Jesus Aguiar</b><span>12725192794</span></div>
+      </div>
+      <div class="course animate d5">turma matutina · 25 de novembro de 2026</div>
     </div>
     <div class="hide-sm animate d2">
       <div class="phone float">
@@ -237,55 +275,145 @@
   </div>
 </section>
 
-<!-- 2 — DESAFIO (ilustração cadeado→aberto) -->
 <section class="slide" id="s2">
-  <span class="tag">motivação</span><span class="counter">02 / 14</span>
+  <span class="tag">o tema</span><span class="counter">02 / 12</span>
   <div class="inner">
-    <div class="eyebrow animate">o desafio</div>
-    <h2 class="animate d1">Um celular é um <span class="c">computador ARM64</span> que a gente aluga do fabricante.</h2>
-    <div class="grid g3" style="margin-top:8px">
-      <div class="card animate d2"><div class="k">① objetivo</div><h3>Virar dono do sistema</h3><p>Usar o hardware como estação portátil de engenharia e redes — não como aparelho fechado.</p></div>
-      <div class="card animate d3"><div class="k">② o preço</div><h3>Operação destrutiva</h3><p>Destravar o bootloader e trocar o sistema apaga o aparelho e tira a garantia.</p></div>
-      <div class="card accent animate d4"><div class="k">③ a disciplina</div><h3>Rede de segurança</h3><p>Integridade por hash e um caminho de volta ao Android guardado.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 3 — postmarketOS (ilustração Alpine + chip) -->
-<section class="slide" id="s3">
-  <span class="tag">contexto</span><span class="counter">03 / 14</span>
-  <div class="inner split">
-    <div>
-      <div class="eyebrow animate">o que é postmarketOS</div>
-      <h2 class="animate d1">Um <span class="g">Linux de verdade</span> para celulares, sobre Alpine.</h2>
-      <div class="grid animate d2" style="margin-top:14px;gap:12px">
-        <div class="card"><div class="k">filosofia</div><h3>Kernel perto do mainline</h3><p>Vida longa ao aparelho com um kernel próximo do oficial, não o kernel travado de fábrica.</p></div>
-        <div class="card"><div class="k">nota de contexto</div><h3>Agora chamado <span class="c">Nura</span></h3><p>Rebatizado em set/2026 (mesmo projeto, domínio <span class="mono">nura.eco</span>).</p></div>
+    <div class="eyebrow animate">o problema</div>
+    <h2 class="animate d1">O hardware dura. O <span style="color:var(--red)">software</span> é que vence.</h2>
+    <p class="lead animate d2" style="margin-top:6px">Um celular é um computador ARM64 com 8 núcleos,
+    GPU e 8 GB de RAM. O fabricante para de atualizar em 2–4 anos e o aparelho vira lixo eletrônico
+    — com o hardware <span class="g">intacto</span>.</p>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card animate d3">
+        <div class="k">android</div><h3 style="color:var(--amber)">Linux com outro userspace</h3>
+        <p><b class="w">Bionic</b> no lugar da glibc · <b class="w">ART</b> para apps ·
+        <b class="w">HAL</b> entre sistema e driver · <b class="w">SurfaceFlinger</b> em vez de Wayland.</p>
+        <p style="margin-top:6px">Kernel <span class="mono">downstream</span>, com milhares de patches
+        do fabricante. Ele para de atualizar, <span style="color:var(--red)">acabou</span>.</p>
+      </div>
+      <div class="card accent animate d4">
+        <div class="k">linux convencional</div><h3 class="g">A mesma pilha do desktop</h3>
+        <p><b class="w">glibc ou musl</b> · processos POSIX · <b class="w">Wayland</b> ·
+        <b class="w">systemd</b> · gerenciador de pacotes de verdade.</p>
+        <p style="margin-top:6px">Kernel <span class="mono">mainline</span>: recebe correção enquanto
+        o código estiver na árvore oficial do Linux.</p>
       </div>
     </div>
-    <div class="hide-sm animate d2">
-      <svg viewBox="0 0 320 300" width="100%" aria-label="Ilustração: montanhas Alpine com um chip ARM e ondas de sinal.">
-        <defs><linearGradient id="mnt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE" stop-opacity=".25"/><stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></linearGradient></defs>
-        <circle cx="250" cy="70" r="26" fill="none" stroke="#A6FF4D" stroke-opacity=".5" stroke-width="2" class="spin" stroke-dasharray="6 8"/>
-        <circle cx="250" cy="70" r="12" fill="#A6FF4D" opacity=".85"/>
-        <path class="drawp" style="--dl:360" d="M20,230 L110,110 L160,180 L210,120 L300,230 Z" fill="url(#mnt)" stroke="#22D3EE" stroke-width="2"/>
-        <path class="drawp" style="--dl:200" d="M20,230 L300,230" stroke="#A6FF4D" stroke-width="2" fill="none"/>
-        <g transform="translate(118,236)">
-          <rect x="0" y="0" width="84" height="46" rx="8" fill="#151C25" stroke="#A6FF4D" stroke-opacity=".5"/>
-          <text x="42" y="28" text-anchor="middle" fill="#A6FF4D" font-family="JetBrains Mono" font-size="13">ARM64</text>
-          <g stroke="#22D3EE" stroke-width="2">
-            <line x1="12" y1="0" x2="12" y2="-8"/><line x1="42" y1="0" x2="42" y2="-8"/><line x1="72" y1="0" x2="72" y2="-8"/>
-            <line x1="12" y1="46" x2="12" y2="54"/><line x1="42" y1="46" x2="42" y2="54"/><line x1="72" y1="46" x2="72" y2="54"/>
-          </g>
-        </g>
-      </svg>
+    <p class="lead animate d5" style="margin-top:10px">A pergunta do trabalho: <span class="c">dá para
+    rodar o segundo num celular?</span> Três projetos respondem de formas diferentes.</p>
+  </div>
+</section>
+
+<section class="slide" id="s3">
+  <span class="tag">fundamentação</span><span class="counter">03 / 12</span>
+  <div class="inner">
+    <div class="eyebrow animate">a pilha de um Linux móvel</div>
+    <h2 class="animate d1">Quatro camadas entre o <span class="c">silício</span> e o <span class="g">dedo</span>.</h2>
+    <div class="stk">
+      <div class="lyr animate d2"><div class="nm">shell móvel</div><div class="ds"><b class="w">Phosh 0.58</b> + <b class="w">Phoc</b> — a interface adaptada a tela pequena e toque. Alternativa: Plasma Mobile.</div></div>
+      <div class="lyr animate d3"><div class="nm">exibição</div><div class="ds"><b class="w">Wayland</b> — protocolo que substituiu o X11. O compositor Phoc fala direto com o DRM/KMS e submete à GPU via <b class="w">Mesa / Freedreno</b>.</div></div>
+      <div class="lyr animate d4"><div class="nm">telefonia</div><div class="ds"><b class="w">ModemManager</b> sobre <b class="w">QMI/QRTR</b> conversa com o modem; <b class="w">NetworkManager</b> cuida dos dados. Alternativa: oFono (Ubuntu Touch).</div></div>
+      <div class="lyr animate d5"><div class="nm">userspace</div><div class="ds"><b class="w">Alpine Linux</b> + <span class="mono">apk</span> + <b class="w">systemd</b> — 1326 pacotes, repositórios assinados.</div></div>
+      <div class="lyr hw animate d6"><div class="nm">kernel</div><div class="ds"><b class="w">Linux 7.2.9 mainline</b> (família <span class="mono">sc7280</span>) — sem blobs Android. Device Tree descreve o <span class="mono">dubai</span>; 4 co-processadores Qualcomm sobem: modem, ADSP, WPSS, CDSP.</div></div>
+    </div>
+    <p class="animate d7" style="font-size:13px;margin-top:6px">O desafio real: <span class="c">drivers</span>. O SoC é suportado upstream, mas câmera, NFC e háptica dependem de código que ainda não foi mesclado.</p>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <span class="tag">as três</span><span class="counter">04 / 12</span>
+  <div class="inner">
+    <div class="eyebrow animate">quem está no jogo</div>
+    <h2 class="animate d1">Três respostas para a <span class="g">mesma</span> pergunta.</h2>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="card accent animate d2">
+        <div class="k">01 · alpine</div><h3 class="g">postmarketOS</h3>
+        <p>Compromisso com <b class="w">kernel mainline</b> e o maior alcance:
+        <b class="w">300+ aparelhos</b>, a maioria em <span class="mono">testing</span>.
+        Interface Phosh ou Plasma Mobile. Rebatizado <b class="w">Nura</b> em set/2026.</p>
+        <p style="margin-top:8px;font-size:13px"><span class="g">+</span> vida longa ao aparelho<br>
+        <span style="color:var(--amber)">−</span> maturidade varia muito</p>
+      </div>
+      <div class="card animate d3">
+        <div class="k">02 · debian</div><h3 class="c">Mobian</h3>
+        <p>Não é distro nova: é o <b class="w">Debian</b> com pacotes para hardware móvel. Mesma
+        <span class="mono">apt</span>, mesma cultura de estabilidade. Phosh, kernel mainline.</p>
+        <p style="margin-top:8px;font-size:13px"><span class="g">+</span> estabilidade Debian<br>
+        <span style="color:var(--amber)">−</span> poucos aparelhos (PinePhone, PineTab)</p>
+      </div>
+      <div class="card animate d4">
+        <div class="k">03 · ubports</div><h3 class="c">Ubuntu Touch</h3>
+        <p>Interface própria (<b class="w">Lomiri</b>), telefonia madura, ~111 aparelhos. Usa
+        <b class="w">Halium</b>: reaproveita kernel e drivers Android do fabricante.</p>
+        <p style="margin-top:8px;font-size:13px"><span class="g">+</span> melhor experiência de uso<br>
+        <span style="color:var(--red)">−</span> herda o kernel congelado</p>
+      </div>
+    </div>
+    <p class="animate d6" style="margin-top:10px;font-size:13.5px">Todas usam <span class="c">Wayland</span>.
+    Duas usam <span class="c">ModemManager</span>; Ubuntu Touch usa oFono. A diferença de fundo está
+    <span class="g">no kernel</span>.</p>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <span class="tag">comparativo</span><span class="counter">05 / 12</span>
+  <div class="inner">
+    <div class="eyebrow animate">três caminhos para Linux móvel</div>
+    <h2 class="animate d1">postmarketOS × Mobian × Ubuntu Touch</h2>
+    <table class="cmp animate d2">
+      <thead><tr><th></th><th class="own">postmarketOS</th><th>Mobian</th><th>Ubuntu Touch</th></tr></thead>
+      <tbody>
+        <tr><td>Base</td><td class="own">Alpine (musl)</td><td>Debian (glibc)</td><td>Ubuntu + Halium</td></tr>
+        <tr><td>Interface</td><td class="own">Phosh / Plasma Mobile</td><td>Phosh</td><td>Lomiri (Unity 8)</td></tr>
+        <tr><td>Exibição</td><td class="own">Wayland</td><td>Wayland</td><td>Mir → Wayland</td></tr>
+        <tr><td>Telefonia</td><td class="own">ModemManager</td><td>ModemManager</td><td>oFono</td></tr>
+        <tr><td>Dispositivos</td><td class="own">300+ (maioria testing)</td><td>Poucos, bem suportados</td><td>~111 no catálogo</td></tr>
+        <tr><td>Kernel</td><td class="own">Mainline quando possível</td><td>Mainline</td><td>Downstream + Halium</td></tr>
+        <tr><td>Forte em</td><td class="own">Alcance e mainline</td><td>Estabilidade Debian</td><td>UX e telefonia madura</td></tr>
+        <tr><td>Fraco em</td><td class="own">Maturidade por device</td><td>Poucos aparelhos</td><td>Preso a blobs Android</td></tr>
+      </tbody>
+    </table>
+    <div class="grid g3 animate d4" style="margin-top:10px">
+      <div class="card accent"><div class="k">por que escolhemos</div><p><b class="g">postmarketOS</b> era a única das três com port do Edge 30 e kernel <span class="c">mainline</span> — sem camada de compatibilidade Android.</p></div>
+      <div class="card"><div class="k">trade-off</div><p>Ganhamos independência de blobs; pagamos em <span style="color:var(--amber)">maturidade</span>: o <span class="mono">dubai</span> é <span class="mono">testing</span>.</p></div>
+      <div class="card"><div class="k">leitura</div><p>Ubuntu Touch entregaria telefonia mais pronta; Mobian, mais estabilidade — <span class="c">nenhum roda neste aparelho</span>.</p></div>
     </div>
   </div>
 </section>
 
-<!-- 4 — DISPOSITIVO (celular com chamadas de specs) -->
-<section class="slide" id="s4">
-  <span class="tag">alvo</span><span class="counter">04 / 14</span>
+<section class="slide" id="s6">
+  <span class="tag">análise</span><span class="counter">06 / 12</span>
+  <div class="inner">
+    <div class="eyebrow animate">a divisão que realmente importa</div>
+    <h2 class="animate d1">Não é a interface. É o <span class="g">kernel</span>.</h2>
+    <div class="grid g2" style="margin-top:10px">
+      <div class="card accent animate d2">
+        <div class="k">caminho mainline</div>
+        <h3 class="g">postmarketOS · Mobian</h3>
+        <p>Escrevem o <b class="w">Device Tree</b> e usam drivers da árvore oficial. Dá muito mais
+        trabalho por aparelho e a maturidade varia — mas o aparelho <span class="g">continua
+        recebendo kernel novo</span> enquanto o código estiver no Linux.</p>
+      </div>
+      <div class="card animate d3">
+        <div class="k">caminho halium</div>
+        <h3 style="color:var(--amber)">Ubuntu Touch</h3>
+        <p>Reaproveita kernel e drivers Android. Habilita um aparelho <b class="w">muito mais
+        rápido</b> — e o congela na versão de kernel que o fabricante deixou.
+        <span style="color:var(--red)">Perpetua o problema que motivou o projeto.</span></p>
+      </div>
+    </div>
+    <div class="grid g3 animate d4" style="margin-top:12px">
+      <div class="card"><div class="k">quero usar hoje</div><p><b class="c">Ubuntu Touch</b> — se o seu aparelho estiver no catálogo.</p></div>
+      <div class="card"><div class="k">quero estabilidade</div><p><b class="c">Mobian</b> — em hardware feito para Linux.</p></div>
+      <div class="card accent"><div class="k">quero vida longa</div><p><b class="g">postmarketOS</b> — e foi a única com port do nosso aparelho.</p></div>
+    </div>
+    <p class="animate d6" style="margin-top:10px;font-size:13.5px">Ressalva honesta: <span class="c">nenhuma
+    das outras duas roda no Edge 30</span>. Comparamos projetos — não três sistemas no mesmo hardware.</p>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <span class="tag">estudo de caso</span><span class="counter">07 / 12</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">nosso dispositivo</div>
@@ -316,216 +444,117 @@
   </div>
 </section>
 
-<!-- 5 — OBJETIVO -->
-<section class="slide" id="s5">
-  <span class="tag">critério</span><span class="counter">05 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">objetivo e sucesso</div>
-    <h2 class="animate d1">Quatro provas de que o port funciona.</h2>
-    <div class="grid g4" style="margin-top:10px">
-      <div class="card accent animate d2"><div class="k">01</div><h3 class="g">Boot</h3><p>O aparelho inicializa em Linux.</p></div>
-      <div class="card accent animate d3"><div class="k">02</div><h3 class="g">GUI</h3><p>A interface Phosh sobe.</p></div>
-      <div class="card accent animate d4"><div class="k">03</div><h3 class="g">Wi‑Fi</h3><p>Conecta na rede sem fio.</p></div>
-      <div class="card accent animate d5"><div class="k">04</div><h3 class="g">SSH</h3><p>Aceita acesso remoto.</p></div>
-    </div>
-    <p class="lead animate d6" style="margin-top:10px">Tudo além disso — áudio, câmera, chamadas — ficou como <span class="c">bônus a validar depois</span>.</p>
-  </div>
-</section>
-
-<!-- 6 — AMBIENTE (terminal que "digita" + fluxo) -->
-<section class="slide" id="s6">
-  <span class="tag">ferramentas</span><span class="counter">06 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">ambiente de trabalho</div>
-    <h2 class="animate d1">Dois mundos: a VM que <span class="g">fabrica</span>, o PC que <span class="c">grava</span>.</h2>
-    <div class="grid g2" style="margin-top:6px">
-      <div class="card animate d2"><div class="k">build (linux)</div><h3>VM Ubuntu + pmbootstrap</h3><p>VirtualBox, 4 GB RAM. Toolchain oficial do postmarketOS: compila rootfs e kernel p/ o aparelho-alvo.</p></div>
-      <div class="card animate d3"><div class="k">gravação (windows)</div><h3>Android platform-tools</h3><p><span class="mono">fastboot</span> grava as partições em modo bootloader. <span class="mono">adb</span> reinicia e inspeciona.</p></div>
-    </div>
-    <div class="term-b animate d4">
-      <div class="bar"><span class="dot" style="background:#FF6B81"></span><span class="dot" style="background:#F6C177"></span><span class="dot" style="background:#A6FF4D"></span><span class="lbl">vm · build</span></div>
-      <pre><span class="rvl r1"><span class="p">$</span> pmbootstrap init        <span class="cm"># device: motorola-dubai · UI: phosh</span></span>
-<span class="rvl r2"><span class="p">$</span> pmbootstrap install     <span class="cm"># gera rootfs + kernel</span></span>
-<span class="rvl r3"><span class="o">→ boot.img · dtbo.img · motorola-dubai.img (2 GB)</span></span></pre>
-    </div>
-  </div>
-</section>
-
-<!-- 7 — ARQUITETURA / FLUXO DE BOOT -->
-<section class="slide" id="s7">
-  <span class="tag">arquitetura</span><span class="counter">07 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">fluxo técnico</div>
-    <h2 class="animate d1">Da VM às partições, do kernel ao <span class="g">SSH</span>.</h2>
-    <figure class="animate d2" style="margin-top:4px">
-      <svg viewBox="0 0 1000 420" width="100%" role="img" aria-label="Diagrama: pmbootstrap gera boot, dtbo e rootfs; fastboot grava nas partições; o kernel sobe o rootfs, a Phosh, o Wi-Fi e o SSH.">
-        <defs>
-          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#22D3EE"/></marker>
-          <linearGradient id="gg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A6FF4D"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
-        </defs>
-        <rect x="24" y="150" width="170" height="120" rx="16" fill="#151C25" stroke="#A6FF4D" stroke-opacity=".45"/>
-        <text x="109" y="200" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="20" font-weight="600">VM Linux</text>
-        <text x="109" y="226" text-anchor="middle" fill="#B4C3D0" font-family="JetBrains Mono" font-size="12">pmbootstrap</text>
-        <g font-family="JetBrains Mono" font-size="12">
-          <rect x="300" y="60" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
-          <text x="400" y="84" text-anchor="middle" fill="#A6FF4D" font-size="13">boot.img</text>
-          <text x="400" y="102" text-anchor="middle" fill="#B4C3D0">kernel + initramfs</text>
-          <rect x="300" y="182" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
-          <text x="400" y="206" text-anchor="middle" fill="#A6FF4D" font-size="13">dtbo.img</text>
-          <text x="400" y="224" text-anchor="middle" fill="#B4C3D0">device-tree overlay</text>
-          <rect x="300" y="304" width="200" height="56" rx="12" fill="#1B2531" stroke="#ffffff" stroke-opacity=".12"/>
-          <text x="400" y="328" text-anchor="middle" fill="#A6FF4D" font-size="13">rootfs · 2 GB</text>
-          <text x="400" y="346" text-anchor="middle" fill="#B4C3D0">motorola-dubai.img</text>
-        </g>
-        <rect x="610" y="120" width="180" height="180" rx="18" fill="#151C25" stroke="#22D3EE" stroke-opacity=".45"/>
-        <text x="700" y="150" text-anchor="middle" fill="#fff" font-family="Space Grotesk" font-size="18" font-weight="600">Edge 30</text>
-        <g font-family="JetBrains Mono" font-size="11" fill="#B4C3D0">
-          <text x="700" y="186" text-anchor="middle">part. boot</text>
-          <text x="700" y="212" text-anchor="middle">part. dtbo</text>
-          <text x="700" y="238" text-anchor="middle">userdata</text>
-          <text x="700" y="278" text-anchor="middle" fill="#22D3EE">fastboot ↓</text>
-        </g>
-        <rect x="846" y="150" width="140" height="120" rx="16" fill="#151C25" stroke="#A6FF4D" stroke-opacity=".5"/>
-        <text x="916" y="196" text-anchor="middle" fill="#A6FF4D" font-family="Space Grotesk" font-size="18" font-weight="700">Phosh</text>
-        <text x="916" y="220" text-anchor="middle" fill="#B4C3D0" font-family="JetBrains Mono" font-size="11">Wi‑Fi · SSH</text>
-        <g class="flow" fill="none" stroke-width="2.5" marker-end="url(#ar)">
-          <path d="M194,195 C250,150 250,110 300,88" stroke="url(#gg)" style="--dl:160"/>
-          <path d="M194,210 L300,210" stroke="url(#gg)" style="--dl:120"/>
-          <path d="M194,225 C250,270 250,310 300,332" stroke="url(#gg)" style="--dl:160"/>
-          <path d="M500,88 C560,110 560,170 610,185" stroke="#22D3EE" style="--dl:160"/>
-          <path d="M500,210 L610,210" stroke="#22D3EE" style="--dl:120"/>
-          <path d="M500,332 C560,310 560,250 610,235" stroke="#22D3EE" style="--dl:160"/>
-          <line x1="790" y1="210" x2="846" y2="210" stroke="#A6FF4D" class="pulse" style="--dl:60"/>
-        </g>
-      </svg>
-      <figcaption class="mono animate d4" style="font-size:12px;color:var(--text-soft);margin-top:6px">Diagrama técnico (exato). O passo <span style="color:var(--amber)">fastboot ↓</span> é reconstruído do fluxo oficial — não há log de flash capturado.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- 8 — ETAPAS -->
 <section class="slide" id="s8">
-  <span class="tag">execução</span><span class="counter">08 / 14</span>
+  <span class="tag">execução</span><span class="counter">08 / 12</span>
   <div class="inner">
-    <div class="eyebrow animate">etapas realizadas</div>
-    <h2 class="animate d1">Seis passos — e uma ressalva honesta.</h2>
-    <div class="steps" style="margin-top:4px">
-      <div class="step animate d2"><span class="n">01</span><div><div class="t">Viabilidade</div><div class="d">Device suportado e bootloader destravável.</div></div><span class="b ok">confirmado</span></div>
-      <div class="step animate d3"><span class="n">02</span><div><div class="t">Build na VM</div><div class="d">pmbootstrap gera rootfs + kernel.</div></div><span class="b ok">resultado ✓</span></div>
-      <div class="step animate d4"><span class="n">03</span><div><div class="t">Destravar bootloader</div><div class="d">OEM unlock + código Motorola (destrutivo).</div></div><span class="b rec">reconstruído</span></div>
-      <div class="step animate d5"><span class="n">04</span><div><div class="t">Gravar partições</div><div class="d">fastboot: boot · dtbo · userdata.</div></div><span class="b rec">reconstruído</span></div>
-      <div class="step animate d6"><span class="n">05</span><div><div class="t">Primeiro boot</div><div class="d">Phosh sobe na tela do aparelho.</div></div><span class="b ok">confirmado</span></div>
-      <div class="step animate d7"><span class="n">06</span><div><div class="t">Wi‑Fi + SSH</div><div class="d">Acesso remoto ao aparelho.</div></div><span class="b ok">confirmado</span></div>
+    <div class="eyebrow animate">como se instala na prática</div>
+    <h2 class="animate d1">Dois mundos: a VM que <span class="g">fabrica</span>, o PC que <span class="c">grava</span>.</h2>
+    <div class="grid g2" style="margin-top:8px">
+      <div class="card animate d2">
+        <div class="k">na vm ubuntu</div><h3 class="g">pmbootstrap</h3>
+        <p>A ferramenta oficial monta o sistema por <i>cross-compile</i>:
+        <span class="mono">init</span> escolhe device, kernel e interface;
+        <span class="mono">build</span> gera <span class="mono">boot.img</span>,
+        <span class="mono">dtbo.img</span> e o rootfs.</p>
+      </div>
+      <div class="card animate d3">
+        <div class="k">no pc windows</div><h3 class="c">fastboot</h3>
+        <p>Bootloader destravado pela Motorola, AVB desabilitado, overlays Android apagados e as
+        imagens gravadas nas partições.</p>
+      </div>
     </div>
-    <div class="alert animate d8"><span class="ic">▲</span><div>Temos a prova de que <b>funcionou</b> (SSH + captura da tela). O <b>registro do flash</b> não ficou salvo — passos 03–04 estão marcados como <span class="mono">reconstruído</span>.</div></div>
+    <div class="stk" style="margin-top:10px">
+      <div class="lyr animate d4"><div class="nm">01 · preparar</div><div class="ds">Destravar o bootloader (chave OEM da Motorola) e conferir a variante do painel — <span class="mono">csot</span> ou <span class="mono">tianma</span>.</div></div>
+      <div class="lyr animate d5"><div class="nm">02 · construir</div><div class="ds"><span class="mono">pmbootstrap init</span> + <span class="mono">build</span> → três imagens com <span class="mono">sha256</span> conferido.</div></div>
+      <div class="lyr animate d6"><div class="nm">03 · gravar e bootar</div><div class="ds">Gravação por fastboot, primeiro boot em Linux, Wi-Fi configurado e <span class="mono">sshd</span> no ar.</div></div>
+    </div>
+    <p class="animate d7" style="margin-top:8px;font-size:13px">Ressalva honesta: o método <span class="c">oficial</span>
+    hoje usa <b class="w">U-Boot + USB mass storage</b>. O nosso caminho foi o fastboot direto — funciona, mas diverge da wiki.</p>
   </div>
 </section>
 
-<!-- 9 — DIFICULDADES -->
 <section class="slide" id="s9">
-  <span class="tag">diagnóstico</span><span class="counter">09 / 14</span>
+  <span class="tag">auditoria</span><span class="counter">09 / 12</span>
+  <div class="inner">
+    <div class="eyebrow animate">matriz real · 24 nov 2026</div>
+    <h2 class="animate d1">34 subsistemas <span class="g">medidos</span> no aparelho.</h2>
+    <div class="grid g4 animate d2" style="margin-top:4px">
+      <div class="card accent"><div class="stat"><span class="num g">14</span><span class="lb">funcionais</span></div></div>
+      <div class="card"><div class="stat"><span class="num" style="color:var(--amber)">4</span><span class="lb">parciais</span></div></div>
+      <div class="card"><div class="stat"><span class="num c">6</span><span class="lb">detectados, não validados</span></div></div>
+      <div class="card"><div class="stat"><span class="num" style="color:var(--red)">6</span><span class="lb">sem driver ou falhos</span></div></div>
+    </div>
+    <div class="mx" style="margin-top:10px">
+      <div class="mrow yes animate d3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>GPU Adreno 642L — <span class="mono" style="font-size:11px">608 MHz, 399 transições</span></span><span class="st">acelerada</span></div>
+      <div class="mrow no animate d3"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#FF6B81" stroke-width="2"/></svg><span>Suspensão — <span class="mono" style="font-size:11px">s2idle trava o aparelho</span></span><span class="st">falha</span></div>
+      <div class="mrow yes animate d4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Touchscreen — <span class="mono" style="font-size:11px">6942 eventos capturados</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d4"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Câmera frontal · NFC · vibração · biometria</span><span class="st">sem driver</span></div>
+      <div class="mrow yes animate d5"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Áudio + microfone — <span class="mono" style="font-size:11px">440 Hz audível</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d5"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Telefonia · dados · GPS</span><span class="st">sem SIM</span></div>
+      <div class="mrow yes animate d6"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Wi‑Fi 6 · Bluetooth · bateria <span class="mono" style="font-size:11px">(SOH 100)</span></span><span class="st">verificado</span></div>
+      <div class="mrow no animate d6"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Sensores — <span class="mono" style="font-size:11px">polkit negou via SSH</span></span><span class="st">não validado</span></div>
+    </div>
+    <p class="animate d7" style="font-size:13px;margin-top:8px">Compatibilidade: <span class="g">55%</span> <span class="mono" style="font-size:11px">(16,5/30 — pesos e denominador explícitos)</span>. Teste não realizado <span class="c">nunca</span> conta como aprovado.</p>
+  </div>
+</section>
+
+<section class="slide" id="s10">
+  <span class="tag">diagnóstico</span><span class="counter">10 / 12</span>
   <div class="inner">
     <div class="eyebrow animate">dificuldades reais</div>
-    <h2 class="animate d1">Problemas de quem opera — e como contornamos.</h2>
+    <h2 class="animate d1">Problemas de quem opera — e o que <span class="g">generaliza</span>.</h2>
     <div class="grid g2" style="margin-top:6px">
-      <div class="card animate d2"><div class="k">obstáculo → solução</div><h3>Sem imagem pronta</h3><p>Device <span class="mono">testing</span> no pmOS. <span class="g">→</span> Build próprio na VM.</p></div>
-      <div class="card animate d3"><div class="k">obstáculo → solução</div><h3>Bloco não enviado</h3><p>O shell do Windows não processou um comando grande. <span class="g">→</span> Envio da árvore por script/SFTP.</p></div>
-      <div class="card animate d4"><div class="k">obstáculo → solução</div><h3>Erro de codificação</h3><p><span class="mono">UnicodeEncodeError (cp1252)</span> em sinais especiais. <span class="g">→</span> Forçar UTF‑8.</p></div>
-      <div class="card animate d5"><div class="k">obstáculo → solução</div><h3>Reconexão falhou</h3><p>O IP do aparelho mudou de rede. <span class="g">→</span> Pegar o IP novo no próprio celular.</p></div>
+      <div class="card accent animate d2">
+        <div class="k">o relato que investigamos</div><h3 class="g">"Baixa responsividade"</h3>
+        <p>A wiki registra relatos de lentidão no kernel <span class="mono">sc7280-mainline</span>.
+        Fomos medir: o toque <span class="g">responde</span> — 6942 eventos capturados. A CPU fica
+        97% ociosa e a GPU acelera até 608 MHz.</p>
+        <p style="margin-top:8px">O que <span style="color:var(--red)">realmente</span> atrapalha o uso
+        diário é outro: a <b class="w">suspensão trava o aparelho</b>.</p>
+      </div>
+      <div class="card accent animate d3">
+        <div class="k">a lição que generaliza</div><h3 class="g">Cada caso é um caso</h3>
+        <p>postmarketOS lista <b class="w">300+ aparelhos</b> — a maioria em
+        <span class="mono">testing</span>. "Suporta o seu modelo" não quer dizer que tudo funciona:
+        depende de <span class="c">quem escreveu o driver daquele periférico</span>.</p>
+        <p style="margin-top:8px">Nossa matriz vale para <b class="w">este</b> Edge 30. Em outro
+        aparelho da mesma distro, o resultado pode ser bem diferente.</p>
+      </div>
+      <div class="card animate d4"><div class="k">obstáculo → solução</div><h3>Sem imagem pronta</h3><p>Device <span class="mono">testing</span>, sem build oficial. <span class="g">→</span> Build próprio na VM.</p></div>
+      <div class="card animate d5"><div class="k">obstáculo → solução</div><h3>Reconexão falhou</h3><p>O IP mudou por DHCP. <span class="g">→</span> Identificação pela chave de host SSH.</p></div>
     </div>
+    <p class="animate d6" style="margin-top:8px;font-size:13.5px">Por isso o comparativo entre distros
+    só vai até certo ponto: <span class="c">a unidade real de maturidade é o aparelho</span>, não a distribuição.</p>
   </div>
 </section>
 
-<!-- 10 — EVIDÊNCIAS -->
-<section class="slide" id="s10">
-  <span class="tag">rigor</span><span class="counter">10 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">como classifico tudo</div>
-    <h2 class="animate d1">Não peço fé. Mostro a <span class="g">régua</span>.</h2>
-    <div class="legend animate d2" style="margin:4px 0 8px">
-      <span class="chip ok">CONFIRMADO</span><span class="chip rep">RELATADO</span><span class="chip rec">RECONSTRUÍDO</span><span class="chip abs">AUSENTE</span>
-    </div>
-    <div class="grid g2">
-      <div class="card animate d3"><div class="k">exemplos confirmados</div>
-        <p>• Imagens + hashes SHA‑256 <span class="chip ok">CONFIRMADO</span></p>
-        <p style="margin-top:6px">• Boot, GUI, Wi‑Fi, SSH <span class="chip ok">CONFIRMADO</span></p>
-      </div>
-      <div class="card animate d4"><div class="k">exemplos com ressalva</div>
-        <p>• Versão do kernel 7.2.9 <span class="chip rep">RELATADO</span></p>
-        <p style="margin-top:6px">• Gravação por fastboot <span class="chip rec">RECONSTRUÍDO</span></p>
-        <p style="margin-top:6px">• Áudio, câmera, modem <span class="chip abs">AUSENTE</span></p>
-      </div>
-    </div>
-    <p class="animate d5" style="font-size:13px;opacity:.92">Tabela completa de rastreabilidade em <span class="mono">docs/evidencias.md</span> (24 itens).</p>
-  </div>
-</section>
-
-<!-- 11 — RESULTADOS (contadores animados) -->
 <section class="slide" id="s11">
-  <span class="tag">resultado</span><span class="counter">11 / 14</span>
+  <span class="tag">resultado</span><span class="counter">11 / 12</span>
   <div class="inner">
     <div class="eyebrow animate">o que ficou de pé</div>
     <h2 class="animate d1">Não é só que <span class="g">ligou</span>. É base para trabalhar.</h2>
     <div class="grid g4" style="margin-top:10px">
-      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="4">0</span>/4</span><span class="lb">critérios de sucesso</span></div></div>
-      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="3">0</span><span class="lb">imagens íntegras (sha256)</span></div></div>
-      <div class="card animate d4"><div class="stat"><span class="num count" data-to="7">0</span><span class="lb">pacotes de rede + rollback</span></div></div>
-      <div class="card animate d5"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">diferença após reverter</span></div></div>
+      <div class="card accent animate d2"><div class="stat"><span class="num g"><span class="count" data-to="14">0</span></span><span class="lb">subsistemas funcionais</span></div></div>
+      <div class="card animate d3"><div class="stat"><span class="num c count" data-to="34">0</span><span class="lb">subsistemas auditados</span></div></div>
+      <div class="card animate d4"><div class="stat"><span class="num count" data-to="0">0</span><span class="lb">serviços em falha</span></div></div>
+      <div class="card animate d5"><div class="stat"><span class="num g"><span class="count" data-to="3">0</span>/5</span><span class="lb">nível de maturidade</span></div></div>
     </div>
-    <p class="lead animate d6" style="margin-top:10px">Boot + Phosh + Wi‑Fi + SSH confirmados; <span class="mono">apk</span> operante; ferramentas instaladas e <span class="g">revertidas sem resíduo</span>.</p>
+    <p class="lead animate d6" style="margin-top:10px">Boot, Phosh, <span class="g">GPU acelerada</span>, toque, Wi‑Fi 6, Bluetooth, áudio e bateria confirmados <span class="c">no aparelho</span> — com evidência de comando para cada um.</p>
   </div>
 </section>
 
-<!-- 12 — LINHA DO TEMPO -->
 <section class="slide" id="s12">
-  <span class="tag">cronologia</span><span class="counter">12 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">linha do tempo</div>
-    <h2 class="animate d1">Da pesquisa à documentação.</h2>
-    <div class="tl" style="margin-top:8px">
-      <div class="ev animate d2"><div class="dt">2026-10-26</div><div class="tx">Pesquisa de viabilidade: Linux em celular; recomendação de aparelho suportado.</div></div>
-      <div class="ev animate d3"><div class="dt">2026-11-04 · dia</div><div class="tx">Build do postmarketOS na VM; geração de boot/dtbo/rootfs + SHA256SUMS (data dos arquivos).</div></div>
-      <div class="ev animate d4"><div class="dt">2026-11-04 · noite</div><div class="tx">Aparelho já em Linux, respondendo por SSH; scaffolding de rede, 18 testes no device, rollback verificado.</div></div>
-      <div class="ev animate d5"><div class="dt">2026-11-18</div><div class="tx">Operação e reconexão (IP mudou de rede); ferramentas de rede executadas no aparelho.</div></div>
-      <div class="ev animate d6"><div class="dt">2026-11-24</div><div class="tx">Esta entrega: investigação, relatório (DOCX/PDF), apresentação (HTML/PPTX/PDF) e repositório.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 13 — MATRIZ (check desenhando) -->
-<section class="slide" id="s13">
-  <span class="tag">honestidade</span><span class="counter">13 / 14</span>
-  <div class="inner">
-    <div class="eyebrow animate">matriz de funcionalidades</div>
-    <h2 class="animate d1">O que <span class="g">medimos</span> — e o que ainda não.</h2>
-    <div class="mx" style="margin-top:6px">
-      <div class="mrow yes animate d2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Boot em Linux</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d2"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Áudio</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Interface Phosh (GUI)</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d3"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Modem · chamadas · SMS</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d4"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Wi‑Fi (wlan0)</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d4"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Dados móveis</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d5"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSH remoto</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d5"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>GPU · câmera</span><span class="st">não testado</span></div>
-      <div class="mrow yes animate d6"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path class="chk" d="M5 12.5 L10 17.5 L19 6.5" stroke="#A6FF4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>apk · pacotes + rollback</span><span class="st">verificado</span></div>
-      <div class="mrow no animate d6"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#5a6672" stroke-width="2"/></svg><span>Bluetooth · NFC · sensores · bateria</span><span class="st">não testado</span></div>
-    </div>
-    <p class="animate d7" style="font-size:13.5px;margin-top:8px">Não pinto de verde o que não medi. O cinza é o <span class="c">próximo passo</span>, não uma fraqueza.</p>
-  </div>
-</section>
-
-<!-- 14 — ENCERRAMENTO -->
-<section class="slide" id="s14">
-  <span class="tag">fim</span><span class="counter">14 / 14</span>
+  <span class="tag">fim</span><span class="counter">12 / 12</span>
   <div class="inner split">
     <div>
       <div class="eyebrow animate">aprendizados e próximos passos</div>
       <h1 class="title animate d1" style="font-size:var(--fs-h1)">Linux no bolso dá — <br>o preço é <span class="hl">rigor</span>.</h1>
       <div class="grid animate d2" style="margin-top:12px;gap:10px">
-        <div class="card"><div class="k">próximo</div><h3 class="c">Matriz no device</h3><p>Medir áudio, modem, BT, sensores direto no aparelho.</p></div>
-        <div class="card"><div class="k">próximo</div><h3 class="c">Confirmar kernel · Log de flash</h3><p><span class="mono">uname -a</span> e uma regravação limpa → vira “confirmado”.</p></div>
+        <div class="card"><div class="k">feito</div><h3 class="g">Matriz medida no device</h3><p>34 subsistemas auditados; kernel confirmado por leitura direta; nível <span class="g">3/5</span>.</p></div>
+        <div class="card"><div class="k">próximo</div><h3 class="c">Suspensão e SIM</h3><p>Reportar o travamento do <span class="mono">s2idle</span> upstream; validar chamadas com chip inserido.</p></div>
       </div>
-      <div class="pill-row animate d4" style="margin-top:12px"><span class="pill g">README.md</span><span class="pill c">docs/relatorio-tecnico.md</span><span class="pill">docs/evidencias.md</span></div>
+      <div class="course animate d3" style="margin-top:14px">Luis Eduardo · Murilo · Pedro Henrique · Ricardo Henrique · Brunno Otavyo</div>
+      <div class="pill-row animate d4" style="margin-top:12px"><span class="pill g">audit/</span><span class="pill c">audit/dashboard.html</span><span class="pill">docs/evidencias.md</span></div>
     </div>
     <div class="hide-sm animate d2">
       <div class="phone float">

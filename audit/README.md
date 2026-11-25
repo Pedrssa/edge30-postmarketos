@@ -11,9 +11,14 @@ Esta pasta contém uma auditoria **executada no aparelho físico**, por SSH sobr
 24 de novembro de 2026. Não é uma revisão documental: cada classificação abaixo está amarrada a uma
 saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/sanitized/).
 
-> **Veredito: NÍVEL 2 — Sistema operacional funcional.**
-> Sistema estável e bem instalado, com aceleração gráfica comprovada e zero serviços em falha,
-> bloqueado de avançar por **um único defeito: o touchscreen não entrega eventos.**
+> **Veredito: NÍVEL 3 — Estação Linux portátil.**
+> Aparelho operável localmente: toque, GPU acelerada, Wi-Fi 6, Bluetooth, áudio, microfone e
+> bateria. O que impede o Nível 4 é parte ausência de validação (sem SIM, sem libcamera, sensores
+> bloqueados por polkit) e parte um defeito real: **a suspensão não funciona.**
+>
+> ⚠️ **Correção registrada:** a primeira versão desta auditoria classificou o touchscreen como
+> NÃO FUNCIONAL. **Era falso positivo** — erro de método, não defeito do aparelho. Ver
+> [`fixes-applied.md` §A-01](fixes-applied.md).
 
 ---
 
@@ -44,9 +49,12 @@ saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/s
 | [`battery-analysis.md`](battery-analysis.md) | 20 amostras de consumo e por que **nenhuma autonomia é estimada** |
 | [`upstream-comparison.md`](upstream-comparison.md) | Matriz oficial × auditoria, divergências, oportunidades de contribuição |
 | [`remediation-plan.md`](remediation-plan.md) | 7 problemas com causa, risco, rollback e critério de aceite |
+| [`fixes-applied.md`](fixes-applied.md) | **O que foi efetivamente corrigido, com resultados e efeitos colaterais** |
+| [`fixes-applied.md`](fixes-applied.md) | **O que foi efetivamente corrigido no aparelho, com resultados** |
+| [`root-findings.md`](root-findings.md) | **Coleta privilegiada: 3 correções de conclusões anteriores + novos achados** |
 | [`manual-validation-checklist.md`](manual-validation-checklist.md) | O que só pode ser testado com o aparelho em mãos |
 | [`system-inventory.json`](system-inventory.json) | Inventário completo, legível por máquina |
-| [`test-results.json`](test-results.json) | 28 testes com método, resultado e evidência |
+| [`test-results.json`](test-results.json) | 30 testes com método, resultado e evidência |
 | [`dashboard.html`](dashboard.html) | Painel offline com gráficos e a matriz visual |
 | [`scripts/collect-diagnostics.sh`](scripts/collect-diagnostics.sh) | Coletor reutilizável, testado no aparelho |
 | [`evidence/sanitized/`](evidence/sanitized/) | Saídas brutas, sanitizadas |
@@ -56,17 +64,17 @@ saída de comando reproduzível, arquivada em [`evidence/sanitized/`](evidence/s
 ## Resumo dos 34 subsistemas
 
 ```
-FUNCIONAL                 ████████████  12   CPU · GPU · Display · Wi-Fi · Áudio · Mic
-                                             Bateria · Botões · UFS · RAM · Térmico · RPROCs
-DETECTADO NÃO VALIDADO    ██████         6   Bluetooth · Câmera · Flash · Accel · Luz · Prox
+FUNCIONAL                 ██████████████ 14  CPU · GPU · Display · TOUCHSCREEN · Wi-Fi · Bluetooth
+                                             Áudio · Mic · Bateria · Botões · UFS · RAM · Térmico · RPROCs
+DETECTADO NÃO VALIDADO    █████          5   Câmera · Flash · Accel · Luz · Prox
 NÃO SUPORTADO             █████          5   Câm. frontal · OV50A · NFC · Vibração · Biometria
-NÃO TESTADO               █████          5   Telefonia · Dados · GPS · Carga · Suspensão
 PARCIALMENTE FUNCIONAL    ████           4   Estab. Wi-Fi · Volume · Codec headset · USB-C
+NÃO TESTADO               ████           4   Telefonia · Dados · GPS · Carregamento
 DETECTADO E BLOQUEADO     █              1   Modem (sem SIM — não é defeito)
-NÃO FUNCIONAL             █              1   ◄── TOUCHSCREEN
+NÃO FUNCIONAL             █              1   ◄── SUSPENSÃO (deep aborta, s2idle trava)
 ```
 
-**Compatibilidade de hardware: 50%** — metodologia, pesos e denominador explícitos em
+**Compatibilidade de hardware: 55%** — metodologia, pesos e denominador explícitos em
 [`executive-summary.md` §4](executive-summary.md). Testes não realizados **não** são contados como
 aprovados.
 
@@ -76,16 +84,17 @@ aprovados.
 
 | ID | Gravidade | Problema |
 |---|---|---|
-| A-01 | 🔴 **CRÍTICO** | Touchscreen Goodix GT9916 não emite interrupções em runtime |
-| A-02 | 🟠 ALTO | PulseAudio e PipeWire em execução simultânea |
+| ~~A-01~~ | ✅ **FALSO POSITIVO** | O touchscreen funciona; erro de método na medição |
+| ~~A-02~~ | ✅ **RESOLVIDO** | PipeWire desabilitado; PulseAudio validado |
 | A-03 | 🟠 ALTO | Armazenamento sem criptografia com bootloader destravado |
-| A-04 | 🟡 MÉDIO | Suspensão nunca exercida; 0,89 W em repouso |
-| A-05 | 🟡 MÉDIO | Bluetooth bloqueado por `rfkill` |
-| A-06 | 🟡 MÉDIO | `power_save` do Wi-Fi degrada latência e estabilidade |
-| A-07 | 🔵 BAIXO | `kptr_restrict=0`, LLMNR exposto, firewall não verificado |
+| A-04 | 🟠 **ALTO** | Suspensão falha: `deep` aborta, `s2idle` trava o aparelho |
+| ~~A-05~~ | ✅ **RESOLVIDO** | Bluetooth desbloqueado; controlador `UP RUNNING` |
+| A-06 | 🟡 MÉDIO | `power_save` off: latência 70→15 ms, mas perda ainda 17% |
+| ~~A-07~~ | ✅ **RESOLVIDO** | kptr_restrict=2, LLMNR off, senha SSH desabilitada |
 
-> ⚠️ **Nenhuma correção foi aplicada ao aparelho.** Diagnóstico, proposta e execução estão
-> separados por decisão metodológica. Ver [`remediation-plan.md`](remediation-plan.md).
+> **Correções aplicadas em 24/11/2026**, com autorização explícita do operador. O que foi
+> efetivamente executado, com resultados e efeitos colaterais — incluindo **um reboot que meu teste
+> de suspensão causou** — está em [`fixes-applied.md`](fixes-applied.md).
 
 ---
 
@@ -119,10 +128,12 @@ novo (DHCP). A verificação de host do SSH **foi mantida ativa durante toda a a
 áudio (de 0% mutado para 70%) e tentativas de reivindicação de sensores via D-Bus (negadas por
 polkit) — ambas reversíveis e autorizadas.
 
-**Limites declarados:**
+**Duas etapas:** a auditoria foi feita primeiro **sem privilégio**, e depois complementada com uma
+**coleta privilegiada** quando o operador forneceu a senha de `sudo`. Essa segunda etapa **corrigiu
+três conclusões** da primeira — todas registradas em [`root-findings.md`](root-findings.md) em vez
+de reescritas silenciosamente.
 
-- **Sem acesso root** — `dmesg` completo, `wakeup_sources`, regras `nft`, `sshd -T` efetivo e
-  `rfkill unblock` ficaram inacessíveis.
+**Limites declarados:**
 - **Sem SIM inserido** — telefonia, dados móveis e GPS não são verificáveis.
 - **Sem libcamera** — nenhuma captura de imagem foi possível.
 - **Sessão Wayland inacessível por SSH** — `eglinfo`/`vulkaninfo` não executáveis; a aceleração foi
